@@ -47,7 +47,8 @@ a.navbar-brand {
 }
 
 a:hover {
-	color: #4B4A4A !important;
+	filter: brightness(150%);
+	color: #FAFAFA;
 }
 
 ul {
@@ -139,7 +140,8 @@ input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-s
 }
 
 .btn-generic:hover{
-	background-color: #4B4A4A;
+	filter: brightness(150%);
+	background-color:rgba(0,0,0,0.85);
 	color: white;
 	transition: 250ms ease-in-out 0s;
 }
