@@ -15,7 +15,10 @@ public class Usuario {
 	private int usuarioID;
 	private String apellido;
 	private String nombre;
-	private String dni;
+	private String username;
+	private String email;
+	private String usrPassword;
+	private String estado;
 	private String sexo;
 	private String telefono;
 	private TipoUsuario tipoUsuario;
@@ -28,6 +31,42 @@ public class Usuario {
 
 	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
+	}
+	
+	@Column(name = "username")
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	@Column(name = "email")
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Column(name = "usrpassword")
+	public String getUsrPassword() {
+		return usrPassword;
+	}
+
+	public void setUsrPassword(String usrPassword) {
+		this.usrPassword = usrPassword;
+	}
+
+	@Column(name = "estado")
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	@Id
@@ -56,15 +95,6 @@ public class Usuario {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	@Column(name = "dni")
-	public String getDni() {
-		return dni;
-	}
-
-	public void setDni(String dni) {
-		this.dni = dni;
 	}
 
 	@Column(name = "sexo")

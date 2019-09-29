@@ -30,8 +30,8 @@ public class UsuarioService {
 		return usrRepo.findById(id).get();
 	}
 	
-	public Usuario getUsuarioByDni(String dni) {
-		return usrRepo.findByDni(dni);
+	public Usuario getUsuarioByUsername(String username) {
+		return usrRepo.findByUsername(username);
 	}
 	
 	public void deleteUsuario(int id) {
