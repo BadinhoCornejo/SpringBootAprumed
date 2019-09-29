@@ -129,3 +129,16 @@ input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-s
 .carousel-inner img{
 	height: 40em !important;
 }
+
+/*Main content*/
+
+/*Buttons*/
+.btn-generic{
+	background-color: black;
+	color: white;
+}
+
+.btn-generic:hover{
+	background-color: #4B4A4A;
+	color: white;
+}
