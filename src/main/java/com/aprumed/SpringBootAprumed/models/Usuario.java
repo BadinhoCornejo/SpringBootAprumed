@@ -1,19 +1,16 @@
 package com.aprumed.SpringBootAprumed.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-import org.hibernate.annotations.ManyToAny;
-
-import com.aprumed.SpringBootAprumed.models.Cuenta;
 import com.aprumed.SpringBootAprumed.models.TipoUsuario;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
+@Entity(name = "usuario")
+@Table(name = "usuario")
 public class Usuario {
 	private int usuarioID;
 	private String apellido;
@@ -21,8 +18,20 @@ public class Usuario {
 	private String dni;
 	private String sexo;
 	private String telefono;
+	private TipoUsuario tipoUsuario;
+
+	@ManyToOne()
+	@JoinColumn(name = "tipousuarioID", referencedColumnName = "tipousuarioID")
+	public TipoUsuario getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
 
 	@Id
+	@Column(name = "usuarioID")
 	public int getUsuarioID() {
 		return usuarioID;
 	}
@@ -30,8 +39,8 @@ public class Usuario {
 	public void setUsuarioID(int usuarioID) {
 		this.usuarioID = usuarioID;
 	}
-	
 
+	@Column(name = "apellido")
 	public String getApellido() {
 		return apellido;
 	}
@@ -40,6 +49,7 @@ public class Usuario {
 		this.apellido = apellido;
 	}
 
+	@Column(name = "nombre")
 	public String getNombre() {
 		return nombre;
 	}
@@ -48,6 +58,7 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 
+	@Column(name = "dni")
 	public String getDni() {
 		return dni;
 	}
@@ -56,6 +67,7 @@ public class Usuario {
 		this.dni = dni;
 	}
 
+	@Column(name = "sexo")
 	public String getSexo() {
 		return sexo;
 	}
@@ -64,6 +76,7 @@ public class Usuario {
 		this.sexo = sexo;
 	}
 
+	@Column(name = "telefono")
 	public String getTelefono() {
 		return telefono;
 	}
