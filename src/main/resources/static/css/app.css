@@ -145,3 +145,14 @@ input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-s
 	color: white;
 	transition: 250ms ease-in-out 0s;
 }
+
+/*Check box*/
+.form-check
+{
+	margin-top: 14px;
+	margin-bottom: 14px;
+}
+
+.form-check-label{
+	margin-top: 2px;
+}

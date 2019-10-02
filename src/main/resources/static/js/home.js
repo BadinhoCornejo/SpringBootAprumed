@@ -1,9 +1,3 @@
-//Prevent modal close background
-$('#regUserAccModal').modal({
-    backdrop: 'static',
-    keyboard: false,
-    show: false
-});
 
 $(document).ready(function () {
 
@@ -14,6 +8,10 @@ $(document).ready(function () {
     });
 
 }); 
+
+$("#btn-registrar-usr-cancelar").click(()=>{
+	$('#regUserModal').modal('hide');
+})
 
 function registrar_form_submit() {
 
