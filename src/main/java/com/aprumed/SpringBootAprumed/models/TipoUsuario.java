@@ -1,13 +1,16 @@
 package com.aprumed.SpringBootAprumed.models;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity(name = "tipoUsuario")
 @Table(name = "tipousuario")
-public class TipoUsuario {
+public class TipoUsuario implements Serializable{
 	private String nombreTipoUsuario;
 	private String estado;
 	private int tipoUsuarioID;

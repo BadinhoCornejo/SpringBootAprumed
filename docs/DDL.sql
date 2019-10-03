@@ -142,7 +142,7 @@ CREATE TABLE `TipoUsuario`
 CREATE TABLE `Usuario`
 (
 	`Apellido` NVARCHAR(40) NULL,
-	`Username` NVARCHAR(8) NULL,
+	`Username` NVARCHAR(40) NULL,
 	`Nombre` NVARCHAR(40) NULL,
 	`Sexo` VARCHAR(20) NULL,
 	`Telefono` VARCHAR(9) NULL,
@@ -213,3 +213,10 @@ ALTER TABLE `Venta`
 
 SET FOREIGN_KEY_CHECKS=1 
 ;
+
+insert into tipousuario (NombreTipoUsuario, Estado)
+values ("Cliente", "Activo");
+insert into tipousuario (NombreTipoUsuario, Estado)
+values ("Administrador", "Activo");
+insert into tipousuario (NombreTipoUsuario, Estado)
+values ("Cajero", "Activo");

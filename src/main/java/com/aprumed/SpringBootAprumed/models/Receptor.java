@@ -1,5 +1,7 @@
 package com.aprumed.SpringBootAprumed.models;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,9 +9,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity(name = "receptor")
 @Table(name = "receptor")
-public class Receptor {
+public class Receptor implements Serializable{
 	
 	private int receptorID;
 	private String dni;
