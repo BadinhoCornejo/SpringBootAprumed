@@ -156,3 +156,27 @@ input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-s
 .form-check-label{
 	margin-top: 2px;
 }
+
+/*Navbar*/
+li.prof-active{
+	display: none;
+}
+
+a.prof-name{
+	color: black !important;
+}
+
+.dropdown-toggle::after {
+    color: black;
+    margin-left: 8px;
+}
+
+/*Login modal*/
+.not-account-yet{
+	display: flex;
+	flex-direction: row;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+

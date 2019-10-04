@@ -14,10 +14,6 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usrRepo;
 	
-	public List<Usuario> listUsers(){
-		return usrRepo.listUsers();
-	}
-	
 	public List<Usuario> listAll(){
 		return usrRepo.findAll();
 	}
@@ -38,5 +34,11 @@ public class UsuarioService {
 		usrRepo.deleteById(id);
 	}
 	
+	public Usuario getUsuarioByEmail(String email) {
+		return usrRepo.findByEmail(email);
+	}
 	
+	public Usuario getUsuarioByEmailAndUsrPassword(String email, String usrpassword) {
+		return usrRepo.findByEmailAndUsrpassword(email, usrpassword);
+	}
 }

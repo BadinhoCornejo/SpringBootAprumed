@@ -2,29 +2,36 @@ package com.aprumed.SpringBootAprumed.controllers;
 
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.aprumed.SpringBootAprumed.models.Usuario;
 import com.aprumed.SpringBootAprumed.models.AjaxResponses.UserAjaxResponseBody;
 import com.aprumed.SpringBootAprumed.services.UsuarioService;
 
 @Controller
+@SessionAttributes("user")
 public class UsuarioController {
 
 	@Autowired
 	UsuarioService usuarioService;
-	
+
+	@Value("${application.controller.titulo}")
+	private String titulo;
+
 	@PostMapping(value = "/registrarUsuario")
 	public ResponseEntity<Object> addUser(@RequestBody Usuario usuario, Errors errors) {
-		
+
 		UserAjaxResponseBody result = new UserAjaxResponseBody();
-		
-		
 
 		if (errors.hasErrors()) {
 
@@ -36,18 +43,51 @@ public class UsuarioController {
 		}
 
 		Usuario usr = usuarioService.addUsuario(usuario);
-		
-		if(usr == null) {
+
+		if (usr == null) {
 			result.setMsg("Error!");
-		}
-		else
-		{
+		} else {
 			result.setMsg("Success!");
 		}
-		
+
 		result.setResult(usr);
-		
+
 		return ResponseEntity.ok(result);
-		
+
 	}
+
+	@PostMapping(value = "/login")
+	public ResponseEntity<Object> iniciarSession(@RequestBody Usuario usuario, Errors errors,
+			HttpServletRequest request) {
+
+		UserAjaxResponseBody result = new UserAjaxResponseBody();
+
+		if (errors.hasErrors()) {
+
+			result.setMsg(
+					errors.getAllErrors().stream().map(x -> x.getDefaultMessage()).collect(Collectors.joining(",")));
+
+			return ResponseEntity.badRequest().body(result);
+
+		}
+
+		Usuario usr = usuarioService.getUsuarioByEmailAndUsrPassword(usuario.getEmail(), usuario.getUsrPassword());
+
+		HttpSession mySession = request.getSession(true);
+
+		mySession.setAttribute("user", usr);
+
+		if (usr == null) {
+			result.setMsg("Error!");
+		} else {
+			result.setMsg("Success!");
+		}
+
+		result.setResult(usr);
+
+		return ResponseEntity.ok(result);
+
+	}
+
+	
 }
