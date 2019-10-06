@@ -25,7 +25,7 @@ public class HomeController {
 	public ModelAndView viewHomePage(Model model, HttpServletRequest request) {
 
 		ModelAndView view = new ModelAndView();
-
+		
 		view.addObject("titulo", this.titulo);
 
 		VerificarSessionHelper verificarSession = new VerificarSessionHelper();

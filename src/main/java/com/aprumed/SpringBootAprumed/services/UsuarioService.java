@@ -25,10 +25,7 @@ public class UsuarioService {
 	public Usuario getUsuario(int id) {
 		return usrRepo.findById(id).get();
 	}
-	
-	public Usuario getUsuarioByUsername(String username) {
-		return usrRepo.findByUsername(username);
-	}
+
 	
 	public void deleteUsuario(int id) {
 		usrRepo.deleteById(id);

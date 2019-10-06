@@ -18,7 +18,6 @@ public class Usuario implements Serializable{
 	private int usuarioID;
 	private String apellido;
 	private String nombre;
-	private String username;
 	private String email;
 	private String usrPassword;
 	private String estado;
@@ -34,15 +33,6 @@ public class Usuario implements Serializable{
 
 	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
-	}
-	
-	@Column(name = "username")
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	@Column(name = "email")

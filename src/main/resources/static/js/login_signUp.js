@@ -30,7 +30,6 @@ function login_form_submit(){
 	const usuario = {
     		nombre: "nombre",
     	    apellido: "apellido",
-    	    username: "username",
     	    telefono: "123456789",
     	    usrPassword: $("#password-login").val(),
 			email: $("#email-login").val(),
@@ -94,7 +93,6 @@ function registrar_form_submit() {
 	const usuario = {
     		nombre: $("#nombre").val(),
     	    apellido: $("#apellido").val(),
-    	    username: $("#username").val(),
     	    telefono: $("#phone").val(),
     	    usrPassword: $("#password").val(),
 			email: $("#email").val(),
