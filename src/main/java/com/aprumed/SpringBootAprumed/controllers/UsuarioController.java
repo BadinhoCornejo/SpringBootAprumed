@@ -25,7 +25,6 @@ import com.aprumed.SpringBootAprumed.models.AjaxResponses.UserAjaxResponseBody;
 import com.aprumed.SpringBootAprumed.services.UsuarioService;
 
 @Controller
-@SessionAttributes("user")
 public class UsuarioController {
 
 	@Autowired
