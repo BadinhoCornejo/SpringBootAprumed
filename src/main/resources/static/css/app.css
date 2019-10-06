@@ -170,6 +170,14 @@ a.prof-name{
     color: black;
     margin-left: 8px;
 }
+a:hover{
+	filter: none;
+	color: black !important; 
+}
+
+.navbar a:active{
+	background-color: white !important;
+}
 
 /*Login modal*/
 .not-account-yet{
@@ -178,5 +186,34 @@ a.prof-name{
 	margin-top: 1rem;
 	margin-bottom: 1rem;
 }
+/*Footer*/
+footer{
+	display: grid;
+	grid-template-columns: 1fr auto;
+	max-width: 970px;
+	margin: auto;
+}
+footer a{
+	color: black;
+}
 
+footer a:hover{
+	color: black;
+	text-decoration: underline;
+}
+
+/*Validators*/
+.passive{
+	display: none;
+}
+.validator{
+	border-color: red;
+}
+span.required{
+	color: red;
+}
+span.emailval
+{
+	color: red;
+}
 

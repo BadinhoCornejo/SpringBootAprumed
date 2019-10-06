@@ -10,40 +10,48 @@
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="regUserModalTitle">Registrarse</h5>
-
+					<h5 class="modal-title" id="regUserModalTitle">Sé parte de la
+						familia APRUMED</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
 				<form id="registrar-form">
 					<div class="modal-body">
-
+						<div class="alert alert-danger passive" role="alert" id="regVal">Lo
+							al parecer no completaste todos los campos o el email debe estar en uso. Intenta nuevamente.</div>
 						<div class="form-group">
 							<label for="nombre">Nombre</label> <input type="text"
-								class="form-control" id="nombre" placeholder="Nombre">
+								class="form-control" id="nombre" placeholder="Nombre"> <span
+								id="nombreVal" class="passive">Complete este campo</span>
 						</div>
 						<div class="form-group">
 							<label for="apellido">Apellidos</label> <input type="text"
 								class="form-control" id="apellido" placeholder="Apellidos">
+							<span id="apellidoVal" class="passive">Complete este campo</span>
 						</div>
 						<div class="form-group">
 							<label for="username">Nombre de usuario</label> <input
 								type="text" class="form-control" id="username"
 								placeholder="Nombre de usuario">
+
 						</div>
 						<div class="form-group">
 							<label for="phone">Teléfono</label> <input type="text"
 								class="form-control" id="phone" placeholder="Teléfono">
+							<span id="phoneVal" class="passive">Complete este campo</span>
 						</div>
 						<div class="form-group">
 							<label for="exampleInputEmail1">Email</label> <input type="email"
-								class="form-control" id="email" aria-describedby="emailHelp"
-								placeholder="Enter email"> <small id="emailHelp"
-								class="form-text text-muted">No compartiremos esta
-								información.</small>
+								class="form-control" id="email" placeholder="Enter email">
+							<span id="emailVal" class="passive">Complete este campo</span>
 						</div>
 						<div class="form-group">
 							<label for="exampleInputPassword1">Contraseña</label> <input
 								type="password" class="form-control" id="password"
-								placeholder="Contraseña">
+								placeholder="Contraseña"> <span id="passwordVal"
+								class="passive">Complete este campo</span>
 						</div>
 						<fieldset class="form-group">
 							<div class="row">
@@ -64,11 +72,9 @@
 							</div>
 						</fieldset>
 					</div>
-					<div class="modal-footer d-flex flex-row justify-content-end">
+					<div class="modal-footer d-flex flex-row justify-content-center">
 						<button type="submit" class="btn btn-generic"
-							id="btn-registrar-usr">Continuar</button>
-						<button type="button" class="btn btn-generic-secundary"
-							id="btn-registrar-usr-cancelar">Cancelar</button>
+							id="btn-registrar-usr">Crear cuenta</button>
 
 					</div>
 

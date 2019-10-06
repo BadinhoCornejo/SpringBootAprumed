@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aprumed.SpringBootAprumed.helpers.VerificarSessionHelper;
-import com.aprumed.SpringBootAprumed.models.Usuario;
 import com.aprumed.SpringBootAprumed.viewModels.UsuarioViewModel;
 
 @Controller
@@ -30,9 +29,14 @@ public class HomeController {
 		view.addObject("titulo", this.titulo);
 
 		VerificarSessionHelper verificarSession = new VerificarSessionHelper();
+		// Verifica si la sesión está invalidated y devuelve un anonymous true y usuario
+		// null si no se ha iniciado sesión, devuelve false y un usuario si ya se
+		// inición sesión
 		UsuarioViewModel usr = verificarSession.verificarSession(request);
 		
-		view.setViewName(verificarSession.verificarPermiso(usr, "index", "dashboard",false));
+		// verificarSession(viewModel, donde va si no es admin, donde va si es admin,
+		// debe redireccionar = true, es nombre de vista = false)
+		view.setViewName(verificarSession.verificarPermiso(usr, "index", "dashboard", false));
 
 		view.addObject("user", usr);
 
@@ -44,7 +48,9 @@ public class HomeController {
 	public String signOut(HttpServletRequest request) {
 		HttpSession mySession = (HttpSession) request.getSession(false);
 
+		//Cerrar sesión
 		mySession.invalidate();
+		
 		return "redirect:/";
 	}
 

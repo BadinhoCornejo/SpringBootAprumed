@@ -296,3 +296,6 @@ a.prof-name {
 	flex-direction: row;
 	
 }
+.navbar a:active{
+	background-color: white !important;
+}

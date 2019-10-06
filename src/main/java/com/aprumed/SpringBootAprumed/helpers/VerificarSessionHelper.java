@@ -25,21 +25,20 @@ public class VerificarSessionHelper {
 		return usr;
 	}
 
-	public String verificarPermiso(UsuarioViewModel usr,String notAdminGo, String adminGo, Boolean redirect) {
-		
-		if(usr.getUsuario() == null) {
-			if(redirect)
-			{
+	public String verificarPermiso(UsuarioViewModel usr, String notAdminGo, String adminGo, Boolean redirect) {
+
+		if (usr.getUsuario() == null) {
+			if (redirect) {
 				return "redirect:/";
 			}
 			return "index";
 		}
-		
+
 		TipoUsuario tipUser = usr.getUsuario().getTipoUsuario();
 
 		if (!tipUser.getNombreTipoUsuario().equals("Administrador")) {
-			if(redirect) {
-				return "redirect:"+notAdminGo;
+			if (redirect) {
+				return "redirect:" + notAdminGo;
 			}
 			return notAdminGo;
 		}
