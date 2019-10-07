@@ -32,7 +32,7 @@ public class UsuarioController {
 
 	@Value("${application.controller.titulo}")
 	private String titulo;
-
+ 
 	@PostMapping(value = "/registrarUsuario")
 	public ResponseEntity<Object> addUser(@RequestBody Usuario usuario, Errors errors) {
 

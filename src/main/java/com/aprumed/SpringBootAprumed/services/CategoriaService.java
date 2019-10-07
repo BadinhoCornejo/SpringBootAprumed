@@ -11,22 +11,22 @@ import com.aprumed.SpringBootAprumed.repositories.CategoriaRepository;
 @Service
 public class CategoriaService {
 	@Autowired
-	private CategoriaRepository cateRepo;
+	private CategoriaRepository categoriaRepository;
 	
 	public List<Categoria> listCategorias(){
-		return cateRepo.findAll();
+		return categoriaRepository.findAll();
 	}
 	
 	public Categoria addCategoria(Categoria categoria) {
-		return cateRepo.save(categoria);
+		return categoriaRepository.save(categoria);
 	}
 	
 	public Categoria getCategoriaById(int id) {
-		return cateRepo.findById(id).get();
+		return categoriaRepository.findById(id).get();
 	}
 	
 	public void deleteCategoria(int id) {
-		cateRepo.deleteById(id);
+		categoriaRepository.deleteById(id);
 	}
 	
 }
