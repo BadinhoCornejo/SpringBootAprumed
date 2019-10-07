@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.aprumed.SpringBootAprumed.models.Categoria;
 import com.aprumed.SpringBootAprumed.services.CategoriaService;
 
 @Controller
@@ -23,7 +25,10 @@ public class CategoriaController {
 	@GetMapping(value = "/listaCategorias")
 	public ModelAndView listCategoria(Model model){
 		ModelAndView view=new ModelAndView();
-		view.addObject("categorias",categoriaService.listCategorias());
+		
+		List<Categoria> lista = categoriaService.listCategorias();
+		
+		view.addObject("categorias",lista);
 		view.setViewName("categorias");
 		return view;
 		
