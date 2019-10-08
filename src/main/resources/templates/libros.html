@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Libros</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
+<script src="https://kit.fontawesome.com/e1143320de.js"></script>
+<link rel="stylesheet" th:href="@{/css/util.css}">
+<link rel="stylesheet" th:href="@{/css/dashboard.css}">
+</head>
+<body>
+
+	<div>
+		<div class="wrapper">
+			<!-- Menu lateral -->
+			<div th:replace="fragments/sidebar :: sidebar"></div>
+			<!-- Menu lateral-end -->
+
+			<!-- Contenido de la página -->
+			<div class="content">
+				<!-- Navbar -->
+				<div th:replace="fragments/navbar :: navbar"></div>
+				<!-- Navbar-end -->
+
+				<!-- Colocar contenido de la pagina aqui -->
+				<div class="container-fluid">
+					<div class="main-content mb-4">
+						<div>
+							<h1>Libros</h1>
+						</div>
+
+						<div id="root"></div>
+					</div>
+				</div>
+				<div class="container">
+					<table class="table table-striped table bordered table-hover">
+						<thead>
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Imagen</th>
+								<th scope="col">Titulo</th>
+								<th scope="col">Autor</th>
+								<th scope="col">Categoria</th>
+								<th scope="col">Fecha de publicación</th>
+								<th scope="col">Precio</th>
+								<th scope="col">Stock</th>
+								<th scope="col">Estado</th>
+								<th scope="col">ISBN</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="libro: ${libros}">
+								<td th:text="${libro.libroID}"></td>
+								<td th:text="${libro.portada.url}"></td>
+								<td th:text="${libro.autor}"></td>
+								<td th:text="${libro.categoria.nombreCategoria}"></td>
+								<td th:text="${libro.fechaPublicacion}"></td>
+								<td th:text="${libro.precio}"></td>
+								<td th:text="${libro.stock}"></td>
+								<td th:text="${libro.estado}"></td>
+								<td th:text="${libro.stock}"></td>
+								<td>
+									<span th:if="${libro.estado == 'Activo'}" class="badge badge-pill badge-primary" th:text="${libro.estado}"></span>
+									<span th:unless="${libro.estado == 'Activo'}" class="badge badge-pill badge-danger" th:text="${libro.estado}"></span>
+								</td>
+								
+								<td>
+									<div class="btn-group">
+										<button class="btn btn-primary-outline dropdown-toggle"
+											data-toggle="dropdown" aria-haspopup="true"
+											aria-expanded="false">
+											<i class="fas fa-ellipsis-h"></i>
+										</button>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a href="/deleteLibro?id=${libro.libroID}" class="dropdown-item">Eliminar</a> 
+											<a href="/updateLibro?id=${libro.libroID}" class="dropdown-item">Editar</a> 
+												<a href="/addEjemplar?id=${libro.libroID}" class="dropdown-item">Agregar ejemplar</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<script type="text/javascript" th:src="@{/js/util.js}"></script>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+</html>
