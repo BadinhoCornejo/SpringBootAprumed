@@ -13,12 +13,17 @@ SET GLOBAL time_zone = '-3:00';
 
 /* Drop Tables */
 
+DROP TABLE IF EXISTS `Avatar` CASCADE
+;
+
+DROP TABLE IF EXISTS `Portada` CASCADE
+;
+
 DROP TABLE IF EXISTS `Categoria` CASCADE
 ;
 
 DROP TABLE IF EXISTS `ComprobantePago` CASCADE
 ;
-
 
 DROP TABLE IF EXISTS `Ejemplar` CASCADE
 ;
@@ -66,18 +71,6 @@ CREATE TABLE `ComprobantePago`
 
 ;
 
-CREATE TABLE `Cuenta`
-(
-	`Email` NVARCHAR(40) NULL,
-	`Estado` VARCHAR(20) NULL,
-	`UsrPassword` NVARCHAR(25) NULL,
-	`CuentaID` INT NOT NULL AUTO_INCREMENT,
-	`UsuarioID` INT NOT NULL,
-	CONSTRAINT `PK_Cuenta` PRIMARY KEY (`CuentaID` ASC)
-)
-
-;
-
 CREATE TABLE `Ejemplar`
 (
 	`Sku` VARCHAR(15) NULL,
@@ -100,9 +93,20 @@ CREATE TABLE `Libro`
 	`LibroID` INT NOT NULL AUTO_INCREMENT,
 	`CategoriaID` INT NOT NULL,
 	`Estado` VARCHAR(20) NULL,
+    `PortadaID` INT NULL DEFAULT 1 ,
 	CONSTRAINT `PK_Libro` PRIMARY KEY (`LibroID` ASC)
 )
 
+;
+
+CREATE TABLE `Portada`
+(
+	`PortadaID` INT NOT NULL AUTO_INCREMENT,
+	`Estado` VARCHAR(30) NULL,
+	`NombrePortada` NVARCHAR(50) NULL,
+	`Url` NVARCHAR(2083) NULL,
+	CONSTRAINT `PK_Portada` PRIMARY KEY (`PortadaID` ASC)
+)
 ;
 
 CREATE TABLE `LineaVenta`
@@ -142,7 +146,6 @@ CREATE TABLE `TipoUsuario`
 CREATE TABLE `Usuario`
 (
 	`Apellido` NVARCHAR(40) NULL,
-	`Username` NVARCHAR(40) NULL,
 	`Nombre` NVARCHAR(40) NULL,
 	`Sexo` VARCHAR(20) NULL,
 	`Telefono` VARCHAR(9) NULL,
@@ -151,10 +154,22 @@ CREATE TABLE `Usuario`
 	`UsrPassword` NVARCHAR(25) NULL,
 	`UsuarioID` INT NOT NULL AUTO_INCREMENT,
 	`TipoUsuarioID` INT NOT NULL,
+    `AvatarID` INT NULL DEFAULT 1 ,
     
 	CONSTRAINT `PK_Usuario` PRIMARY KEY (`UsuarioID` ASC)
 )
 
+;
+
+CREATE TABLE `Avatar`
+(
+	`AvatarID` INT NOT NULL AUTO_INCREMENT,
+	`Estado` VARCHAR(30) NULL,
+	`NombreAvatar` NVARCHAR(50) NULL,
+	`Url` NVARCHAR(2083) NULL,
+
+	CONSTRAINT `PK_Avatar` PRIMARY KEY (`AvatarID` ASC)
+)
 ;
 
 CREATE TABLE `Venta`
@@ -186,6 +201,11 @@ ALTER TABLE `Libro`
 	FOREIGN KEY (`CategoriaID`) REFERENCES `Categoria` (`CategoriaID`) ON DELETE No Action ON UPDATE No Action
 ;
 
+ALTER TABLE `Libro` 
+ ADD CONSTRAINT `FK_Libro_Portada`
+	FOREIGN KEY (`PortadaID`) REFERENCES `Portada` (`PortadaID`) ON DELETE No Action ON UPDATE No Action
+;
+
 ALTER TABLE `LineaVenta` 
  ADD CONSTRAINT `FK_LineaVenta_Ejemplar`
 	FOREIGN KEY (`EjemplarID`) REFERENCES `Ejemplar` (`EjemplarID`) ON DELETE No Action ON UPDATE No Action
@@ -204,6 +224,11 @@ ALTER TABLE `Receptor`
 ALTER TABLE `Usuario` 
  ADD CONSTRAINT `FK_Usuario_TipoUsuario`
 	FOREIGN KEY (`TipoUsuarioID`) REFERENCES `TipoUsuario` (`TipoUsuarioID`) ON DELETE No Action ON UPDATE No Action
+;
+
+ALTER TABLE `Usuario` 
+ ADD CONSTRAINT `FK_Usuario_Avatar`
+	FOREIGN KEY (`AvatarID`) REFERENCES `Avatar` (`AvatarID`) ON DELETE No Action ON UPDATE No Action
 ;
 
 ALTER TABLE `Venta` 

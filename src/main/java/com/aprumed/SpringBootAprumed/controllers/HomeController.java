@@ -22,25 +22,23 @@ public class HomeController {
 	private String titulo;
 
 	@GetMapping("/")
-	public ModelAndView viewHomePage(Model model, HttpServletRequest request) {
+	public String viewHomePage(Model model, HttpServletRequest request) {
 
-		ModelAndView view = new ModelAndView();
-		
-		view.addObject("titulo", this.titulo);
+		model.addAttribute("titulo", this.titulo);
 
 		VerificarSessionHelper verificarSession = new VerificarSessionHelper();
 		// Verifica si la sesión está invalidated y devuelve un anonymous true y usuario
 		// null si no se ha iniciado sesión, devuelve false y un usuario si ya se
 		// inición sesión
 		UsuarioViewModel usr = verificarSession.verificarSession(request);
-		
+
 		// verificarSession(viewModel, donde va si no es admin, donde va si es admin,
 		// debe redireccionar = true, es nombre de vista = false)
-		view.setViewName(verificarSession.verificarPermiso(usr, "index", "dashboard", false));
+		String redirect = verificarSession.verificarPermiso(usr, "index", "/dashboard", false, true);
 
-		view.addObject("user", usr);
+		model.addAttribute("user", usr);
 
-		return view;
+		return redirect;
 
 	}
 
@@ -48,9 +46,9 @@ public class HomeController {
 	public String signOut(HttpServletRequest request) {
 		HttpSession mySession = (HttpSession) request.getSession(false);
 
-		//Cerrar sesión
+		// Cerrar sesión
 		mySession.invalidate();
-		
+
 		return "redirect:/";
 	}
 

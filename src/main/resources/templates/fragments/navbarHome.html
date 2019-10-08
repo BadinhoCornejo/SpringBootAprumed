@@ -33,7 +33,9 @@
 				href="#loginUserModal" data-toggle="modal" data-target="#loginUserModal"
 				class="nav-link" style="color: black;">Iniciar sesión</a></li>
 
-			<li th:unless="${user.anonymous}" class="nav-item dropdown"><a
+			<li th:unless="${user.anonymous}" class="nav-item dropdown">
+			<img th:src="${user.usuario.avatar.url}" alt="Avatar" class="avatar">
+			<a
 				class="nav-link dropdown-toggle prof-name" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
 				aria-expanded="false" th:text="${user.usuario.nombre}"><i
