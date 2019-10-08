@@ -35,9 +35,9 @@
 					<div id="root"></div>
 				</div>
 			</div>
-			<div>
+			<div class="container">
 				<form id="categoria-form" th:action="@{/nuevaCategoria}" method="post">
-					<div class="col-sm-6 " >
+					<div class="col-sm-6">
 						<label for="categoria">Nombre de la Categoria</label>
 						<input type="nombre" class="form-control" >
 					</div>
@@ -45,7 +45,9 @@
 						<label>Estado</label>
 						<input type="checkbox" checked>
 					</div>
-					<div><button href="/nuevaCategoria" type="submit" name="Nuevo" value="Registrar categoria"></div>
+					<div class="col-sm-6"> 
+						<button class="btn btn-primary" href="/nuevaCategoria" type="submit" name="Nuevo">Registrar nueva Categoria</button>
+					</div>
 				</form>
 			</div>
 
