@@ -93,7 +93,7 @@ CREATE TABLE `Libro`
 	`LibroID` INT NOT NULL AUTO_INCREMENT,
 	`CategoriaID` INT NOT NULL,
 	`Estado` VARCHAR(20) NULL,
-    `PortadaID` INT DEFAULT 1 ,
+    `PortadaID` INT NULL DEFAULT 1 ,
 	CONSTRAINT `PK_Libro` PRIMARY KEY (`LibroID` ASC)
 )
 
@@ -154,7 +154,7 @@ CREATE TABLE `Usuario`
 	`UsrPassword` NVARCHAR(25) NULL,
 	`UsuarioID` INT NOT NULL AUTO_INCREMENT,
 	`TipoUsuarioID` INT NOT NULL,
-    `AvatarID` INT DEFAULT 1 ,
+    `AvatarID` INT NULL DEFAULT 1 ,
     
 	CONSTRAINT `PK_Usuario` PRIMARY KEY (`UsuarioID` ASC)
 )
