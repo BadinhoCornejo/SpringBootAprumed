@@ -36,10 +36,10 @@
 				</div>
 			</div>
 			<div class="container">
-				<form id="categoria-form" th:action="@{/nuevaCategoria}" method="post">
+				<form th:action="@{/nuevaCategoria}" th:object="${categoria}" method="post">
 					<div class="col-sm-6">
 						<label for="categoria">Nombre de la Categoria</label>
-						<input type="nombre" class="form-control" >
+						<input type="text" th:field="*{nombreCategoria}" class="form-control" >
 					</div>
 					<div class="col-sm-6">
 						<label>Estado</label>

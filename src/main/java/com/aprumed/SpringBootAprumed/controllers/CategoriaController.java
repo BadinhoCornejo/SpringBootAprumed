@@ -43,11 +43,8 @@ public class CategoriaController {
 	}
 	
 	@GetMapping(value="/nuevaCategoria")
-	public ModelAndView crearCategoria(Model model, HttpServletRequest request){
+	public ModelAndView crearCategoriaGet(Model model, HttpServletRequest request){
 		ModelAndView view = new ModelAndView();
-		//Categoria categoria = new Categoria();
-		//categoria = (Categoria) model;
-		//categoriaService.addCategoria(categoria);
 		VerificarSessionHelper verificarSession = new VerificarSessionHelper();
 		UsuarioViewModel usr = verificarSession.verificarSession(request);
 		view.setViewName(verificarSession.verificarPermiso(usr, "index", "newCategoria", false, false));
@@ -55,11 +52,10 @@ public class CategoriaController {
 		return view;
 	}
 	@PostMapping(value="/nuevaCategoria")
-	public ModelAndView crearCategoria(Model model, @RequestBody Categoria categoria){
-		ModelAndView view = new ModelAndView();
+	public String crearCategoriaPost(Categoria categoria){
+		System.out.println(categoria.getNombreCategoria());
 		categoriaService.addCategoria(categoria);
-		view.setViewName("/listarCategorias");
-		return view;
+		return "redirect:/listaCategorias";
 	}
 	
 	
