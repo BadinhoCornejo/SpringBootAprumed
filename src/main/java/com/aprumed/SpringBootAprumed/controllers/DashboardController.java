@@ -20,7 +20,7 @@ public class DashboardController {
 
 		model.addAttribute("user", usr);
 
-		return verificarSession.verificarPermiso(usr, "/", "dashboard",true);
+		return "dashboard";
 
 	}
 }

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -23,6 +24,17 @@ public class Libro implements Serializable{
 	private String titulo;
 	private Categoria categoria;
 	private String estado;
+	private Portada portada;
+
+	@OneToOne()
+	@JoinColumn(name = "portadaID")
+	public Portada getPortada() {
+		return portada;
+	}
+
+	public void setPortada(Portada portada) {
+		this.portada = portada;
+	}
 
 	@Id
 	@Column(name = "libroID")
