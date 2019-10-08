@@ -291,11 +291,45 @@ a.prof-name {
 	color: black !important;
 }
 
-.user-profile{
+.user-profile {
 	display: flex;
 	flex-direction: row;
-	
 }
-.navbar a:active{
+
+.navbar a:active {
 	background-color: white !important;
+}
+/*Buttons*/
+a[type="button"].btn-generic {
+	background-color: #242939;
+	color: white;
+}
+
+a[type="button"].btn-generic:hover {
+	filter: brightness(150%);
+	background-color: rgba(36, 41, 57, 0.95);
+	color: white;
+	transition: 250ms ease-in-out 0s;
+}
+
+a.btn-secundary {
+	margin-left: 4px;
+	margin-right: 4px;
+	cursor: pointer;
+}
+
+a.btn-secundary:hover {
+	text-decoration: underline !important;
+}
+
+.btn-generic {
+	background-color: #242939;
+	color: white;
+}
+
+.btn-generic:hover {
+	filter: brightness(150%);
+	background-color: rgba(36, 41, 57, 0.95);
+	color: white;
+	transition: 250ms ease-in-out 0s;
 }
