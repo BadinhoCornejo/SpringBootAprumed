@@ -84,6 +84,13 @@ function registrar_form_submit() {
 		tipoUsuarioId = 2;
 	}
 	
+	const avatarUsuario = {
+			avatarID: 1,
+			estado: 'Activo',
+			nombreAvatar: 'default',
+			url: "-"
+	}
+	
 	const tipoUsuarioCliente = {
 			tipoUsuarioID: tipoUsuarioId,
 			nombreTipoUsuario: "Cliente",
@@ -98,7 +105,8 @@ function registrar_form_submit() {
 			email: $("#email").val(),
 			estado: "Activo",
     	    sexo: $("input[name='sex']").val(),
-    	    tipoUsuario: tipoUsuarioCliente
+    	    tipoUsuario: tipoUsuarioCliente,
+    	    avatar: avatarUsuario
     }
 
     if(!validarUsuario()){
