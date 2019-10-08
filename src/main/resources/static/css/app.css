@@ -36,6 +36,13 @@ nav {
 	position: fixed;
 }
 
+.avatar {
+  vertical-align: middle;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
 .navbar {
 	flex-wrap: nowrap !important;
 }
@@ -216,4 +223,8 @@ span.emailval
 {
 	color: red;
 }
-
+/*Content*/
+.carousel-item img.pub{ 
+	width: 922px;
+	height: 300px !important;
+}

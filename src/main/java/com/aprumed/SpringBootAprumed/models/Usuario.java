@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.aprumed.SpringBootAprumed.models.TipoUsuario;
@@ -24,6 +25,17 @@ public class Usuario implements Serializable{
 	private String sexo;
 	private String telefono;
 	private TipoUsuario tipoUsuario;
+	private Avatar avatar;
+
+	@OneToOne()
+	@JoinColumn(name = "avatarID")
+	public Avatar getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(Avatar avatar) {
+		this.avatar = avatar;
+	}
 
 	@ManyToOne()
 	@JoinColumn(name = "tipousuarioID", referencedColumnName = "tipousuarioID")
@@ -107,4 +119,6 @@ public class Usuario implements Serializable{
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+	
+	
 }

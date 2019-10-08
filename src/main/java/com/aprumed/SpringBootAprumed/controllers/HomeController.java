@@ -37,6 +37,8 @@ public class HomeController {
 		// verificarSession(viewModel, donde va si no es admin, donde va si es admin,
 		// debe redireccionar = true, es nombre de vista = false)
 		view.setViewName(verificarSession.verificarPermiso(usr, "index", "dashboard", false));
+		
+		System.out.println(usr.getUsuario().getAvatar().getUrl());
 
 		view.addObject("user", usr);
 
