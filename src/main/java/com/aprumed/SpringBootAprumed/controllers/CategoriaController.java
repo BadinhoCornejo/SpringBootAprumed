@@ -50,8 +50,8 @@ public class CategoriaController {
 		//categoriaService.addCategoria(categoria);
 		VerificarSessionHelper verificarSession = new VerificarSessionHelper();
 		UsuarioViewModel usr = verificarSession.verificarSession(request);
+		view.setViewName(verificarSession.verificarPermiso(usr, "index", "newCategoria", false, false));
 		view.addObject("user",usr);
-		view.setViewName("newCategoria");
 		return view;
 	}
 	@PostMapping(value="/nuevaCategoria")
