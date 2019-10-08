@@ -37,7 +37,7 @@ public class CategoriaController {
 		VerificarSessionHelper verificarSession = new VerificarSessionHelper();
 		UsuarioViewModel usr = verificarSession.verificarSession(request);
 		view.addObject("categorias",lista);
-		view.setViewName(verificarSession.verificarPermiso(usr, "index", "categorias", false));
+		//view.setViewName(verificarSession.verificarPermiso(usr, "index", "categorias", false));
 		return view;
 		
 	}
