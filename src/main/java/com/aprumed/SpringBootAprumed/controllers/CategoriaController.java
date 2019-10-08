@@ -32,17 +32,17 @@ public class CategoriaController {
 	@RequestMapping(value = "/listaCategorias")
 	public ModelAndView listCategoria(Model model, HttpServletRequest request){
 		ModelAndView view=new ModelAndView();
-		
 		List<Categoria> lista = categoriaService.listCategorias();
 		VerificarSessionHelper verificarSession = new VerificarSessionHelper();
 		UsuarioViewModel usr = verificarSession.verificarSession(request);
 		view.addObject("categorias",lista);
-		//view.setViewName(verificarSession.verificarPermiso(usr, "index", "categorias", false));
+		view.setViewName(verificarSession.verificarPermiso(usr, "index", "categorias", false,false));
+		view.addObject("user",usr);
 		return view;
 		
 	}
 	
-	@GetMapping(value="/categorias/nuevaCategoria")
+	@GetMapping(value="/nuevaCategoria")
 	public ModelAndView crearCategoria(Model model, HttpServletRequest request){
 		ModelAndView view = new ModelAndView();
 		//Categoria categoria = new Categoria();

@@ -48,13 +48,13 @@
 	    </tr>
 	</thead>
 	<tbody>
-		<c:foreach items="${categorias}" var="categoria">
-			<td>${categoria.id}</td>
-			<td>${categoria.nombre}</td>
-			<td>${categoria.estado}</td>
+		<tr th:each="categoria: ${categorias}">
+			<td th:text="${categoria.categoriaID}"></td>
+			<td th:text="${categoria.nombreCategoria}"></td>
+			<td th:text="${categoria.estado}"></td>
 			<td><button type="edit" name="Editar" value="Editar"></td>
 			<td><button type="delete" name="Eliminar" value="Eliminar"></td>
-		</c>		
+		</tr>		
 	</tbody>
 </table>
 			</div>
