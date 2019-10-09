@@ -8,4 +8,7 @@ import com.aprumed.SpringBootAprumed.models.Categoria;
 
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
 
+	//@Query("update Categoria Set NombreCategoria=
+//			+ "select u from usuario u inner join avatar a on(u.avatar = a.avatarID) where u.email = ?1 and u.usrPassword = ?2")
+	//public void updateCategoria(Categoria categoria);
 }

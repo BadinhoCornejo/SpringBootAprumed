@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,23 +44,42 @@ public class CategoriaController {
 	}
 	
 	@GetMapping(value="/nuevaCategoria")
-	public ModelAndView crearCategoriaGet(Model model, HttpServletRequest request){
-		ModelAndView view = new ModelAndView();
+	public String crearCategoriaGet(Map<String, Object> model, HttpServletRequest request){
+		Categoria categoria = new Categoria();
 		VerificarSessionHelper verificarSession = new VerificarSessionHelper();
 		UsuarioViewModel usr = verificarSession.verificarSession(request);
-		view.setViewName(verificarSession.verificarPermiso(usr, "index", "newCategoria", false, false));
-		view.addObject("user",usr);
-		return view;
+		String returnView=verificarSession.verificarPermiso(usr, "index", "newCategoria", false, false);
+		model.put("categoria", categoria);
+		model.put("user", usr);
+		return returnView;
 	}
 	@PostMapping(value="/nuevaCategoria")
 	public String crearCategoriaPost(Categoria categoria){
-		System.out.println(categoria.getNombreCategoria());
+		categoria.setEstado("Activo");
 		categoriaService.addCategoria(categoria);
 		return "redirect:/listaCategorias";
 	}
 	
+	@GetMapping(value="/editarCategoria/{id}")
+	public String editarCategoriaGet(@PathVariable(value="id") int id, Map<String, Object> model, HttpServletRequest request) {
+		Categoria categoria = null;
+		if(id>0) 
+			categoria = categoriaService.getCategoriaById(id);
+		else
+			return "redirect:/listaCategoria";
+		VerificarSessionHelper verificarSession = new VerificarSessionHelper();
+		UsuarioViewModel usr = verificarSession.verificarSession(request);
+		String returnView = verificarSession.verificarPermiso(usr, "index", "editCategoria", false, false);
+		model.put("user", usr);
+		model.put("categoria", categoria);
+		return returnView;
+	}
 	
-	
+	@PostMapping(value="/editarCategoria/{id}")
+	public String editarCategoriaPost(@PathVariable(value="id") int id, Categoria categoria) {
+		//categoriaService.updateCategoria(categoria);	
+		return "redirect:/listaCategorias";
+	}
 	
 
 }

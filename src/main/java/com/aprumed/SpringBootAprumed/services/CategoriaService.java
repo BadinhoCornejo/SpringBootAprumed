@@ -29,4 +29,8 @@ public class CategoriaService {
 		categoriaRepository.deleteById(id);
 	}
 	
+	/*public void updateCategoria(Categoria categoria) {
+		categoriaRepository.(categoria);
+	}*/
+	
 }

@@ -2,22 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Nueva Categoria</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<meta charset="UTF-8">
+<title>Categorias</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
 
-	<script src="https://kit.fontawesome.com/e1143320de.js"></script>
-	<link rel="stylesheet" th:href="@{/css/util.css}">
-	<link rel="stylesheet" th:href="@{/css/dashboard.css}">
+<script src="https://kit.fontawesome.com/e1143320de.js"></script>
+<link rel="stylesheet" th:href="@{/css/util.css}">
+<link rel="stylesheet" th:href="@{/css/dashboard.css}">
 </head>
 
 <body>
+
+
 	<div class="wrapper">
 		<!-- Menu lateral -->
 		<div th:replace="fragments/sidebar :: sidebar"></div>
 		<!-- Menu lateral-end -->
-
+		
 		<!-- Contenido de la página -->
 		<div class="content">
 			<!-- Navbar -->
@@ -27,13 +31,15 @@
 			<!-- Colocar contenido de la pagina aqui -->
 			<div class="container-fluid">
 				<div class="main-content">
-
 					<div>
-						<h1>Ingresar nueva categoria</h1>
+						<h1>Editar Categoria </h1>
 					</div>
-
-					<div class="container">
-						<form th:action="@{/nuevaCategoria}" th:object="${categoria}" method="post">
+						<div class="container">
+						<form th:action="@{/editarCategoria/{id}}" th:object="${categoria}" method="post">
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<label for="categoria">ID de Categoria</label>
+								<input type="text" th:field="*{categoriaID}" class="form-control" value="${categoria.categoriaID}" disabled> 
+							</div>
 							<div class="col-sm-6" style="margin-bottom: 10px">
 								<label for="categoria">Nombre de la Categoria</label>
 								<input type="text" th:field="*{nombreCategoria}" class="form-control">
@@ -47,13 +53,14 @@
 
 							<div class="col-sm-6" style="margin-top: 10px">
 								<button class="btn btn-primary" href="/nuevaCategoria" type="submit"
-									name="Nuevo">Registrar
-									nueva Categoria</button>
+									name="Nuevo">Guardar cambios</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
+
+
 		</div>
 
 	</div>
@@ -62,10 +69,12 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
 		crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
 </body>
