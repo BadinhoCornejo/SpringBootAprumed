@@ -14,18 +14,20 @@
 
 <link rel="stylesheet"
 	th:href="@{/datepicker/dist/css/bootstrap-datepicker.min.css}">
-	
-	<style type="text/css">
+
+<style type="text/css">
 .fa-calendar-week {
 	font-size: 1.5em;
+	margin-left: 4px;
+	color: #242939;
 	padding: 4px 4px 4px 4px;
 }
 
 .fa-calendar-week:hover {
 	cursor: pointer;
-	color: #5D78FF;
+	filter: brightness(150%);
+	color: rgba(36, 41, 57, 0.95);
 }
-
 </style>
 </head>
 <body>
@@ -48,11 +50,11 @@
 						<h1>Categorías de Libros</h1>
 					</div>
 
-					<div class="container">
+					<div class="container row">
 						<form th:action="@{/nuevoLibro}" th:object="${libro}"
 							method="post">
 							<div class="row">
-								<div class="form-group col-md-5">
+								<div class="form-group col">
 									<label for="lbr_autor">Autor</label> <input type="text"
 										class="form-control" id="lbr_autor" th:field="*{autor}"
 										placeholder="Autor" required="required">
@@ -61,7 +63,7 @@
 							</div>
 
 							<div class="row">
-								<div class="form-group col-md-5">
+								<div class="form-group col">
 									<label for="lbr_titulo">Titulo</label> <input type="text"
 										class="form-control" id="lbr_titulo" th:field="*{titulo}"
 										placeholder="Titulo" required="required">
@@ -69,12 +71,29 @@
 							</div>
 
 							<div class="form-row">
-								<div class="form-group col-md-2">
+								<div class="form-group col">
 									<label for="lbr_isbn">ISBN</label> <input type="text"
 										pattern="\d*" maxlength="13" class="form-control"
 										id="lbr_isbn" th:field="*{isbn}" required="required">
 								</div>
-								<div class="form-group col-md-3">
+								<div class="form-group col">
+									<label for="tipo_usr">Categoria</label> <select id="lbr_cat"
+										name="lbr_cat" class="form-control" required="required">
+										<option th:each="categoria: ${categorias}"
+											th:value="${categoria.categoriaID}"
+											th:text="${categoria.nombreCategoria}"></option>
+
+									</select>
+								</div>
+								<div class="form-group col">
+									<label for="lbr_titulo">Precio</label> <input type="number"
+										step="any" class="form-control" id="lbr_precio"
+										name="lbr_precio" placeholder="S/." required="required">
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="form-group col-5">
 									<label for="lbr_date">Fecha de publicación</label>
 									<div id="sandbox-container">
 										<div class="input-group date">
@@ -86,33 +105,26 @@
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="row">
-								<div class="form-group col-md-4">
-									<label for="tipo_usr">Categoria</label> <select id="lbr_cat"
-										name="lbr_cat" class="form-control" required="required">
-										<option th:each="categoria: ${categorias}"
-											th:value="${categoria.categoriaID}"
-											th:text="${categoria.nombreCategoria}"></option>
 
-									</select>
-								</div>
-								<div class="form-group col-sm-1">
-									<label for="lbr_titulo">Precio</label> <input type="number"
-										step="any" class="form-control" id="lbr_precio"
-										name="lbr_precio" placeholder="S/." required="required">
-								</div>
 							</div>
-							<button type="submit" class="btn btn-generic">Guardar</button>
+							<div class="elegir_imagen">
+								<a href="#loginUserModal" data-toggle="modal"
+								data-target="#portadaModal" class="float-right"
+								><i class="far fa-image"></i></a>
+							</div>
+							<button type="submit" class="btn btn-generic float-right" style="margin-right: 8px;">Guardar</button>
 						</form>
+
 					</div>
 				</div>
 			</div>
-
-
 		</div>
 
 	</div>
+
+	<!-- Modal for user portada -->
+	<div th:replace="fragments/modalForPortada :: modalForPortada"></div>
+	<!-- Modal for user portada -->
 
 	<script type="text/javascript" th:src="@{/js/util.js}"></script>
 
@@ -127,6 +139,8 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
+		
+	<script type="text/javascript" th:src="@{/js/portada.js}"></script>
 
 	<script type="text/javascript"
 		th:src="@{/datepicker/dist/js/bootstrap-datepicker.min.js}"></script>

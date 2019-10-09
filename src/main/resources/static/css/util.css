@@ -333,3 +333,31 @@ a.btn-secundary:hover {
 	color: white;
 	transition: 250ms ease-in-out 0s;
 }
+
+/*Images*/
+
+.elegir_imagen{
+	margin-bottom: 7px;
+}
+
+.elegir_imagen a i{
+	font-size: 52px;
+	color: rgba(36,41,57);
+}
+
+.elegir_imagen a i:hover{
+	filter: brightness(150%);
+	color: rgba(36, 41, 57, 0.95);
+	transition: 250ms ease-in-out 0s;
+}
+
+.portrait{
+	width: 215px;
+	height: 250px;
+}
+
+.img-container{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
