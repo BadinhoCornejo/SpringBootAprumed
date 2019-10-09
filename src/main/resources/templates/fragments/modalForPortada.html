@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div th:fragment="modalForPortada" class="modal fade" id="portadaModal"
+		tabindex="-1" role="dialog" aria-labelledby="portadaModalTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title w-100 text-center" id="portadaModalTitle">Asignar
+						una portada</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form id="portada-form">
+					<div class="modal-body">
+
+						<div class="form-group col">
+
+
+							<div class="img-container">
+								<img alt="default" class="portrait"
+									src="https://firebasestorage.googleapis.com/v0/b/aprumed.appspot.com/o/Books%2Fno-image.jpg?alt=media&token=02ff92cc-31c3-4137-8e25-50fbeb850797">
+							</div>
+
+							<div class="col mt-4">
+								<label for="portada_url">URL</label> <input type="url"
+									class="form-control" id="portada_url" placeholder="Introduce la URL de la imagen"
+									required="required">
+
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer d-flex flex-column justify-content-end">
+
+						<button type="submit" class="btn btn-generic float-right" id="buscar-portada">Buscar</button>
+
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
