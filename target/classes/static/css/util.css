@@ -334,6 +334,10 @@ a.btn-secundary:hover {
 	transition: 250ms ease-in-out 0s;
 }
 
+.btn-group .dropdown-toggle:after{
+	content: none;
+}
+
 /*Images*/
 
 .elegir_imagen{
@@ -360,6 +364,11 @@ a.btn-secundary:hover {
 	width: 100%;
 	display: flex;
 	justify-content: center;
+}
+
+.portrait-in-list{
+	width: 150px;
+	height: 150px;
 }
 
 .passive{

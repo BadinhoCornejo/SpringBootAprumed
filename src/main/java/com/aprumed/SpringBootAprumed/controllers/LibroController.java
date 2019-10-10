@@ -84,7 +84,7 @@ public class LibroController {
 		
 		Portada portada = portadaService.getPortadaByUrl(libro.getPortada().getUrl());	
 		
-		libro.setEstado("Activo");
+		libro.setEstado("Inactivo");
 		libro.setPortada(portada);
 		
 		libroService.addLibro(libro);

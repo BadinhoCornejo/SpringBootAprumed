@@ -41,6 +41,12 @@ public class Categoria implements Serializable{
 		this.estado = estado;
 	}
 	
+	public void setActivo() {
+		this.estado = "Activo";
+	}
 	
+	public void setInactivo() {
+		this.estado = "Inactivo";
+	}
 	
 }

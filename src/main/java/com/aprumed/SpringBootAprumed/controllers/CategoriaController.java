@@ -80,8 +80,9 @@ public class CategoriaController {
 	
 	@PostMapping(value="/editarCategoria")
 	public String editarCategoriaPost(Categoria categoria, @RequestParam("idCat") int categoriaID) {
-		System.out.println("categoriaid------- "+categoria.getCategoriaID());
-		categoria.setCategoriaID(categoriaService.getCategoriaById(categoriaID).getCategoriaID());
+		Categoria refCategoria = categoriaService.getCategoriaById(categoriaID);
+		categoria.setCategoriaID(refCategoria.getCategoriaID());
+		categoria.setActivo();
 		categoriaService.addCategoria(categoria);	
 		return "redirect:/listaCategorias";
 	}

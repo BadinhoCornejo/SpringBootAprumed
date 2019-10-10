@@ -50,18 +50,24 @@
 								<tr th:each="categoria: ${categorias}">
 									<td th:text="${categoria.categoriaID}" text-align="center"></td>
 									<td th:text="${categoria.nombreCategoria}"></td>
-									<td th:text="${categoria.estado}"></td>
-									<td><a th:href="@{|/editarCategoria/${categoria.categoriaID}|}" class="btn btn-generic" type="button">Editar</a>
-										<a class="btn-secundary">Eliminar</a>
-									</td>
-									
+									<td><span th:if="${categoria.estado == 'Activo'}"
+										class="badge badge-pill badge-primary"
+										th:text="${categoria.estado}"></span> <span
+										th:unless="${categoria.estado == 'Activo'}"
+										class="badge badge-pill badge-danger"
+										th:text="${categoria.estado}"></span></td>
+									<td><a
+										th:href="@{|/editarCategoria/${categoria.categoriaID}|}"
+										class="btn btn-generic" type="button">Editar</a> <a
+										class="btn-secundary">Eliminar</a></td>
+
 								</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
-<!---->
+			<!---->
 
 		</div>
 

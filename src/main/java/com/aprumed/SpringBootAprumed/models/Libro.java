@@ -126,5 +126,23 @@ public class Libro implements Serializable{
 	public void quitStock() {
 		this.stock = this.stock - 1;
 	}
+	
+	public void setActivo() {
+		this.estado = "Activo";
+	}
+	
+	public void setInactivo() {
+		this.estado = "Inactivo";
+	}
+	
+	public void verificarStock() {
+		if(this.stock <= 0) {
+			this.setInactivo();
+		}
+		else
+		{
+			this.setActivo();
+		}
+	}
 
 }

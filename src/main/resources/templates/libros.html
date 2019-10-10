@@ -55,19 +55,28 @@
 						<tbody>
 							<tr th:each="libro: ${libros}">
 								<td th:text="${libro.libroID}"></td>
-								<td th:text="${libro.portada.url}"></td>
+
+								<td>
+									<div class="img-container">
+										<img alt="default" class="portrait-in-list" th:src="${libro.portada.url}">
+									</div>
+								</td>
+								<td th:text="${libro.titulo}"></td>
 								<td th:text="${libro.autor}"></td>
 								<td th:text="${libro.categoria.nombreCategoria}"></td>
 								<td th:text="${libro.fechaPublicacion}"></td>
 								<td th:text="${libro.precio}"></td>
 								<td th:text="${libro.stock}"></td>
-								<td th:text="${libro.estado}"></td>
-								<td th:text="${libro.stock}"></td>
-								<td>
-									<span th:if="${libro.estado == 'Activo'}" class="badge badge-pill badge-primary" th:text="${libro.estado}"></span>
-									<span th:unless="${libro.estado == 'Activo'}" class="badge badge-pill badge-danger" th:text="${libro.estado}"></span>
+								<td><span th:if="${libro.estado == 'Activo'}"
+									class="badge badge-pill badge-primary"
+									th:text="${libro.estado}"></span> <span
+									th:unless="${libro.estado == 'Activo'}"
+									class="badge badge-pill badge-danger" th:text="${libro.estado}"></span>
 								</td>
+
 								
+								<td th:text="${libro.isbn}"></td>
+
 								<td>
 									<div class="btn-group">
 										<button class="btn btn-primary-outline dropdown-toggle"
@@ -76,9 +85,12 @@
 											<i class="fas fa-ellipsis-h"></i>
 										</button>
 										<div class="dropdown-menu dropdown-menu-right">
-											<a href="/deleteLibro?id=${libro.libroID}" class="dropdown-item">Eliminar</a> 
-											<a href="/updateLibro?id=${libro.libroID}" class="dropdown-item">Editar</a> 
-												<a href="/addEjemplar?id=${libro.libroID}" class="dropdown-item">Agregar ejemplar</a>
+											<a href="/deleteLibro?id=${libro.libroID}"
+												class="dropdown-item">Eliminar</a> <a
+												href="/updateLibro?id=${libro.libroID}"
+												class="dropdown-item">Editar</a> <a
+												href="/addEjemplar?id=${libro.libroID}"
+												class="dropdown-item">Agregar ejemplar</a>
 										</div>
 									</div>
 								</td>
