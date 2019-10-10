@@ -51,15 +51,17 @@
 									<td th:text="${categoria.categoriaID}" text-align="center"></td>
 									<td th:text="${categoria.nombreCategoria}"></td>
 									<td th:text="${categoria.estado}"></td>
-									<td><a class="btn btn-generic" type="button">Editar</a>
-										<a class="btn-secundary">Eliminar</a></td>
+									<td><a th:href="@{|/editarCategoria/${categoria.categoriaID}|}" class="btn btn-generic" type="button">Editar</a>
+										<a class="btn-secundary">Eliminar</a>
+									</td>
+									
 								</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
-
+<!---->
 
 		</div>
 
