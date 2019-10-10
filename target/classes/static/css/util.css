@@ -361,3 +361,7 @@ a.btn-secundary:hover {
 	display: flex;
 	justify-content: center;
 }
+
+.passive{
+	display: none;
+}

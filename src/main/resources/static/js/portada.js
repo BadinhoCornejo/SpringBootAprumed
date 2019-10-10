@@ -1,5 +1,4 @@
-$(document).ready(() => {
-	
+
 	$("#portada-form").submit((event) => {
         event.preventDefault();
         portada_form_submit();
@@ -7,45 +6,44 @@ $(document).ready(() => {
     });
 
 
-}); 
-
 function portada_form_submit(){
 	
-	let url = $("#portada_url").val();
+	let portadaString = $("#portada_url").val();
 	
-	$.ajax({
-	    url: "/buscarPortada",
-	    type: "POST",
-	    contentType: "application/json",
-	    async: "false",
-	    data: url,
-	    cache: false,
-	    success: (data) => {
-	    	
-	        if (data.result != null) {
-	        	
-	            $("#emailVal").addClass("emailval");
-	            $("#emailVal").removeClass("required");
-	            $("#emailVal").removeClass("passive");
-	            $("#email").addClass("validator");
-	            
-	            emailVal = false;
-	        }
-	        else {
-	        	$("#emailVal").removeClass("emailval");
-	            $("#emailVal").addClass("required");
-	            $("#emailVal").addClass("passive");
-	            $("#email").removeClass("validator");
-	            
-	            emailVal = true;
-	        }
+	console.log(portadaString);
+	
+	if(portadaString == "" || portadaString == null){
+		console.log("Nel perro");
+	}
+	else{
+		$.ajax({
+		    url: "/buscarPortada",
+		    type: "POST",
+		    contentType: "application/json",
+		    async: "false",
+		    data: portadaString,
+		    cache: false,
+		    success: (data) => {
+		    	
+		        if (data.result != null) {
+		        	
+		            $("#libro-portada").prop("src",data.result.url);
+		            $("#urlPortada").val(data.result.url);
+		        }
+		        else {
+		        	$("#portadaVal").removeClass("passive");
+		        }
 
-	    },
+		    },
 
-	    error: (errormessage) => {
+		    error: (errormessage) => {
 
-	    }
+		    }
 
-	});
+		});
+	}
+	
+	
 }
+
 
