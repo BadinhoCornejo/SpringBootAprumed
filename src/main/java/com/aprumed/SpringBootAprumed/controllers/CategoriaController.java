@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aprumed.SpringBootAprumed.helpers.VerificarSessionHelper;
@@ -67,17 +68,21 @@ public class CategoriaController {
 			categoria = categoriaService.getCategoriaById(id);
 		else
 			return "redirect:/listaCategoria";
+		
 		VerificarSessionHelper verificarSession = new VerificarSessionHelper();
 		UsuarioViewModel usr = verificarSession.verificarSession(request);
 		String returnView = verificarSession.verificarPermiso(usr, "index", "editCategoria", false, false);
 		model.put("user", usr);
 		model.put("categoria", categoria);
+		
 		return returnView;
 	}
 	
-	@PostMapping(value="/editarCategoria/{id}")
-	public String editarCategoriaPost(@PathVariable(value="id") int id, Categoria categoria) {
-		//categoriaService.updateCategoria(categoria);	
+	@PostMapping(value="/editarCategoria")
+	public String editarCategoriaPost(Categoria categoria, @RequestParam("idCat") int categoriaID) {
+		System.out.println("categoriaid------- "+categoria.getCategoriaID());
+		categoria.setCategoriaID(categoriaService.getCategoriaById(categoriaID).getCategoriaID());
+		categoriaService.addCategoria(categoria);	
 		return "redirect:/listaCategorias";
 	}
 	

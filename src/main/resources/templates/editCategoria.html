@@ -35,7 +35,7 @@
 						<h1>Editar Categoria </h1>
 					</div>
 						<div class="container">
-						<form th:action="@{/editarCategoria/{id}}" th:object="${categoria}" method="post">
+						<form th:action="@{/editarCategoria}" th:object="${categoria}" method="post">
 							<div class="col-sm-6" style="margin-bottom: 10px">
 								<label for="categoria">ID de Categoria</label>
 								<input type="text" th:field="*{categoriaID}" class="form-control" value="${categoria.categoriaID}" disabled> 
@@ -44,15 +44,9 @@
 								<label for="categoria">Nombre de la Categoria</label>
 								<input type="text" th:field="*{nombreCategoria}" class="form-control">
 							</div>
-							<!---
-							<div class="col-sm-6">
-								<label>Estado</label>
-								<input type="checkbox" checked >
-							</div>
-							--->
-
+								<input type="hidden" id="idCat" name="idCat" th:value="${categoria.categoriaID}">
 							<div class="col-sm-6" style="margin-top: 10px">
-								<button class="btn btn-primary" href="/nuevaCategoria" type="submit"
+								<button class="btn btn-primary" href="/editarCategoria" type="submit"
 									name="Nuevo">Guardar cambios</button>
 							</div>
 						</form>
