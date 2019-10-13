@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Nueva Categoria</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<script src="https://kit.fontawesome.com/e1143320de.js"></script>
+	<link rel="stylesheet" th:href="@{/css/util.css}">
+	<link rel="stylesheet" th:href="@{/css/dashboard.css}">
+</head>
+
+<body>
+	<div class="wrapper">
+		<!-- Menu lateral -->
+		<div th:replace="fragments/sidebar :: sidebar"></div>
+		<!-- Menu lateral-end -->
+
+		<!-- Contenido de la página -->
+		<div class="content">
+			<!-- Navbar -->
+			<div th:replace="fragments/navbar :: navbar"></div>
+			<!-- Navbar-end -->
+
+			<!-- Colocar contenido de la pagina aqui -->
+			<div class="container-fluid">
+				<div class="main-content">
+
+					<div>
+						<h1>Registrar nuevo Usuario</h1>
+					</div>
+
+					<div class="container">
+						<form th:action="@{/nuevoUsuario}" th:object="${usuario}" method="post">
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<label for="usuario">Apellidos</label>
+								<input type="text" th:field="*{apellido}" class="form-control">
+							</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<label for="usuario">Nombre(s)</label>
+								<input type="text" th:field="*{nombre}" class="form-control">
+							</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<label for="usuario">Email</label>
+								<input type="text" th:field="*{email}" class="form-control">
+							</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<label for="usuario">Clave de acceso</label>
+								<input type="text" th:field="*{usrPassword}" class="form-control">
+							</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<label for="usuario">Estado</label>
+								<input type="text" th:field="*{estado}" class="form-control" placeholder="Activo" disabled>
+							</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<label for="usuario">Sexo</label>
+								<select id="sexoUsr" name="sexoUsr" class="form-control" th:field="*{sexo}">
+									<option th:value="'Femenino'" th:text="Femenino"></option>
+									<option th:value="'Masculino'" th:text="Masculino"></option>
+								</select>	
+							</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<label for="usuario">Telefono contacto</label>
+								<input type="text" th:field="*{telefono}" class="form-control">
+							</div>
+							<!---
+							<div class="col-sm-6">
+								<label>Estado</label>
+								<input type="checkbox" checked >
+							</div>
+
+							private String apellido;
+							private String nombre;
+							private String email;
+							private String usrPassword;
+							private String estado;
+							private String sexo;
+							private String telefono;
+							private TipoUsuario tipoUsuario;
+							private Avatar avatar;
+							--->
+
+							<div class="col-sm-6" style="margin-top: 10px">
+								<button class="btn btn-primary" href="/nuevaCategoria" type="submit"
+									name="Nuevo">Registrar
+									nueva Categoria</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<script type="text/javascript" th:src="@{/js/util.js}"></script>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

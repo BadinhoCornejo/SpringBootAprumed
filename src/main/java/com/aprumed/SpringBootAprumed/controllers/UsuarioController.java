@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.aprumed.SpringBootAprumed.helpers.VerificarSessionHelper;
 import com.aprumed.SpringBootAprumed.models.Usuario;
 import com.aprumed.SpringBootAprumed.models.AjaxResponses.UserAjaxResponseBody;
+import com.aprumed.SpringBootAprumed.services.CategoriaService;
 import com.aprumed.SpringBootAprumed.services.UsuarioService;
 import com.aprumed.SpringBootAprumed.viewModels.UsuarioViewModel;
 
@@ -146,5 +148,29 @@ public class UsuarioController {
 		view.addObject("user", usr);
 		return view;
 	}
+	
+	@GetMapping(value = "/nuevoUsuario")
+	public String crearUsuarioGet(Map<String, Object> model, HttpServletRequest request) {
+		Usuario usuario = new Usuario();
+		VerificarSessionHelper verificaSession = new VerificarSessionHelper();
+		UsuarioViewModel usr = verificaSession.verificarSession(request);
+		String returnView = verificaSession.verificarPermiso(usr, "index", "newUsuario", false, false);
+		model.put("usuario", usuario);
+		model.put("user", usr);
+		return returnView;
+	}
+	
+	@PostMapping(value = "/nuevoUsuario")
+	public String crearUsuarioPost(Usuario usuario) {
+		usuario.setEstado("Activo");
+		usuarioService.addUsuario(usuario);
+		return "redirect:/listaUsuarios";
+	}
+	/*
+	@GetMapping(value = "/editarUsuario/{id}")
+	public String editarUsuarioGet(@PathVariable(value="id") int id, Map<Srting, Object> model, HttpServletRequest request) {
+		Usuario usuario = null;
+		
+	}*/
 
 }
