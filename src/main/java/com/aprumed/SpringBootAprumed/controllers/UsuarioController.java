@@ -2,6 +2,7 @@ package com.aprumed.SpringBootAprumed.controllers;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -12,17 +13,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.aprumed.SpringBootAprumed.helpers.VerificarSessionHelper;
 import com.aprumed.SpringBootAprumed.models.Usuario;
 import com.aprumed.SpringBootAprumed.models.AjaxResponses.UserAjaxResponseBody;
 import com.aprumed.SpringBootAprumed.services.UsuarioService;
+import com.aprumed.SpringBootAprumed.viewModels.UsuarioViewModel;
+
+
 
 @Controller
 public class UsuarioController {
@@ -125,6 +133,18 @@ public class UsuarioController {
 		result.setResult(usr);
 
 		return ResponseEntity.ok(result);
+	}
+	
+	@RequestMapping(value = "/listaUsuarios")
+	public ModelAndView listUsuario(Model model, HttpServletRequest request) {
+		ModelAndView view = new ModelAndView();
+		List<Usuario> lista = usuarioService.listUsuarios();
+		VerificarSessionHelper verificaSession = new VerificarSessionHelper();
+		UsuarioViewModel usr = verificaSession.verificarSession(request);
+		view.addObject("usuarios",lista);
+		view.setViewName(verificaSession.verificarPermiso(usr, "index", "usuarios", false, false));
+		view.addObject("user", usr);
+		return view;
 	}
 
 }

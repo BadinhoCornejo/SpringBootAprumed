@@ -88,16 +88,9 @@ public class CategoriaController {
 	public String editarCategoriaPost(Categoria categoria, @RequestParam("idCat") int categoriaID) {
 		Categoria refCategoria = categoriaService.getCategoriaById(categoriaID);
 		categoria.setCategoriaID(refCategoria.getCategoriaID());
-		/*if(categoria.g) {
-			categoria.setActivo();
-		}
-		else {
-			categoria.setInactivo();
-		}*/
 		categoriaService.addCategoria(categoria);
 		return "redirect:/listaCategorias";
 	}
-	//@RequestParam("estadoCat")boolean estado
 	
 	@GetMapping(value="/eliminarCategoria/{id}")
 	public String eliminarCategoriaGet(@PathVariable(value="id") int id, Map<String, Object> model, HttpServletRequest request) {
