@@ -64,7 +64,6 @@ public class CategoriaController {
 	@GetMapping(value="/editarCategoria/{id}")
 	public String editarCategoriaGet(@PathVariable(value="id") int id, Map<String, Object> model, HttpServletRequest request) {
 		Categoria categoria = null;
-		Boolean estado;
 		if(id>0) 
 			categoria = categoriaService.getCategoriaById(id);
 		else

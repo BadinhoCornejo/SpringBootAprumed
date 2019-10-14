@@ -65,27 +65,18 @@
 								<label for="usuario">Telefono contacto</label>
 								<input type="text" th:field="*{telefono}" class="form-control">
 							</div>
-							<!---
-							<div class="col-sm-6">
-								<label>Estado</label>
-								<input type="checkbox" checked >
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<label for="usuario">Puesto del usuario</label>
+								<select id="tipoUsr" name="tipoUsr" class="form-control" th:field="*{tipoUsuario.tipoUsuarioID}">
+									<option th:value="2" th:text="Administrador"></option>
+									<option th:value="3" th:text="Cajero"></option>
+								</select>	
 							</div>
-
-							private String apellido;
-							private String nombre;
-							private String email;
-							private String usrPassword;
-							private String estado;
-							private String sexo;
-							private String telefono;
-							private TipoUsuario tipoUsuario;
-							private Avatar avatar;
-							--->
 
 							<div class="col-sm-6" style="margin-top: 10px">
 								<button class="btn btn-primary" href="/nuevaCategoria" type="submit"
 									name="Nuevo">Registrar
-									nueva Categoria</button>
+									nueva Usuario</button>
 							</div>
 						</form>
 					</div>

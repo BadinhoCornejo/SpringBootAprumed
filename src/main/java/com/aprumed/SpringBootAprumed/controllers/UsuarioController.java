@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aprumed.SpringBootAprumed.helpers.VerificarSessionHelper;
+import com.aprumed.SpringBootAprumed.models.Avatar;
 import com.aprumed.SpringBootAprumed.models.Usuario;
 import com.aprumed.SpringBootAprumed.models.AjaxResponses.UserAjaxResponseBody;
 import com.aprumed.SpringBootAprumed.services.CategoriaService;
@@ -162,15 +163,60 @@ public class UsuarioController {
 	
 	@PostMapping(value = "/nuevoUsuario")
 	public String crearUsuarioPost(Usuario usuario) {
+		Avatar avatar = new Avatar();
+		avatar.setAvatarID(1);
 		usuario.setEstado("Activo");
+		usuario.setAvatar(avatar);
 		usuarioService.addUsuario(usuario);
 		return "redirect:/listaUsuarios";
 	}
-	/*
+	
 	@GetMapping(value = "/editarUsuario/{id}")
-	public String editarUsuarioGet(@PathVariable(value="id") int id, Map<Srting, Object> model, HttpServletRequest request) {
+	public String editarUsuarioGet(@PathVariable(value="id") int id, Map<String, Object> model, HttpServletRequest request) {
 		Usuario usuario = null;
-		
-	}*/
-
+		if(id>0)
+			usuario = usuarioService.getUsuario(id);
+		else
+			return "redirect:/listaUsuarios";
+		VerificarSessionHelper verificaSession = new VerificarSessionHelper();
+		UsuarioViewModel usr = verificaSession.verificarSession(request);
+		String returnView = verificaSession.verificarPermiso(usr, "index", "editUsuario", false, false);
+		model.put("user", usr);
+		model.put("usuario", usuario);
+		//if(usuario)
+		//model.put("", value)
+		return returnView;
+	}
+	
+	@PostMapping(value = "/editarUsuario")
+	public String editarUsuarioPost(Usuario usuario, @RequestParam("idUsr") int usuarioID,
+			@RequestParam("keyUsr") String clave, @RequestParam("avatUsr") int avatarID) {
+		Avatar avatar = new Avatar();
+		avatar.setAvatarID(avatarID);
+		Usuario refUsuario = usuarioService.getUsuario(usuarioID);
+		usuario.setUsuarioID(refUsuario.getUsuarioID());
+		usuario.setUsrPassword(clave);
+		usuario.setAvatar(avatar);
+		usuarioService.addUsuario(usuario);
+		return "redirect:/listaUsuarios";
+	}
+	
+	@GetMapping(value = "/eliminarUsuario/{id}")
+	public String eliminarUsuarioGet(@PathVariable(value="id") int id, Map<String, Object> model, HttpServletRequest request) {
+		VerificarSessionHelper verificaSession = new VerificarSessionHelper();
+		Usuario usuario = null;
+		String returnView;
+		UsuarioViewModel usr;
+		if(id>0){
+			usuario = usuarioService.getUsuario(id);
+			usuario.setEstado("Inactivo");
+			usr = verificaSession.verificarSession(request);
+			returnView = verificaSession.verificarPermiso(usr, "index", "usuarios", false, false);
+			usuarioService.addUsuario(usuario);
+			model.put("user", usr);
+			return "redirect:/listaUsuarios";
+		}
+		else
+			return "redirect:/listaUsuarios";
+	}
 }
