@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 </head>
 <body>
-	<div th:fragment="modalForPortada" class="modal fade" id="portadaModal"
+	<div th:fragment="modalForPortada(portadaUrl)" class="modal fade" id="portadaModal"
 		tabindex="-1" role="dialog" aria-labelledby="portadaModalTitle"
 		aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
@@ -29,13 +29,13 @@
 
 							<div class="img-container">
 								<img alt="default" class="portrait" id="libro-portada"
-									src="https://firebasestorage.googleapis.com/v0/b/aprumed.appspot.com/o/Books%2Fno-image.jpg?alt=media&token=02ff92cc-31c3-4137-8e25-50fbeb850797">
+									th:src="${portadaUrl}">
 							</div>
 
 							<div class="col mt-4">
 								<label for="portada_url">URL</label> <input type="url"
 									class="form-control" id="portada_url"
-									placeholder="Introduce la URL de la imagen" required="required">
+									placeholder="Introduce la URL de la imagen" th:value="${portadaUrl}" required="required">
 
 							</div>
 						</div>

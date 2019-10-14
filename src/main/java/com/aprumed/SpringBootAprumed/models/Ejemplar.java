@@ -55,5 +55,20 @@ public class Ejemplar implements Serializable{
 	public void setLibro(Libro libro) {
 		this.libro = libro;
 	}
+	
+	public void setActivo() {
+		this.estado = "Activo";
+	}
+	
+	public void setInactivo() {
+		this.estado = "Inactivo";
+	}
+	
+	public void setVendido() {
+		this.estado = "Vendido";
+	}
 
+	public void setEnCarrito() {
+		this.estado = "En Carrito";
+	}
 }

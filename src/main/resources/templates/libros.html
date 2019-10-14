@@ -58,7 +58,8 @@
 
 								<td>
 									<div class="img-container">
-										<img alt="default" class="portrait-in-list" th:src="${libro.portada.url}">
+										<img alt="default" class="portrait-in-list"
+											th:src="${libro.portada.url}">
 									</div>
 								</td>
 								<td th:text="${libro.titulo}"></td>
@@ -74,7 +75,7 @@
 									class="badge badge-pill badge-danger" th:text="${libro.estado}"></span>
 								</td>
 
-								
+
 								<td th:text="${libro.isbn}"></td>
 
 								<td>
@@ -85,15 +86,17 @@
 											<i class="fas fa-ellipsis-h"></i>
 										</button>
 										<div class="dropdown-menu dropdown-menu-right">
-											<a href="/deleteLibro?id=${libro.libroID}"
+											<a th:href="@{|/eliminarLibro/${libro.libroID}|}"
 												class="dropdown-item">Eliminar</a> <a
-												href="/updateLibro?id=${libro.libroID}"
-												class="dropdown-item">Editar</a> <a
-												href="/addEjemplar?id=${libro.libroID}"
-												class="dropdown-item">Agregar ejemplar</a>
+												th:href="@{|/editarLibro/${libro.libroID}|}"
+												class="dropdown-item">Editar</a> <a href="#addEjemplarModal"
+												data-toggle="modal" data-target="#addEjemplarModal"
+												th:data-book-id="${libro.libroID}" class="dropdown-item">Agregar
+												ejemplar</a>
 										</div>
 									</div>
 								</td>
+
 							</tr>
 						</tbody>
 					</table>
@@ -105,10 +108,14 @@
 
 	</div>
 
+	<!-- Add ejemplar -->
+	<div th:replace="fragments/addEjemplar :: addEjemplar"></div>
+	<!-- Add ejemplar -->
+
 	<script type="text/javascript" th:src="@{/js/util.js}"></script>
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 		crossorigin="anonymous"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
@@ -118,5 +125,7 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
+		
+	<script type="text/javascript" th:src="@{/js/addEjemplar.js}"></script>
 </body>
 </html>

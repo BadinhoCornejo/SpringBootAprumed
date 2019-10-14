@@ -1,5 +1,6 @@
 package com.aprumed.SpringBootAprumed.controllers;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,16 +8,23 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aprumed.SpringBootAprumed.helpers.VerificarSessionHelper;
+import com.aprumed.SpringBootAprumed.models.Ejemplar;
+import com.aprumed.SpringBootAprumed.services.EjemplarService;
 import com.aprumed.SpringBootAprumed.viewModels.UsuarioViewModel;
 
 @Controller
 public class HomeController {
+
+	@Autowired
+	EjemplarService ejemplarService;
 
 	@Value("${application.controller.titulo}")
 	private String titulo;
@@ -36,6 +44,9 @@ public class HomeController {
 		// debe redireccionar = true, es nombre de vista = false)
 		String redirect = verificarSession.verificarPermiso(usr, "index", "/dashboard", false, true);
 
+		List<Ejemplar> ejemplares = ejemplarService.listarLibros(PageRequest.of(0, 4));
+		
+		model.addAttribute("ejemplares", ejemplares);
 		model.addAttribute("user", usr);
 
 		return redirect;

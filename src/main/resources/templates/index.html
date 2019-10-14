@@ -18,8 +18,7 @@
 <body>
 
 	<header>
-		<div
-			th:replace="fragments/navbarHome :: navbarHome(${anonymous},${user})"></div>
+		<div th:replace="fragments/navbarHome :: navbarHome(${user})"></div>
 	</header>
 
 	<div class="alert_info"></div>
@@ -53,6 +52,14 @@
 				class="carousel-control-next-icon" aria-hidden="true"></span> <span
 				class="sr-only">Next</span>
 			</a>
+		</div>
+		
+		<h2 class="mt-4">Libros disponibles</h2>
+		
+		<div class="contenedor">
+			<div th:each="ejemplar: ${ejemplares}" class="ejemplarItem">
+				<div th:replace="fragments/ejemplares :: ejemplares(${ejemplar})"></div>
+			</div>
 		</div>
 
 	</div>

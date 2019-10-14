@@ -126,16 +126,34 @@ input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-s
 
 /*Main content*/
 .content {
-	display: grid;
 	align-items: center;
-	grid-template-columns: 1fr auto;
 	max-width: 922px;
 	margin: auto;
 	margin-top: 4em;
 }
 
-.carousel-inner img{
+.pub{
 	height: 40em !important;
+}
+
+.contenedor{
+	margin-top: 40px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.ejemplarItem{
+	margin-left: 12px;
+	margin-right: 12px;
+}
+
+.card-img-top{
+	height: 14rem;
+}
+
+.btn-cart i{
+	color: black;
 }
 
 /*Main content*/

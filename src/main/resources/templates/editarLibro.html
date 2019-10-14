@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Nuevo libro</title>
+<title>Editar libro</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -47,12 +47,20 @@
 			<div class="container-fluid">
 				<div class="main-content">
 					<div class="mb-4">
-						<h1>Categorías de Libros</h1>
+						<h1>Editar libro</h1>
 					</div>
 
 					<div class="container row">
-						<form th:action="@{/nuevoLibro}" th:object="${libro}"
+						<form th:action="@{/editarLibro}" th:object="${libro}"
 							method="post">
+
+							<div class="row">
+								<div class="form-group col">
+									<label for="lbr_id">ID</label> <input type="text"
+										class="form-control" id="lbr_id" th:field="*{libroID}"
+										value="${categoria.categoriaID}" readonly="readonly">
+								</div>
+							</div>
 
 							<div class="row">
 								<div class="form-group col">
@@ -110,7 +118,21 @@
 								</div>
 
 							</div>
+
+							<div class="row">
+								<div class="form-group col-5">
+									<label for="estadoLibro">Estado</label> <select
+										id="estadoLibro" name="estadoLibro" class="form-control"
+										th:field="*{estado}">
+										<option th:value="'Activo'" th:text="Activo"></option>
+										<option th:value="'Inactivo'" th:text="Inactivo"></option>
+									</select>
+								</div>
+							</div>
+
 							<input type="hidden" id="urlPortada" th:field="*{portada.url}">
+							<input type="hidden" id="idLibro" name="idLibro"
+								th:value="${libro.libroID}">
 							<div class="elegir_imagen">
 								<a href="#loginUserModal" data-toggle="modal"
 									data-target="#portadaModal" class="float-right"><i
@@ -128,7 +150,8 @@
 	</div>
 
 	<!-- Modal for user portada -->
-	<div th:replace="fragments/modalForPortada :: modalForPortada(${portadaUrl})"></div>
+	<div
+		th:replace="fragments/modalForPortada :: modalForPortada(${portadaUrl})"></div>
 	<!-- Modal for user portada -->
 
 	<script type="text/javascript" th:src="@{/js/util.js}"></script>
