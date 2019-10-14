@@ -74,7 +74,12 @@ public class CategoriaController {
 		String returnView = verificarSession.verificarPermiso(usr, "index", "editCategoria", false, false);
 		model.put("user", usr);
 		model.put("categoria", categoria);
-		
+		if(categoria.getEstado().equals("Activo")) {
+			model.put("estado","true");
+		}
+		else {
+			model.put("estado","false");
+		}
 		return returnView;
 	}
 	
@@ -82,10 +87,27 @@ public class CategoriaController {
 	public String editarCategoriaPost(Categoria categoria, @RequestParam("idCat") int categoriaID) {
 		Categoria refCategoria = categoriaService.getCategoriaById(categoriaID);
 		categoria.setCategoriaID(refCategoria.getCategoriaID());
-		categoria.setActivo();
-		categoriaService.addCategoria(categoria);	
+		categoriaService.addCategoria(categoria);
 		return "redirect:/listaCategorias";
 	}
 	
+	@GetMapping(value="/eliminarCategoria/{id}")
+	public String eliminarCategoriaGet(@PathVariable(value="id") int id, Map<String, Object> model, HttpServletRequest request) {
+		VerificarSessionHelper verificarSession = new VerificarSessionHelper();
+		Categoria categoria = null;
+		String returnView;
+		UsuarioViewModel usr;
+		if(id>0){
+			categoria = categoriaService.getCategoriaById(id);			
+			categoria.setInactivo();
+			usr = verificarSession.verificarSession(request);
+			returnView = verificarSession.verificarPermiso(usr, "index", "categorias", false, false);
+			categoriaService.addCategoria(categoria);
+			model.put("user", usr);
+			return "redirect:/listaCategorias";
+		}
+		else
+			return "redirect:/listaCategorias";
+	}
 
 }

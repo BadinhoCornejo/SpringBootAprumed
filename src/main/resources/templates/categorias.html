@@ -39,7 +39,7 @@
 					<div class="container">
 						<table class="table table-striped table bordered table-hover">
 							<thead>
-								<tr text-align="center">
+								<tr class="table text-center">
 									<th scope="col">ID</th>
 									<th scope="col">Nombre de la categoria</th>
 									<th scope="col">Estado</th>
@@ -47,8 +47,8 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="categoria: ${categorias}">
-									<td th:text="${categoria.categoriaID}" text-align="center"></td>
+								<tr th:each="categoria: ${categorias}" class="table text-center">
+									<td th:text="${categoria.categoriaID}" ></td>
 									<td th:text="${categoria.nombreCategoria}"></td>
 									<td><span th:if="${categoria.estado == 'Activo'}"
 										class="badge badge-pill badge-primary"
@@ -58,8 +58,8 @@
 										th:text="${categoria.estado}"></span></td>
 									<td><a
 										th:href="@{|/editarCategoria/${categoria.categoriaID}|}"
-										class="btn btn-generic" type="button">Editar</a> <a
-										th:href="@{|/eliminarCategoria/${categoria.categoriaID}|}" class="btn-secundary">Eliminar</a></td>
+										class="btn btn-generic" type="button">Editar</a> 
+										<a th:href="@{|/eliminarCategoria/${categoria.categoriaID}|}" class="btn-secundary">Eliminar</a>
 
 								</tr>
 							</tbody>

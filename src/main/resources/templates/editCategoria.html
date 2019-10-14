@@ -44,6 +44,13 @@
 								<label for="categoria">Nombre de la Categoria</label>
 								<input type="text" th:field="*{nombreCategoria}" class="form-control">
 							</div>
+							<div class="col-sm-6" style="margin-bottom: 10px">
+								<label for="estado">Estado</label>								
+								<select id="estadoCat" name="estadoCat" class="form-control" th:field="*{estado}">
+									<option th:value="'Activo'" th:text="Activo"></option>
+									<option th:value="'Inactivo'" th:text="Inactivo"></option>
+								</select>				
+							</div>
 								<input type="hidden" id="idCat" name="idCat" th:value="${categoria.categoriaID}">
 							<div class="col-sm-6" style="margin-top: 10px">
 								<button class="btn btn-primary" href="/editarCategoria" type="submit"

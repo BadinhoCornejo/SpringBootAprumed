@@ -14,7 +14,7 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usrRepo;
 	
-	public List<Usuario> listAll(){
+	public List<Usuario> listUsuarios(){
 		return usrRepo.findAll();
 	}
 	
