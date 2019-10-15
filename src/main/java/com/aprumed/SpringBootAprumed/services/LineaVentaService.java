@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.aprumed.SpringBootAprumed.models.LineaVenta;
 import com.aprumed.SpringBootAprumed.repositories.LineaVentaRepository;
 
+import antlr.collections.impl.LList;
+
 @Service
 public class LineaVentaService {
 
@@ -24,6 +26,14 @@ public class LineaVentaService {
 	
 	public LineaVenta getLineaVentaById(int id) {
 		return lineaVentaRepo.findById(id).get();
+	}
+	
+	public List<LineaVenta> findLineaVentaByVentaID(int ventaID) {
+		return lineaVentaRepo.findLineaVentaByVentaVentaID(ventaID);
+	}
+	
+	public LineaVenta findLineaVentaByEjemplarID(int ejemplarID) {
+		return lineaVentaRepo.findLineaVentaByEjemplarEjemplarID(ejemplarID);
 	}
 	
 	public void deleteLineaVentaById(int id) {

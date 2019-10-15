@@ -26,6 +26,10 @@ public class ComprobantePagoService {
 		return cpRepo.findById(id).get();
 	}
 	
+	public List<ComprobantePago> getLastCP(int usuarioID) {
+		return cpRepo.getLastCP(usuarioID);
+	}
+	
 	public void deleteCpById(int id) {
 		cpRepo.deleteById(id);
 	}

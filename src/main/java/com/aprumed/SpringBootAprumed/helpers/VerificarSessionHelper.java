@@ -25,7 +25,8 @@ public class VerificarSessionHelper {
 		return usr;
 	}
 
-	public String verificarPermiso(UsuarioViewModel usr, String notAdminGo, String adminGo, Boolean redirect, Boolean isRoot) {
+	public String verificarPermiso(UsuarioViewModel usr, String notAdminGo, String adminGo, Boolean redirect,
+			Boolean isRoot) {
 
 		if (usr.getUsuario() == null) {
 			if (redirect) {
@@ -36,17 +37,17 @@ public class VerificarSessionHelper {
 
 		TipoUsuario tipUser = usr.getUsuario().getTipoUsuario();
 
-		if (!tipUser.getNombreTipoUsuario().equals("Administrador")) {
+		if (tipUser.getNombreTipoUsuario().equals("Cliente")) {
 			if (redirect) {
 				return "redirect:" + notAdminGo;
 			}
 			return notAdminGo;
 		}
-		
-		if(isRoot) {
+
+		if (isRoot) {
 			return "redirect:" + adminGo;
 		}
-		
+
 		return adminGo;
 
 	}

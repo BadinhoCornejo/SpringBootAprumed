@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @SuppressWarnings("serial")
 @Entity(name = "venta")
 @Table(name = "venta")
-public class Venta implements Serializable{
+public class Venta implements Serializable {
 	private int ventaID;
 	private String estado;
 	private String fechaVenta;
@@ -47,7 +47,7 @@ public class Venta implements Serializable{
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	
+
 	@Column(name = "fechaventa")
 	public String getFechaVenta() {
 		return fechaVenta;
@@ -66,4 +66,15 @@ public class Venta implements Serializable{
 		this.horaVenta = horaVenta;
 	}
 
+	public void setActivo() {
+		this.estado = "Activo";
+	}
+
+	public void setInactiva() {
+		this.estado = "Inactiva";
+	}
+
+	public void setRealizada() {
+		this.estado = "Realizada";
+	}
 }

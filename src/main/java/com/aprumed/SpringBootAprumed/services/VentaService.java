@@ -27,6 +27,10 @@ public class VentaService {
 		return ventaRepo.findById(id).get();
 	}
 	
+	public Venta getVentaUsuario(int usuarioID) {
+		return ventaRepo.getVentaByUserAndState(usuarioID);
+	}
+	
 	public void deleteVentaById(int id) {
 		ventaRepo.deleteById(id);
 	}

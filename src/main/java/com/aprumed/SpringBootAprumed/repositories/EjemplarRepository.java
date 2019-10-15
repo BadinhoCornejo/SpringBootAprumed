@@ -1,6 +1,4 @@
 package com.aprumed.SpringBootAprumed.repositories;
-
-import java.awt.print.Pageable;
 import java.util.List;
 
 import org.springframework.data.domain.PageRequest;

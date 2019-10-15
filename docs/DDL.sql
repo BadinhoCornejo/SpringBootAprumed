@@ -404,3 +404,14 @@ VALUES
     'Viaje al centro de la tierra',
     'https://firebasestorage.googleapis.com/v0/b/aprumed.appspot.com/o/Books%2FViaje%20al%20centro%20de%20la%20tierra_%20Julio%20Verne.jpg?alt=media&token=298ab2f8-7f10-4852-8080-b9cea57ec061'
   );
+
+DELIMITER $$
+create trigger usuarioDefaultSale
+after insert
+	on usuario for each row
+begin
+	insert into venta(FechaVenta, HoraVenta, Estado, UsuarioID)
+    values(null, null, 'Activo', new.UsuarioID);
+end;$$
+
+DELIMITER ;

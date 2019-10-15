@@ -17,10 +17,12 @@ public class DashboardController {
 
 		VerificarSessionHelper verificarSession = new VerificarSessionHelper();
 		UsuarioViewModel usr = verificarSession.verificarSession(request);
+		
+		String returnView = verificarSession.verificarPermiso(usr, "index", "dashboard", false, true);
 
 		model.addAttribute("user", usr);
 
-		return "dashboard";
+		return returnView;
 
 	}
 }
