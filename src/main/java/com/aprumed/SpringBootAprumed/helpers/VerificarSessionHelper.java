@@ -29,9 +29,6 @@ public class VerificarSessionHelper {
 			Boolean isRoot) {
 
 		if (usr.getUsuario() == null) {
-			if (redirect) {
-				return "redirect:" + notAdminGo;
-			}
 			return notAdminGo;
 		}
 

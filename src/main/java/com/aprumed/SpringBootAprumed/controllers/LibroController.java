@@ -130,6 +130,7 @@ public class LibroController {
 		Portada portada = portadaService.getPortadaByUrl(libro.getPortada().getUrl());
 		libro.setLibroID(refLibro.getLibroID());
 		libro.setPortada(portada);
+		libro.setStock(refLibro.getStock());
 		libro.verificarStock();
 		libroService.addLibro(libro);
 		return "redirect:/libros";

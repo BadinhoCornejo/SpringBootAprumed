@@ -44,7 +44,7 @@ public class HomeController {
 		// debe redireccionar = true, es nombre de vista = false)
 		String redirect = verificarSession.verificarPermiso(usr, "index", "/dashboard", false, true);
 
-		List<Ejemplar> ejemplares = ejemplarService.listarLibros(PageRequest.of(0, 4));
+		List<Ejemplar> ejemplares = ejemplarService.listarLibros(PageRequest.of(0, 5));
 		
 		model.addAttribute("ejemplares", ejemplares);
 		model.addAttribute("user", usr);

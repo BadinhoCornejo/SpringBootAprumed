@@ -63,7 +63,11 @@ public class VentaController {
 		VerificarSessionHelper verificaSession = new VerificarSessionHelper();
 		UsuarioViewModel usr = verificaSession.verificarSession(request);
 		String returnView = verificaSession.verificarPermiso(usr, "/", "/dashboard", true, false);
-
+		
+		if(usr.getUsuario()==null) {
+			return "redirect:/";
+		}
+		
 		Usuario usuario = usr.getUsuario();
 
 		Venta venta = ventaService.getVentaUsuario(usuario.getUsuarioID());
@@ -78,6 +82,13 @@ public class VentaController {
 		lineaVentaService.addLineaVenta(lineaVenta);
 
 		ejemplar.setEnCarrito();
+		Libro libro = ejemplar.getLibro();
+
+		libro = ejemplar.getLibro();
+		libro.quitStock();
+		libro.verificarStock();
+
+		libroService.addLibro(libro);
 		ejemplarService.addEjemplar(ejemplar);
 
 		return returnView;
@@ -96,6 +107,14 @@ public class VentaController {
 		lineaVentaService.deleteLineaVentaById(lineaVenta.getLineaVentaID());
 		;
 
+		Libro libro = ejemplar.getLibro();
+
+		libro = ejemplar.getLibro();
+		libro.addStock();
+		libro.verificarStock();
+
+		libroService.addLibro(libro);
+
 		ejemplar.setActivo();
 		ejemplarService.addEjemplar(ejemplar);
 
@@ -108,6 +127,10 @@ public class VentaController {
 		UsuarioViewModel usr = verificaSession.verificarSession(request);
 		String returnView = verificaSession.verificarPermiso(usr, "carrito", "dashboard", false, false);
 
+		if(usr.getUsuario()==null) {
+			return "redirect:/";
+		}
+		
 		Usuario usuario = usr.getUsuario();
 
 		Venta venta = ventaService.getVentaUsuario(usuario.getUsuarioID());
@@ -163,17 +186,13 @@ public class VentaController {
 		Double subtotal = 0d;
 
 		for (LineaVenta lineaVenta : lineasVenta) {
-			Libro libro = new Libro();
+
 			Ejemplar ejemplar = new Ejemplar();
 
 			ejemplar = lineaVenta.getEjemplar();
 			ejemplar.setVendido();
-			libro = ejemplar.getLibro();
-			libro.quitStock();
-			libro.verificarStock();
 
 			ejemplarService.addEjemplar(ejemplar);
-			libroService.addLibro(libro);
 
 			subtotal += ejemplar.getLibro().getPrecio();
 

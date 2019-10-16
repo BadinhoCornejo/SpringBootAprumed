@@ -139,13 +139,14 @@ input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-s
 .contenedor {
 	margin-top: 40px;
 	display: flex;
-	flex-direction: row;
 	justify-content: center;
+	width: 100%;
+	flex-wrap: wrap;
 }
 
 .ejemplarItem {
-	margin-left: 12px;
-	margin-right: 12px;
+	flex: auto;
+	margin-top: 16px;
 }
 
 .card-img-top {
@@ -160,6 +161,7 @@ input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-s
 	height: 400px;
 	border: none;
 	background-color: transparent;
+	
 }
 
 .card-footer {
@@ -211,11 +213,11 @@ a.btn-pro {
 	color: white;
 }
 
-button.btn-pro{
+button.btn-pro {
 	color: white;
 }
 
-button.btn-pro:hover{
+button.btn-pro:hover {
 	border: 1px solid;
 	border-radius: 4px;
 	background-color: transparent;
