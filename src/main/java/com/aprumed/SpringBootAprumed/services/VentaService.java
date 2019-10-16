@@ -1,5 +1,6 @@
 package com.aprumed.SpringBootAprumed.services;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,10 @@ public class VentaService {
 	
 	public List<Venta> listVentas(){
 		return ventaRepo.findAll();
+	}
+	
+	public List<Venta> listaVentas(){
+		return ventaRepo.listVentasByStateAndDate();
 	}
 	
 	public Venta addVenta(Venta venta) {

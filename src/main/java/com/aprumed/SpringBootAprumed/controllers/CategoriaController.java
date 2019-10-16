@@ -41,7 +41,6 @@ public class CategoriaController {
 		view.setViewName(verificarSession.verificarPermiso(usr, "index", "categorias", false,false));
 		view.addObject("user",usr);
 		return view;
-		
 	}
 	
 	@GetMapping(value="/nuevaCategoria")

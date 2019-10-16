@@ -21,8 +21,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.aprumed.SpringBootAprumed.helpers.VerificarSessionHelper;
+import com.aprumed.SpringBootAprumed.models.Categoria;
 import com.aprumed.SpringBootAprumed.models.ComprobantePago;
 import com.aprumed.SpringBootAprumed.models.Ejemplar;
 import com.aprumed.SpringBootAprumed.models.Libro;
@@ -258,5 +262,41 @@ public class VentaController {
 
 		return returnView;
 	}
+
+	@RequestMapping(value = "/listaVentas")
+	public ModelAndView listVenta(Model model, HttpServletRequest request) {
+		ModelAndView view = new ModelAndView();
+		List<Venta> lista = ventaService.listaVentas();
+		for (Venta venta : lista) {
+			System.out.println(venta.getVentaID());
+		}
+		VerificarSessionHelper verificaSession = new VerificarSessionHelper();
+		UsuarioViewModel usr = verificaSession.verificarSession(request);
+		view.addObject("ventas", lista);
+		view.setViewName(verificaSession.verificarPermiso(usr, "index", "ventas", false, false));
+		view.addObject("user",usr);
+		return view;
+	}
+	
+	@GetMapping(value = "/eliminarVenta/{id}")
+	public String eliminarVentaGet(@PathVariable("id") int id, Map<String, Object> model, HttpServletRequest request) {
+		VerificarSessionHelper verificarSession = new VerificarSessionHelper();
+		Venta venta = null;
+		String returnView;
+		UsuarioViewModel usr;
+		if(id>0)
+		{
+			venta = ventaService.getVentaById(id);
+			venta.setInactiva();
+			usr = verificarSession.verificarSession(request);
+			returnView = verificarSession.verificarPermiso(usr, "index", "ventas", false, false);
+			ventaService.addVenta(venta);
+			model.put("user", usr);
+			return "redirect:/listaVentas";
+		}
+		else
+			return "redirect:/listaVentas";
+	}
+	
 
 }

@@ -44,7 +44,8 @@
 									<th scope="col">Fecha de Venta</th>
 									<th scope="col">Hora de venta</th>
 									<th scope="col">Estado</th>
-									<th scope="col">Usuario</th>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">Opciones</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -76,9 +77,7 @@
 										</div>-->
 									</td>
 									<td>
-										<a th:href="@{|/editarUsuario/${usuario.usuarioID}|}"
-										class="btn btn-generic" type="button">Editar</a>
-										<a th:href="@{|/eliminarUsuario/${usuario.usuarioID}|}"
+										<a th:href="@{|/eliminarVenta/${venta.ventaID}|}"
 										 class="btn-secundary">Eliminar</a>
 									</td>
 									<!--
