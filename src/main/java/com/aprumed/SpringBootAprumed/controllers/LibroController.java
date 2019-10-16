@@ -2,6 +2,7 @@ package com.aprumed.SpringBootAprumed.controllers;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -65,6 +66,30 @@ public class LibroController {
 		view.setViewName(verificarSession.verificarPermiso(usr, "index", "libros", false, false));
 		view.addObject("user", usr);
 		return view;
+	}
+	
+	@PostMapping(value = "/buscarLibro")
+	public String buscarLibro(@RequestParam("parameter") String parameter,Model model, HttpServletRequest request) {
+		
+		System.out.println(parameter);
+		
+		VerificarSessionHelper verificaSession = new VerificarSessionHelper();
+		UsuarioViewModel usr = verificaSession.verificarSession(request);
+		String returnView = verificaSession.verificarPermiso(usr, "resultLibros", "resultLibroIntra", false, false);
+		
+		List<Ejemplar> results = new ArrayList<Ejemplar>();
+		
+		results = ejemplarService.buscarLibroEjemplar(parameter);
+		
+		for (Ejemplar ejemplar : results) {
+			System.out.println(ejemplar.getLibro().getAutor());
+		}
+		
+		model.addAttribute("ejemplares", results);
+		model.addAttribute("parameter", parameter);
+		model.addAttribute("user", usr);
+
+		return returnView;
 	}
 
 	@GetMapping("/nuevoLibro")
@@ -214,6 +239,34 @@ public class LibroController {
 		}
 
 		result.setResult(portada);
+
+		return ResponseEntity.ok(result);
+	}
+	
+	@PostMapping("/verLibro")
+	public ResponseEntity<Object> verLibro(@RequestBody int id, Errors errors)
+			throws UnsupportedEncodingException {
+
+		EjemplarAjaxResponseBody result = new EjemplarAjaxResponseBody();
+
+		if (errors.hasErrors()) {
+
+			result.setMsg(
+					errors.getAllErrors().stream().map(x -> x.getDefaultMessage()).collect(Collectors.joining(",")));
+
+			return ResponseEntity.badRequest().body(result);
+
+		}
+
+		Ejemplar ejemplar = ejemplarService.getEjemplarById(id);
+
+		if (ejemplar == null) {
+			result.setMsg("Error!");
+		} else {
+			result.setMsg("Success!");
+		}
+
+		result.setResult(ejemplar);
 
 		return ResponseEntity.ok(result);
 	}

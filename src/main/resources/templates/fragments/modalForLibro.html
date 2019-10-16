@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<!-- Modal -->
+	<div th:fragment="modalForLibro" class="modal fade" id="libroModal"
+		tabindex="-1" role="dialog" aria-labelledby="libroModalLabelTitle"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="libroModalLabelTitle"></h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="card" id="vp_card" style="width: 18rem;">
+						<div class="img-container-vp">
+							<img src="..." class="portrait" alt="..."
+								id="img-libro-detalle">
+						</div>
+						<div class="card-body">
+							<p class="card-text" id="card-lbrAutor">
+								<strong>Autor: </strong><span></span>
+							</p>
+							<p class="card-text" id="card-lbrDate">
+								<strong>Fecha de publicación: </strong><span></span>
+							</p>
+							<p class="card-text" id="card-lbrStock">
+								<strong>Stock: </strong><span></span>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

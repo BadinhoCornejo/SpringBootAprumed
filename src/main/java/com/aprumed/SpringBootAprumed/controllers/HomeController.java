@@ -13,10 +13,14 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aprumed.SpringBootAprumed.helpers.VerificarSessionHelper;
+import com.aprumed.SpringBootAprumed.models.Categoria;
 import com.aprumed.SpringBootAprumed.models.Ejemplar;
+import com.aprumed.SpringBootAprumed.services.CategoriaService;
 import com.aprumed.SpringBootAprumed.services.EjemplarService;
 import com.aprumed.SpringBootAprumed.viewModels.UsuarioViewModel;
 
@@ -25,6 +29,9 @@ public class HomeController {
 
 	@Autowired
 	EjemplarService ejemplarService;
+
+	@Autowired
+	CategoriaService categoriaService;
 
 	@Value("${application.controller.titulo}")
 	private String titulo;
@@ -44,13 +51,34 @@ public class HomeController {
 		// debe redireccionar = true, es nombre de vista = false)
 		String redirect = verificarSession.verificarPermiso(usr, "index", "/dashboard", false, true);
 
-		List<Ejemplar> ejemplares = ejemplarService.listarLibros(PageRequest.of(0, 5));
-		
+		List<Ejemplar> ejemplares = ejemplarService.listarLibros(PageRequest.of(0, 8));
+		List<Categoria> categorias = categoriaService.listCategorias();
+
+		model.addAttribute("categorias", categorias);
 		model.addAttribute("ejemplares", ejemplares);
 		model.addAttribute("user", usr);
 
 		return redirect;
 
+	}
+
+	@PostMapping(value = "/librosCategorias")
+	public String porCategoria(@RequestParam("lbr_cat") int categoriaID, Model model, HttpServletRequest request) {
+		model.addAttribute("titulo", this.titulo);
+
+		VerificarSessionHelper verificarSession = new VerificarSessionHelper();
+		UsuarioViewModel usr = verificarSession.verificarSession(request);
+
+		String redirect = verificarSession.verificarPermiso(usr, "index", "/dashboard", false, true);
+
+		List<Ejemplar> ejemplares = ejemplarService.listarLibrosCategoria(categoriaID, PageRequest.of(0, 8));
+		List<Categoria> categorias = categoriaService.listCategorias();
+
+		model.addAttribute("categorias", categorias);
+		model.addAttribute("ejemplares", ejemplares);
+		model.addAttribute("user", usr);
+
+		return redirect;
 	}
 
 	@GetMapping("/signOut")

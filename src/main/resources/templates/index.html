@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -51,9 +52,23 @@
 				class="sr-only">Next</span>
 			</a>
 		</div>
-		
+
 		<h2 class="mt-4">Libros disponibles</h2>
-		
+
+		<form action="/librosCategorias" method="post">
+			<div class="form-categorie form-group col-5">
+					<label for="lbr_cat">Categoria</label> <select id="lbr_cat"
+						name="lbr_cat" class="form-control" required="required">
+						<option th:each="categoria: ${categorias}"
+							th:value="${categoria.categoriaID}"
+							th:text="${categoria.nombreCategoria}"></option>
+
+					</select>
+					
+					<button class="btn-pro ml-4" type="submit">Filtrar</button>
+			</div>
+		</form>
+
 		<div class="contenedor">
 			<div th:each="ejemplar: ${ejemplares}" class="ejemplarItem">
 				<div th:replace="fragments/ejemplares :: ejemplares(${ejemplar})"></div>
@@ -65,10 +80,13 @@
 	<!-- Modal for user login -->
 	<div th:replace="fragments/modalForUserLogin :: modalForUserLogin"></div>
 	<!-- Modal for user login -->
-	
+
 	<!-- Modal for user register -->
 	<div th:replace="fragments/modalForUserSignUp :: modalForUserSignUp"></div>
 	<!-- Modal for user register -->
+	<!-- Modal for user libro -->
+	<div th:replace="fragments/modalForLibro :: modalForLibro"></div>
+	<!-- Modal for user libro -->
 	<!-- Footer -->
 	<footer th:replace="fragments/footer :: footer"></footer>
 	<!-- Footer -->
@@ -88,6 +106,7 @@
 	<script type="text/javascript" th:src="@{/js/login_signUp.js}"></script>
 	<script type="text/javascript"
 		th:src="@{/js/validators/signUpValidator.js}"></script>
+	<script type="text/javascript" th:src="@{/js/libros.js}"></script>
 	<!-- ----------------------------- -->
 </body>
 </html>

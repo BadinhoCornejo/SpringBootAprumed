@@ -137,7 +137,7 @@ input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-s
 }
 
 .contenedor {
-	margin-top: 40px;
+	margin-top: 16px;
 	display: flex;
 	justify-content: center;
 	width: 100%;
@@ -211,6 +211,8 @@ input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-s
 a.btn-pro {
 	text-decoration: none;
 	color: white;
+	margin: 0 4px 0 4px;
+	display: flex;
 }
 
 button.btn-pro {
@@ -223,6 +225,10 @@ button.btn-pro:hover {
 	background-color: transparent;
 	transition: 450ms;
 	color: black;
+}
+
+.card-img-top:hover{
+	cursor: pointer;
 }
 
 .card-footer a {
@@ -437,4 +443,33 @@ span.emailval {
 	height: 100%;
 	width: 100%;
 	position: absolute;
+}
+
+#vp_card
+{
+	width: 100% !important;
+}
+
+.img-container-vp{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.portrait{
+	width: 215px;
+	height: 250px;
+}
+
+.form-categorie{
+	display: flex;
+	flex-direction: row;
+	padding-left: 0px;
+	margin-top: 16px;
+}
+
+.form-categorie label{
+	margin: auto;
+	margin-right: 24px;
+	font-size: 1.4em;
 }
