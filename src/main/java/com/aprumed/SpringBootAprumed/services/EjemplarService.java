@@ -34,6 +34,14 @@ public class EjemplarService {
 	public List<Ejemplar> listarLibros(PageRequest pageable) {
 		return ejemplarRepo.listEjemplaresWithPagination(pageable);
 	}
+	
+	public List<Ejemplar> buscarLibroEjemplar(String parameter ) {
+		return ejemplarRepo.buscarLibroEjemplar(parameter);
+	}
+	
+	public List<Ejemplar> listarLibrosCategoria(int categoriaID,PageRequest pageable) {
+		return ejemplarRepo.listEjemplaresWithPaginationCategorie(categoriaID,pageable);
+	}
 
 	public void deleteEjemplarById(int id) {
 		ejemplarRepo.deleteById(id);
