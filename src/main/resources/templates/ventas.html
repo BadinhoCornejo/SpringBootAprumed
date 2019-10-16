@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Lista de Usuarios</title>
+<title>Categorias</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -32,7 +32,7 @@
 			<!-- Colocar contenido de la pagina aqui -->
 			<div class="container-fluid">
 				<div class="main-content">
-					<h1>Lista de Usuarios</h1>
+					<h1>Lista de Ventas</h1>
 					</div>
 
 					<div class="container">
@@ -41,29 +41,24 @@
 								<!--text-align="center"     style="align-content: center"-->
 								<tr class="table text-center">
 									<th scope="col">ID</th>
-									<th scope="col">Apellido</th>
-									<th scope="col">Nombre</th>
-									<th scope="col">Email</th>
+									<th scope="col">Fecha de Venta</th>
+									<th scope="col">Hora de venta</th>
 									<th scope="col">Estado</th>
-									<th scope="col">Sexo</th>
-									<th scope="col">Telefono</th>
-									<th scope="col">Tipo Usuario</th>
-									<th scope="col">Avatar</th>
-									<th scope="col">Opciones</th>
+									<th scope="col">Usuario</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="usuario: ${usuarios}" class="table text-center">
-									<td th:text="${usuario.usuarioID}" style="vertical-align: middle;"></td>
-									<td th:text="${usuario.apellido}" style="vertical-align: middle;"></td>
-									<td th:text="${usuario.nombre}" style="vertical-align: middle;"></td>
-									<td th:text="${usuario.email}" style="vertical-align: middle;"></td>
-									<td style="vertical-align: middle;"><span th:if="${usuario.estado == 'Activo'}"
-											class="badge badge-pill badge-primary" th:text="${usuario.estado}"></span>
-										<span th:if="${usuario.estado == 'Inactivo'}"
-											class="badge badge-pill badge-danger" th:text="${usuario.estado}"></span>
+								<tr th:each="venta: ${ventas}" class="table text-center">
+									<td th:text="${venta.ventaID}" style="vertical-align: middle;"></td>
+									<td th:text="${venta.fechaVenta}" style="vertical-align: middle;"></td>
+									<td th:text="${venta.horaVenta}" style="vertical-align: middle;"></td>
+									<td style="vertical-align: middle;"><span th:if="${venta.estado == 'Realizada'}"
+											class="badge badge-pill badge-primary" th:text="${venta.estado}"></span>
+										<span th:if="${venta.estado == 'No Realizada'}"
+											class="badge badge-pill badge-danger" th:text="${venta.estado}"></span>
 									</td>
-									<td th:text="${usuario.sexo}" style="vertical-align: middle;"></td>
+                                    <td th:text="${venta.usuario.usuarioID}" style="vertical-align: middle;"></td>
+                                    <!---
 									<td th:text="${usuario.telefono}" style="vertical-align: middle;"></td>
 									<td th:switch="${usuario.tipoUsuario.tipoUsuarioID}"
 										style="vertical-align: middle;">
@@ -73,12 +68,12 @@
 											th:text="Administrador"></span>
 										<span th:case="'3'" class="badge badge-pill badge-primary"
 											th:text="Cajero"></span></td>
-									<td>
-										
+									<td>-->
+										<!--
 										<div class="img-container">
 											<img alt="default" class="portrait-in-list" th:src="${usuario.avatar.url}"
 												style="max-width: 50px; max-height: 50px;">
-										</div>
+										</div>-->
 									</td>
 									<td>
 										<a th:href="@{|/editarUsuario/${usuario.usuarioID}|}"
