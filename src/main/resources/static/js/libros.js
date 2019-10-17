@@ -1,6 +1,5 @@
 $(".card-img-top").click((e)=>{
 	let id = e.target.id;
-	
 	verLibro(id);
 });
 

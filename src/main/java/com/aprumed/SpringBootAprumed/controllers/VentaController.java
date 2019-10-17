@@ -267,9 +267,7 @@ public class VentaController {
 	public ModelAndView listVenta(Model model, HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
 		List<Venta> lista = ventaService.listaVentas();
-		for (Venta venta : lista) {
-			System.out.println(venta.getVentaID());
-		}
+
 		VerificarSessionHelper verificaSession = new VerificarSessionHelper();
 		UsuarioViewModel usr = verificaSession.verificarSession(request);
 		view.addObject("ventas", lista);

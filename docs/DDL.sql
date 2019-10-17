@@ -1,244 +1,205 @@
 use aprumeddb;
 
-SET FOREIGN_KEY_CHECKS=0 
-;
+SET
+  FOREIGN_KEY_CHECKS = 0;
 
-SET GLOBAL time_zone = '-3:00';
+SET
+  GLOBAL time_zone = '-3:00';
 
 /* Drop Tables */
+DROP TABLE IF EXISTS `Avatar` CASCADE;
 
-DROP TABLE IF EXISTS `Avatar` CASCADE
-;
+DROP TABLE IF EXISTS `Portada` CASCADE;
 
-DROP TABLE IF EXISTS `Portada` CASCADE
-;
+DROP TABLE IF EXISTS `Categoria` CASCADE;
 
-DROP TABLE IF EXISTS `Categoria` CASCADE
-;
+DROP TABLE IF EXISTS `ComprobantePago` CASCADE;
 
-DROP TABLE IF EXISTS `ComprobantePago` CASCADE
-;
+DROP TABLE IF EXISTS `Ejemplar` CASCADE;
 
-DROP TABLE IF EXISTS `Ejemplar` CASCADE
-;
+DROP TABLE IF EXISTS `Libro` CASCADE;
 
-DROP TABLE IF EXISTS `Libro` CASCADE
-;
+DROP TABLE IF EXISTS `LineaVenta` CASCADE;
 
-DROP TABLE IF EXISTS `LineaVenta` CASCADE
-;
+DROP TABLE IF EXISTS `Receptor` CASCADE;
 
-DROP TABLE IF EXISTS `Receptor` CASCADE
-;
+DROP TABLE IF EXISTS `TipoUsuario` CASCADE;
 
-DROP TABLE IF EXISTS `TipoUsuario` CASCADE
-;
+DROP TABLE IF EXISTS `Usuario` CASCADE;
 
-DROP TABLE IF EXISTS `Usuario` CASCADE
-;
-
-DROP TABLE IF EXISTS `Venta` CASCADE
-;
+DROP TABLE IF EXISTS `Venta` CASCADE;
 
 /* Create Tables */
+CREATE TABLE `Categoria` (
+  `NombreCategoria` NVARCHAR(30) NULL,
+  `CategoriaID` INT NOT NULL AUTO_INCREMENT,
+  `Estado` VARCHAR(20) NULL,
+  CONSTRAINT `PK_Categoria` PRIMARY KEY (`CategoriaID` ASC)
+);
 
-CREATE TABLE `Categoria`
-(
-	`NombreCategoria` NVARCHAR(30) NULL,
-	`CategoriaID` INT NOT NULL AUTO_INCREMENT,
-	`Estado` VARCHAR(20) NULL,
-	CONSTRAINT `PK_Categoria` PRIMARY KEY (`CategoriaID` ASC)
-)
+CREATE TABLE `ComprobantePago` (
+  `FechaCp` DATE NULL,
+  `HoraCp` DATETIME NULL,
+  `Ruc` NVARCHAR(13) NULL,
+  `Subtotal` DECIMAL(9, 3) NULL,
+  `ComprobantePagoID` INT NOT NULL AUTO_INCREMENT,
+  `VentaID` INT NOT NULL,
+  CONSTRAINT `PK_ComprobantePago` PRIMARY KEY (`ComprobantePagoID` ASC)
+);
 
-;
+CREATE TABLE `Ejemplar` (
+  `Sku` VARCHAR(15) NULL,
+  `EjemplarID` INT NOT NULL AUTO_INCREMENT,
+  `Estado` VARCHAR(20) NULL,
+  `LibroID` INT NOT NULL,
+  CONSTRAINT `PK_Ejemplar` PRIMARY KEY (`EjemplarID` ASC)
+);
 
-CREATE TABLE `ComprobantePago`
-(
-	`FechaCp` DATE NULL,
-	`HoraCp` DATETIME NULL,
-	`Ruc` NVARCHAR(13) NULL,
-	`Subtotal` DECIMAL(9,3) NULL,
-	`ComprobantePagoID` INT NOT NULL AUTO_INCREMENT,
-	`VentaID` INT NOT NULL,
-	CONSTRAINT `PK_ComprobantePago` PRIMARY KEY (`ComprobantePagoID` ASC)
-)
+CREATE TABLE `Libro` (
+  `Autor` NVARCHAR(40) NULL,
+  `FechaPublicacion` DATE NULL,
+  `Isbn` NVARCHAR(15) NULL,
+  `Precio` DECIMAL(9, 3) NULL,
+  `Stock` INT NULL,
+  `Titulo` NVARCHAR(60) NULL,
+  `LibroID` INT NOT NULL AUTO_INCREMENT,
+  `CategoriaID` INT NOT NULL,
+  `Estado` VARCHAR(20) NULL,
+  `PortadaID` INT NULL DEFAULT 1,
+  CONSTRAINT `PK_Libro` PRIMARY KEY (`LibroID` ASC)
+);
 
-;
+CREATE TABLE `Portada` (
+  `PortadaID` INT NOT NULL AUTO_INCREMENT,
+  `Estado` VARCHAR(30) NULL,
+  `NombrePortada` NVARCHAR(50) NULL,
+  `Url` NVARCHAR(2083) NULL,
+  CONSTRAINT `PK_Portada` PRIMARY KEY (`PortadaID` ASC)
+);
 
-CREATE TABLE `Ejemplar`
-(
-	`Sku` VARCHAR(15) NULL,
-	`EjemplarID` INT NOT NULL AUTO_INCREMENT,
-	`Estado` VARCHAR(20) NULL,
-	`LibroID` INT NOT NULL,
-	CONSTRAINT `PK_Ejemplar` PRIMARY KEY (`EjemplarID` ASC)
-)
+CREATE TABLE `LineaVenta` (
+  `LineaventaID` INT NOT NULL AUTO_INCREMENT,
+  `EjemplarID` INT NULL,
+  `VentaID` INT NULL,
+  CONSTRAINT `PK_LineaVenta` PRIMARY KEY (`LineaventaID` ASC)
+);
 
-;
+CREATE TABLE `Receptor` (
+  `Apellido` NVARCHAR(40) NULL,
+  `Dni` VARCHAR(8) NULL,
+  `Nombre` NVARCHAR(40) NULL,
+  `Telefono` VARCHAR(9) NULL,
+  `ReceptorID` INT NOT NULL AUTO_INCREMENT,
+  `VentaID` INT NOT NULL,
+  CONSTRAINT `PK_Receptor` PRIMARY KEY (`ReceptorID` ASC)
+);
 
-CREATE TABLE `Libro`
-(
-	`Autor` NVARCHAR(40) NULL,
-	`FechaPublicacion` DATE NULL,
-	`Isbn` NVARCHAR(15) NULL,
-	`Precio` DECIMAL(9,3) NULL,
-	`Stock` INT NULL,
-	`Titulo` NVARCHAR(60) NULL,
-	`LibroID` INT NOT NULL AUTO_INCREMENT,
-	`CategoriaID` INT NOT NULL,
-	`Estado` VARCHAR(20) NULL,
-    `PortadaID` INT NULL DEFAULT 1 ,
-	CONSTRAINT `PK_Libro` PRIMARY KEY (`LibroID` ASC)
-)
+CREATE TABLE `TipoUsuario` (
+  `NombreTipoUsuario` NVARCHAR(20) NULL,
+  `Estado` VARCHAR(20) NULL,
+  `TipoUsuarioID` INT NOT NULL AUTO_INCREMENT,
+  CONSTRAINT `PK_TipoUsuario` PRIMARY KEY (`TipoUsuarioID` ASC)
+);
 
-;
+CREATE TABLE `Usuario` (
+  `Apellido` NVARCHAR(40) NULL,
+  `Nombre` NVARCHAR(40) NULL,
+  `Sexo` VARCHAR(20) NULL,
+  `Telefono` VARCHAR(9) NULL,
+  `Email` NVARCHAR(40) NULL,
+  `Estado` VARCHAR(20) NULL,
+  `UsrPassword` NVARCHAR(25) NULL,
+  `UsuarioID` INT NOT NULL AUTO_INCREMENT,
+  `TipoUsuarioID` INT NOT NULL,
+  `AvatarID` INT NULL DEFAULT 1,
+  CONSTRAINT `PK_Usuario` PRIMARY KEY (`UsuarioID` ASC)
+);
 
-CREATE TABLE `Portada`
-(
-	`PortadaID` INT NOT NULL AUTO_INCREMENT,
-	`Estado` VARCHAR(30) NULL,
-	`NombrePortada` NVARCHAR(50) NULL,
-	`Url` NVARCHAR(2083) NULL,
-	CONSTRAINT `PK_Portada` PRIMARY KEY (`PortadaID` ASC)
-)
-;
+CREATE TABLE `Avatar` (
+  `AvatarID` INT NOT NULL AUTO_INCREMENT,
+  `Estado` VARCHAR(30) NULL,
+  `NombreAvatar` NVARCHAR(50) NULL,
+  `Url` NVARCHAR(2083) NULL,
+  CONSTRAINT `PK_Avatar` PRIMARY KEY (`AvatarID` ASC)
+);
 
-CREATE TABLE `LineaVenta`
-(
-	`LineaventaID` INT NOT NULL AUTO_INCREMENT,
-	`EjemplarID` INT NULL,
-	`VentaID` INT NULL,
-	CONSTRAINT `PK_LineaVenta` PRIMARY KEY (`LineaventaID` ASC)
-)
-
-;
-
-CREATE TABLE `Receptor`
-(
-	`Apellido` NVARCHAR(40) NULL,
-	`Dni` VARCHAR(8) NULL,
-	`Nombre` NVARCHAR(40) NULL,
-	`Telefono` VARCHAR(9) NULL,
-	`ReceptorID` INT NOT NULL AUTO_INCREMENT,
-	`VentaID` INT NOT NULL,
-    
-	CONSTRAINT `PK_Receptor` PRIMARY KEY (`ReceptorID` ASC)
-)
-
-;
-
-CREATE TABLE `TipoUsuario`
-(
-	`NombreTipoUsuario` NVARCHAR(20) NULL,
-	`Estado` VARCHAR(20) NULL,
-	`TipoUsuarioID` INT NOT NULL AUTO_INCREMENT,
-	CONSTRAINT `PK_TipoUsuario` PRIMARY KEY (`TipoUsuarioID` ASC)
-)
-
-;
-
-CREATE TABLE `Usuario`
-(
-	`Apellido` NVARCHAR(40) NULL,
-	`Nombre` NVARCHAR(40) NULL,
-	`Sexo` VARCHAR(20) NULL,
-	`Telefono` VARCHAR(9) NULL,
-    `Email` NVARCHAR(40) NULL,
-	`Estado` VARCHAR(20) NULL,
-	`UsrPassword` NVARCHAR(25) NULL,
-	`UsuarioID` INT NOT NULL AUTO_INCREMENT,
-	`TipoUsuarioID` INT NOT NULL,
-    `AvatarID` INT NULL DEFAULT 1 ,
-    
-	CONSTRAINT `PK_Usuario` PRIMARY KEY (`UsuarioID` ASC)
-)
-
-;
-
-CREATE TABLE `Avatar`
-(
-	`AvatarID` INT NOT NULL AUTO_INCREMENT,
-	`Estado` VARCHAR(30) NULL,
-	`NombreAvatar` NVARCHAR(50) NULL,
-	`Url` NVARCHAR(2083) NULL,
-
-	CONSTRAINT `PK_Avatar` PRIMARY KEY (`AvatarID` ASC)
-)
-;
-
-CREATE TABLE `Venta`
-(
-	`FechaVenta` DATE NULL,
-	`HoraVenta` DATETIME NULL,
-	`VentaID` INT NOT NULL AUTO_INCREMENT,
-	`Estado` VARCHAR(20) NULL,
-	`UsuarioID` INT NOT NULL,
-	CONSTRAINT `PK_Venta` PRIMARY KEY (`VentaID` ASC)
-)
-
-;
+CREATE TABLE `Venta` (
+  `FechaVenta` DATE NULL,
+  `HoraVenta` DATETIME NULL,
+  `VentaID` INT NOT NULL AUTO_INCREMENT,
+  `Estado` VARCHAR(20) NULL,
+  `UsuarioID` INT NOT NULL,
+  CONSTRAINT `PK_Venta` PRIMARY KEY (`VentaID` ASC)
+);
 
 /* Create Foreign Key Constraints */
+ALTER TABLE
+  `ComprobantePago`
+ADD
+  CONSTRAINT `FK_ComprobantePago_Venta` FOREIGN KEY (`VentaID`) REFERENCES `Venta` (`VentaID`) ON DELETE No Action ON UPDATE No Action;
 
-ALTER TABLE `ComprobantePago` 
- ADD CONSTRAINT `FK_ComprobantePago_Venta`
-	FOREIGN KEY (`VentaID`) REFERENCES `Venta` (`VentaID`) ON DELETE No Action ON UPDATE No Action
-;
+ALTER TABLE
+  `Ejemplar`
+ADD
+  CONSTRAINT `FK_Ejemplar_Libro` FOREIGN KEY (`LibroID`) REFERENCES `Libro` (`LibroID`) ON DELETE No Action ON UPDATE No Action;
 
-ALTER TABLE `Ejemplar` 
- ADD CONSTRAINT `FK_Ejemplar_Libro`
-	FOREIGN KEY (`LibroID`) REFERENCES `Libro` (`LibroID`) ON DELETE No Action ON UPDATE No Action
-;
+ALTER TABLE
+  `Libro`
+ADD
+  CONSTRAINT `FK_Libro_Categoria` FOREIGN KEY (`CategoriaID`) REFERENCES `Categoria` (`CategoriaID`) ON DELETE No Action ON UPDATE No Action;
 
-ALTER TABLE `Libro` 
- ADD CONSTRAINT `FK_Libro_Categoria`
-	FOREIGN KEY (`CategoriaID`) REFERENCES `Categoria` (`CategoriaID`) ON DELETE No Action ON UPDATE No Action
-;
+ALTER TABLE
+  `Libro`
+ADD
+  CONSTRAINT `FK_Libro_Portada` FOREIGN KEY (`PortadaID`) REFERENCES `Portada` (`PortadaID`) ON DELETE No Action ON UPDATE No Action;
 
-ALTER TABLE `Libro` 
- ADD CONSTRAINT `FK_Libro_Portada`
-	FOREIGN KEY (`PortadaID`) REFERENCES `Portada` (`PortadaID`) ON DELETE No Action ON UPDATE No Action
-;
+ALTER TABLE
+  `LineaVenta`
+ADD
+  CONSTRAINT `FK_LineaVenta_Ejemplar` FOREIGN KEY (`EjemplarID`) REFERENCES `Ejemplar` (`EjemplarID`) ON DELETE No Action ON UPDATE No Action;
 
-ALTER TABLE `LineaVenta` 
- ADD CONSTRAINT `FK_LineaVenta_Ejemplar`
-	FOREIGN KEY (`EjemplarID`) REFERENCES `Ejemplar` (`EjemplarID`) ON DELETE No Action ON UPDATE No Action
-;
+ALTER TABLE
+  `LineaVenta`
+ADD
+  CONSTRAINT `FK_LineaVenta_Venta` FOREIGN KEY (`VentaID`) REFERENCES `Venta` (`VentaID`) ON DELETE No Action ON UPDATE No Action;
 
-ALTER TABLE `LineaVenta` 
- ADD CONSTRAINT `FK_LineaVenta_Venta`
-	FOREIGN KEY (`VentaID`) REFERENCES `Venta` (`VentaID`) ON DELETE No Action ON UPDATE No Action
-;
+ALTER TABLE
+  `Receptor`
+ADD
+  CONSTRAINT `FK_Receptor_Venta` FOREIGN KEY (`VentaID`) REFERENCES `Venta` (`VentaID`) ON DELETE No Action ON UPDATE No Action;
 
-ALTER TABLE `Receptor` 
- ADD CONSTRAINT `FK_Receptor_Venta`
-	FOREIGN KEY (`VentaID`) REFERENCES `Venta` (`VentaID`) ON DELETE No Action ON UPDATE No Action
-;
+ALTER TABLE
+  `Usuario`
+ADD
+  CONSTRAINT `FK_Usuario_TipoUsuario` FOREIGN KEY (`TipoUsuarioID`) REFERENCES `TipoUsuario` (`TipoUsuarioID`) ON DELETE No Action ON UPDATE No Action;
 
-ALTER TABLE `Usuario` 
- ADD CONSTRAINT `FK_Usuario_TipoUsuario`
-	FOREIGN KEY (`TipoUsuarioID`) REFERENCES `TipoUsuario` (`TipoUsuarioID`) ON DELETE No Action ON UPDATE No Action
-;
+ALTER TABLE
+  `Usuario`
+ADD
+  CONSTRAINT `FK_Usuario_Avatar` FOREIGN KEY (`AvatarID`) REFERENCES `Avatar` (`AvatarID`) ON DELETE No Action ON UPDATE No Action;
 
-ALTER TABLE `Usuario` 
- ADD CONSTRAINT `FK_Usuario_Avatar`
-	FOREIGN KEY (`AvatarID`) REFERENCES `Avatar` (`AvatarID`) ON DELETE No Action ON UPDATE No Action
-;
+ALTER TABLE
+  `Venta`
+ADD
+  CONSTRAINT `FK_Venta_Usuario` FOREIGN KEY (`UsuarioID`) REFERENCES `Usuario` (`UsuarioID`) ON DELETE No Action ON UPDATE No Action;
 
-ALTER TABLE `Venta` 
- ADD CONSTRAINT `FK_Venta_Usuario`
-	FOREIGN KEY (`UsuarioID`) REFERENCES `Usuario` (`UsuarioID`) ON DELETE No Action ON UPDATE No Action
-;
+SET
+  FOREIGN_KEY_CHECKS = 1;
 
-SET FOREIGN_KEY_CHECKS=1 
-;
+insert into
+  tipousuario (NombreTipoUsuario, Estado)
+values
+  ("Cliente", "Activo");
 
-insert into tipousuario (NombreTipoUsuario, Estado)
-values ("Cliente", "Activo");
-insert into tipousuario (NombreTipoUsuario, Estado)
-values ("Administrador", "Activo");
-insert into tipousuario (NombreTipoUsuario, Estado)
-values ("Cajero", "Activo");
+insert into
+  tipousuario (NombreTipoUsuario, Estado)
+values
+  ("Administrador", "Activo");
+
+insert into
+  tipousuario (NombreTipoUsuario, Estado)
+values
+  ("Cajero", "Activo");
 
 INSERT INTO
   `avatar`
@@ -254,8 +215,8 @@ VALUES
     'Badinho Cornejo',
     'https://firebasestorage.googleapis.com/v0/b/aprumed.appspot.com/o/Users%2FEsta_prro.JPG?alt=media&token=ebc3921e-6b57-4765-a55d-3820eb3c18c8'
   );
-  
-  INSERT INTO
+
+INSERT INTO
   `portada`
 VALUES
   (
@@ -405,13 +366,271 @@ VALUES
     'https://firebasestorage.googleapis.com/v0/b/aprumed.appspot.com/o/Books%2FViaje%20al%20centro%20de%20la%20tierra_%20Julio%20Verne.jpg?alt=media&token=298ab2f8-7f10-4852-8080-b9cea57ec061'
   );
 
-DELIMITER $$
-create trigger usuarioDefaultSale
-after insert
-	on usuario for each row
-begin
-	insert into venta(FechaVenta, HoraVenta, Estado, UsuarioID)
-    values(null, null, 'Activo', new.UsuarioID);
-end;$$
+INSERT INTO
+  `categoria`
+VALUES
+  ('Novela', 1, 'Activo'),('Ciencia ficción', 2, 'Activo'),('Literatura peruana', 3, 'Activo'),('Infantil', 4, 'Activo'),('Filosofía', 5, 'Activo'),('Crecimiento personal', 6, 'Activo'),('Idiomas', 7, 'Activo'),('Educación', 8, 'Activo'),('Terror', 9, 'Activo'),('Fantasía', 10, 'Activo'),('Aventura', 11, 'Activo');
 
-DELIMITER ;
+INSERT INTO
+  `libro`
+VALUES
+  (
+    'Stephen King',
+    '1977-01-28',
+    '978849032872',
+    49.000,
+    4,
+    'El Resplandor',
+    1,
+    9,
+    'Activo',
+    28
+  ),(
+    'Julio Verne',
+    '1864-11-25',
+    '97895830010',
+    29.000,
+    6,
+    'Viaje Al Centro De La Tierra',
+    2,
+    11,
+    'Activo',
+    29
+  ),(
+    'Ernest Hemingway',
+    '1953-03-15',
+    '9787500120742',
+    29.000,
+    8,
+    'El Viejo Y El Mar',
+    3,
+    1,
+    'Activo',
+    24
+  ),(
+    'Cecelia Ahern',
+    '2004-02-01',
+    '9789603642534',
+    55.000,
+    7,
+    'P.S. I Love You',
+    4,
+    1,
+    'Activo',
+    5
+  ),(
+    'Gabriel García Márquez',
+    '1986-10-28',
+    '9783423113601',
+    30.000,
+    10,
+    'El Amor En Tiempos De Cólera',
+    5,
+    1,
+    'Activo',
+    8
+  ),(
+    'Nicholas Sparks',
+    '1996-10-01',
+    '9788478883356',
+    49.000,
+    9,
+    'The Notebook',
+    6,
+    1,
+    'Activo',
+    23
+  ),(
+    'J.K. Rowling',
+    '1997-06-26',
+    '9788700631625',
+    49.000,
+    9,
+    'Harry Potter y la piedra filosofal',
+    7,
+    10,
+    'Activo',
+    13
+  ),(
+    'J.K. Rowling',
+    '2005-07-16',
+    '9788884516374',
+    59.000,
+    9,
+    'Harry Potter y el misterio del príncipe',
+    8,
+    10,
+    'Activo',
+    14
+  );
+
+INSERT INTO
+  `ejemplar`
+VALUES
+  ('Boo/ElR/Ste1', 3, 'Vendido', 1),('Boo/ElR/Ste/2', 4, 'Vendido', 1),('Boo/ElR/Ste/3', 5, 'Vendido', 1),('Boo/ElR/Ste/4', 6, 'Vendido', 1),('Boo/ElR/Ste/5', 7, 'Vendido', 1),('Boo/ElR/Ste/6', 8, 'En Carrito', 1),('Boo/ElR/Ste/7', 9, 'Activo', 1),('Boo/ElR/Ste/8', 10, 'Activo', 1),('Boo/ElR/Ste/9', 11, 'Activo', 1),('Boo/ElR/Ste/10', 12, 'Activo', 1),('Boo/Via/Jul/1', 13, 'Vendido', 2),('Boo/Via/Jul/2', 14, 'Vendido', 2),('Boo/Via/Jul/3', 15, 'Vendido', 2),('Boo/Via/Jul/4', 16, 'Vendido', 2),('Boo/Via/Jul/5', 17, 'Activo', 2),('Boo/Via/Jul/6', 18, 'Activo', 2),('Boo/Via/Jul/7', 19, 'Activo', 2),('Boo/Via/Jul/8', 20, 'Activo', 2),('Boo/Via/Jul/9', 21, 'Activo', 2),('Boo/Via/Jul/10', 22, 'Activo', 2),('Boo/ElV/Ern/1', 23, 'Vendido', 3),('Boo/ElV/Ern/2', 24, 'Vendido', 3),('Boo/ElV/Ern/3', 25, 'Activo', 3),('Boo/ElV/Ern/4', 26, 'Activo', 3),('Boo/ElV/Ern/5', 27, 'Activo', 3),('Boo/ElV/Ern/6', 28, 'Activo', 3),('Boo/ElV/Ern/7', 29, 'Activo', 3),('Boo/ElV/Ern/8', 30, 'Activo', 3),('Boo/ElV/Ern/9', 31, 'Activo', 3),('Boo/ElV/Ern/10', 32, 'Activo', 3),('Boo/P.S/Cec/1	', 33, 'Vendido', 4),('Boo/P.S/Cec/2', 34, 'Vendido', 4),('Boo/P.S/Cec/3', 35, 'Vendido', 4),('Boo/P.S/Cec/4', 36, 'Activo', 4),('Boo/P.S/Cec/5', 37, 'Activo', 4),('Boo/P.S/Cec/6', 38, 'Activo', 4),('Boo/P.S/Cec/7', 39, 'Activo', 4),('Boo/P.S/Cec/8', 40, 'Activo', 4),('Boo/P.S/Cec/9', 41, 'Activo', 4),('Boo/P.S/Cec/10', 42, 'Activo', 4),('Boo/ElA/Gab/1', 43, 'Activo', 5),('Boo/ElA/Gab/2', 44, 'Activo', 5),('Boo/ElA/Gab/3', 45, 'Activo', 5),('Boo/ElA/Gab/4', 47, 'Activo', 5),('Boo/ElA/Gab/5', 48, 'Activo', 5),('Boo/ElA/Gab/6', 49, 'Activo', 5),('Boo/ElA/Gab/7', 50, 'Activo', 5),('Boo/ElA/Gab/8', 51, 'Activo', 5),('Boo/ElA/Gab/9', 52, 'Activo', 5),('Boo/ElA/Gab/10', 53, 'Activo', 5),('Boo/The/Nic/1', 54, 'Vendido', 6),('Boo/The/Nic/2', 55, 'Activo', 6),('Boo/The/Nic/3', 56, 'Activo', 6),('Boo/The/Nic/4', 57, 'Activo', 6),('Boo/The/Nic/5', 58, 'Activo', 6),('Boo/The/Nic/6', 59, 'Activo', 6),('Boo/The/Nic/7', 60, 'Activo', 6),('Boo/The/Nic/8', 61, 'Activo', 6),('Boo/The/Nic/9', 62, 'Activo', 6),('Boo/The/Nic/10', 63, 'Activo', 6),('Boo/Har/J.K/1', 64, 'Vendido', 7),('Boo/Har/J.K/2', 65, 'Activo', 7),('Boo/Har/J.K/3', 66, 'Activo', 7),('Boo/Har/J.K/4', 67, 'Activo', 7),('Boo/Har/J.K/5', 68, 'Activo', 7),('Boo/Har/J.K/6', 69, 'Activo', 7),('Boo/Har/J.K/7', 70, 'Activo', 7),('Boo/Har/J.K/8', 71, 'Activo', 7),('Boo/Har/J.K/9', 72, 'Activo', 7),('Boo/Har/J.K/10', 73, 'Activo', 7),('Boo/Har/J.K/6/1', 74, 'Activo', 8),('Boo/Har/J.K/6/2', 75, 'Activo', 8),('Boo/Har/J.K/6/3', 76, 'Activo', 8),('Boo/Har/J.K/6/4', 77, 'Activo', 8),('Boo/Har/J.K/6/5', 78, 'Activo', 8),('Boo/Har/J.K/6/6', 79, 'Activo', 8),('Boo/Har/J.K/6/7', 80, 'Activo', 8),('Boo/Har/J.K/6/8', 81, 'Activo', 8),('Boo/Har/J.K/6/9', 82, 'Activo', 8);
+
+INSERT INTO
+  `tipousuario`
+VALUES
+  ('Cliente', 'Activo', 1),('Administrador', 'Activo', 2),('Cajero', 'Activo', 3);
+
+INSERT INTO
+  `usuario`
+VALUES
+  (
+    'Cornejo Chunga',
+    'Daniel Badinho',
+    'Masculino',
+    '977969843',
+    'badinhocornejo@gmail.com',
+    'Activo',
+    'cisco',
+    1,
+    1,
+    2
+  ),(
+    'Cornejo ',
+    'Daniel Admin',
+    'Masculino',
+    '947903931',
+    'badinhocornejo@aprumed.pe',
+    'Activo',
+    'cisco',
+    2,
+    2,
+    1
+  ),(
+    'Detal',
+    'Fulano',
+    'Masculino',
+    '987264569',
+    'fulanitodetal@gmail.com',
+    'Activo',
+    'cisco',
+    3,
+    1,
+    1
+  );
+
+INSERT INTO
+  `venta`
+VALUES
+  (NULL, NULL, 1, 'Activo', 3),(
+    '2019-10-15',
+    '2019-10-15 07:00:00',
+    2,
+    'Realizada',
+    1
+  ),(
+    '2019-10-15',
+    '2019-10-15 07:54:49',
+    3,
+    'Realizada',
+    1
+  ),(
+    '2019-10-15',
+    '2019-10-15 08:08:44',
+    4,
+    'Inactiva',
+    1
+  ),(
+    '2019-10-15',
+    '2019-10-15 08:12:26',
+    5,
+    'Realizada',
+    1
+  ),(
+    '2019-10-15',
+    '2019-10-15 15:47:41',
+    6,
+    'Realizada',
+    1
+  ),(
+    '2019-10-16',
+    '2019-10-16 16:51:03',
+    7,
+    'Realizada',
+    1
+  ),(
+    '2019-10-16',
+    '2019-10-16 18:51:00',
+    8,
+    'Realizada',
+    1
+  ),(NULL, NULL, 9, 'Activo', 1);
+
+INSERT INTO
+  `lineaventa`
+VALUES
+  (1, 3, 2),(2, 13, 2),(3, 23, 2),(5, 33, 2),(6, 4, 1),(7, 5, 3),(8, 14, 3),(9, 15, 4),(10, 24, 4),(11, 6, 5),(12, 34, 5),(13, 35, 6),(16, 16, 7),(17, 7, 8),(18, 64, 8),(19, 54, 8),(20, 8, 9);
+
+INSERT INTO
+  `receptor`
+VALUES
+  ('Chunga', '71778079', 'Daniel', '987678768', 1, 3),('Chunga', '71778079', 'Daniel', '987678768', 2, 4),('Chunga', '71778079', 'Daniel', '987678768', 3, 5),('Chunga', '71778079', 'Daniel', '987678768', 4, 6),('Chunga', '71778079', 'Daniel', '987678768', 5, 7),('Chunga', '71778079', 'Daniel', '987678768', 6, 8);
+
+INSERT INTO
+  `comprobantepago`
+VALUES
+  (
+    '2019-10-15',
+    '2019-10-15 07:00:00',
+    '20554394273',
+    107.000,
+    1,
+    2
+  ),(
+    '2019-10-15',
+    '2019-10-15 07:54:49',
+    '20554394273',
+    78.900,
+    2,
+    3
+  ),(
+    '2019-10-15',
+    '2019-10-15 08:08:44',
+    '20554394273',
+    58.000,
+    3,
+    4
+  ),(
+    '2019-10-15',
+    '2019-10-15 08:12:26',
+    '20554394273',
+    104.900,
+    4,
+    5
+  ),(
+    '2019-10-15',
+    '2019-10-15 15:47:41',
+    '20554394273',
+    55.000,
+    5,
+    6
+  ),(
+    '2019-10-16',
+    '2019-10-16 16:51:03',
+    '20554394273',
+    29.000,
+    6,
+    7
+  ),(
+    '2019-10-16',
+    '2019-10-16 18:51:00',
+    '20554394273',
+    147.000,
+    7,
+    8
+  );
+
+DELIMITER $ $ create trigger usuarioDefaultSale
+after
+insert
+  on usuario for each row begin
+insert into
+  venta(FechaVenta, HoraVenta, Estado, UsuarioID)
+values(null, null, 'Activo', new.UsuarioID);
+
+end;
+
+$ $ DELIMITER;

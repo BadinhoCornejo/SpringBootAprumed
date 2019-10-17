@@ -132,6 +132,26 @@ input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-s
 	margin-top: 4em;
 }
 
+.in-success{
+	width: 100% !important;
+	display: flex;
+	justify-content: center;
+}
+
+.in-success .card-title{
+	font-size: 1.1em;
+}
+
+.in-success .cardfooter{
+	display: flex;
+	justify-content: center;
+}
+
+.in-success .cardfooter a{
+	width: 120px;
+	justify-content: center;
+}
+
 .pub {
 	height: 40em !important;
 }
