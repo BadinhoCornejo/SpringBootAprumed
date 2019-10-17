@@ -14,19 +14,28 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usrRepo;
 	
-	public List<Usuario> listAll(){
+	public List<Usuario> listUsuarios(){
 		return usrRepo.findAll();
 	}
 	
-	public void addUsuario(Usuario usuario) {
-		usrRepo.save(usuario);
+	public Usuario addUsuario(Usuario usuario) {
+		return usrRepo.save(usuario);
 	}
 	
 	public Usuario getUsuario(int id) {
 		return usrRepo.findById(id).get();
 	}
+
 	
 	public void deleteUsuario(int id) {
 		usrRepo.deleteById(id);
+	}
+	
+	public Usuario getUsuarioByEmail(String email) {
+		return usrRepo.findByEmail(email);
+	}
+	
+	public Usuario getUsuarioByEmailAndUsrPassword(String email, String usrpassword) {
+		return usrRepo.findByEmailAndUsrpassword(email, usrpassword);
 	}
 }

@@ -1,28 +1,81 @@
 package com.aprumed.SpringBootAprumed.models;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-import org.hibernate.annotations.ManyToAny;
-
-import com.aprumed.SpringBootAprumed.models.Cuenta;
 import com.aprumed.SpringBootAprumed.models.TipoUsuario;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
-public class Usuario {
+@SuppressWarnings("serial")
+@Entity(name = "usuario")
+@Table(name = "usuario")
+public class Usuario implements Serializable{
 	private int usuarioID;
 	private String apellido;
 	private String nombre;
-	private String dni;
+	private String email;
+	private String usrPassword;
+	private String estado;
 	private String sexo;
 	private String telefono;
+	private TipoUsuario tipoUsuario;
+	private Avatar avatar;
+
+	@OneToOne()
+	@JoinColumn(name = "avatarID")
+	public Avatar getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(Avatar avatar) {
+		this.avatar = avatar;
+	}
+
+	@ManyToOne()
+	@JoinColumn(name = "tipousuarioID", referencedColumnName = "tipousuarioID")
+	public TipoUsuario getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
+
+	@Column(name = "email")
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Column(name = "usrpassword")
+	public String getUsrPassword() {
+		return usrPassword;
+	}
+
+	public void setUsrPassword(String usrPassword) {
+		this.usrPassword = usrPassword;
+	}
+
+	@Column(name = "estado")
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 
 	@Id
+	@Column(name = "usuarioID")
 	public int getUsuarioID() {
 		return usuarioID;
 	}
@@ -30,8 +83,8 @@ public class Usuario {
 	public void setUsuarioID(int usuarioID) {
 		this.usuarioID = usuarioID;
 	}
-	
 
+	@Column(name = "apellido")
 	public String getApellido() {
 		return apellido;
 	}
@@ -40,6 +93,7 @@ public class Usuario {
 		this.apellido = apellido;
 	}
 
+	@Column(name = "nombre")
 	public String getNombre() {
 		return nombre;
 	}
@@ -48,14 +102,7 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 
-	public String getDni() {
-		return dni;
-	}
-
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
-
+	@Column(name = "sexo")
 	public String getSexo() {
 		return sexo;
 	}
@@ -64,6 +111,7 @@ public class Usuario {
 		this.sexo = sexo;
 	}
 
+	@Column(name = "telefono")
 	public String getTelefono() {
 		return telefono;
 	}
@@ -71,4 +119,6 @@ public class Usuario {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+	
+	
 }

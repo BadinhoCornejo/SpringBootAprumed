@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div th:fragment="modalForUserSignUp" class="modal fade"
+		id="regUserModal" tabindex="-1" role="dialog"
+		aria-labelledby="regModalTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="regUserModalTitle">Sé parte de la
+						familia APRUMED</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form id="registrar-form">
+					<div class="modal-body">
+						<div class="alert alert-danger passive" role="alert" id="regVal">Lo
+							al parecer no completaste todos los campos o el email debe estar en uso. Intenta nuevamente.</div>
+						<div class="form-group">
+							<label for="nombre">Nombre</label> <input type="text"
+								class="form-control" id="nombre" placeholder="Nombre"> <span
+								id="nombreVal" class="passive">Complete este campo</span>
+						</div>
+						<div class="form-group">
+							<label for="apellido">Apellidos</label> <input type="text"
+								class="form-control" id="apellido" placeholder="Apellidos">
+							<span id="apellidoVal" class="passive">Complete este campo</span>
+						</div>
+						<div class="form-group">
+							<label for="phone">Teléfono</label> <input type="text"
+								class="form-control" id="phone" placeholder="Teléfono">
+							<span id="phoneVal" class="passive">Complete este campo</span>
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Email</label> <input type="email"
+								class="form-control" id="email" placeholder="Enter email">
+							<span id="emailVal" class="passive">Complete este campo</span>
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">Contraseña</label> <input
+								type="password" class="form-control" id="password"
+								placeholder="Contraseña"> <span id="passwordVal"
+								class="passive">Complete este campo</span>
+						</div>
+						<fieldset class="form-group">
+							<div class="row">
+								<legend class="col-form-label col-sm-2 pt-0">Sexo</legend>
+								<div class="col-sm-10">
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="sex" id="m"
+											value="Masculino" checked> <label
+											class="form-check-label" for="gridRadios1"> Masculino
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="sex" id="f"
+											value="Femenino"> <label class="form-check-label"
+											for="gridRadios2"> Femenino </label>
+									</div>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+					<div class="modal-footer d-flex flex-row justify-content-center">
+						<button type="submit" class="btn btn-generic"
+							id="btn-registrar-usr">Crear cuenta</button>
+
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div th:fragment="ejemplares(ejemplar)" class="card"
+		style="width: 13rem;">
+		<img th:src="${ejemplar.libro.portada.url}" class="card-img-top"
+			th:alt="${ejemplar.libro.portada.nombrePortada}" th:id="${ejemplar.ejemplarID}">
+		<div class="card-body" id="libro-inf">
+			<h5 class="card-title" th:text="${ejemplar.libro.titulo}"></h5>
+			<p class="card-text" th:text="${ejemplar.libro.autor}"></p>
+			<div class="card-price">
+				<p>
+					S/<span th:text="${ejemplar.libro.precio}"></span>
+				</p>
+			</div>
+
+		</div>
+		<div class="card-footer">
+			<a th:href="@{|/agregarCarrito/${ejemplar.ejemplarID}|}"
+				class="btn-pro"><i class="fas fa-cart-plus"></i><span>Agregar</span></a>
+		</div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Editar libro</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
+<script src="https://kit.fontawesome.com/e1143320de.js"></script>
+<link rel="stylesheet" th:href="@{/css/util.css}">
+<link rel="stylesheet" th:href="@{/css/dashboard.css}">
+
+<link rel="stylesheet"
+	th:href="@{/datepicker/dist/css/bootstrap-datepicker.min.css}">
+
+<style type="text/css">
+.fa-calendar-week {
+	font-size: 1.5em;
+	margin-left: 4px;
+	color: #242939;
+	padding: 4px 4px 4px 4px;
+}
+
+.fa-calendar-week:hover {
+	cursor: pointer;
+	filter: brightness(150%);
+	color: rgba(36, 41, 57, 0.95);
+}
+</style>
+</head>
+<body>
+
+	<div class="wrapper">
+		<!-- Menu lateral -->
+		<div th:replace="fragments/sidebar :: sidebar"></div>
+		<!-- Menu lateral-end -->
+
+		<!-- Contenido de la página -->
+		<div class="content">
+			<!-- Navbar -->
+			<div th:replace="fragments/navbar :: navbar"></div>
+			<!-- Navbar-end -->
+
+			<!-- Colocar contenido de la pagina aqui -->
+			<div class="container-fluid">
+				<div class="main-content">
+					<div class="mb-4">
+						<h1>Editar libro</h1>
+					</div>
+
+					<div class="container row">
+						<form th:action="@{/editarLibro}" th:object="${libro}"
+							method="post">
+
+							<div class="row">
+								<div class="form-group col">
+									<label for="lbr_id">ID</label> <input type="text"
+										class="form-control" id="lbr_id" th:field="*{libroID}"
+										value="${categoria.categoriaID}" readonly="readonly">
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="form-group col">
+									<label for="lbr_titulo">Titulo</label> <input type="text"
+										class="form-control" id="lbr_titulo" th:field="*{titulo}"
+										placeholder="Titulo" required="required">
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="form-group col">
+									<label for="lbr_autor">Autor</label> <input type="text"
+										class="form-control" id="lbr_autor" th:field="*{autor}"
+										placeholder="Autor" required="required">
+								</div>
+
+							</div>
+
+							<div class="form-row">
+								<div class="form-group col">
+									<label for="lbr_isbn">ISBN</label> <input type="text"
+										pattern="\d*" maxlength="13" class="form-control"
+										id="lbr_isbn" th:field="*{isbn}" required="required">
+								</div>
+								<div class="form-group col">
+									<label for="tipo_usr">Categoria</label> <select id="lbr_cat"
+										name="lbr_cat" class="form-control" required="required"
+										th:field="*{categoria.categoriaID}">
+										<option th:each="categoria: ${categorias}"
+											th:value="${categoria.categoriaID}"
+											th:text="${categoria.nombreCategoria}"></option>
+
+									</select>
+								</div>
+								<div class="form-group col">
+									<label for="lbr_titulo">Precio</label> <input
+										th:field="*{precio}" type="number" step="any"
+										class="form-control" id="lbr_precio" name="lbr_precio"
+										placeholder="S/." required="required">
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="form-group col-5">
+									<label for="lbr_date">Fecha de publicación</label>
+									<div id="sandbox-container">
+										<div class="input-group date">
+											<input size="16" type="text" class="form-control"
+												id="lbr_date" th:field="*{fechaPublicacion}"
+												required="required" readonly="readonly"> <span
+												class="input-group-addon"><i
+												class="fas fa-calendar-week"></i></span>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row">
+								<div class="form-group col-5">
+									<label for="estadoLibro">Estado</label> <select
+										id="estadoLibro" name="estadoLibro" class="form-control"
+										th:field="*{estado}">
+										<option th:value="'Activo'" th:text="Activo"></option>
+										<option th:value="'Inactivo'" th:text="Inactivo"></option>
+									</select>
+								</div>
+							</div>
+
+							<input type="hidden" id="urlPortada" th:field="*{portada.url}">
+							<input type="hidden" id="idLibro" name="idLibro"
+								th:value="${libro.libroID}">
+							<div class="elegir_imagen">
+								<a href="#loginUserModal" data-toggle="modal"
+									data-target="#portadaModal" class="float-right"><i
+									class="far fa-image"></i></a>
+							</div>
+							<button type="submit" class="btn btn-generic float-right"
+								style="margin-right: 8px;">Guardar</button>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Modal for user portada -->
+	<div
+		th:replace="fragments/modalForPortada :: modalForPortada(${portadaUrl})"></div>
+	<!-- Modal for user portada -->
+
+	<script type="text/javascript" th:src="@{/js/util.js}"></script>
+
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
+	<script type="text/javascript" th:src="@{/js/portada.js}"></script>
+
+	<script type="text/javascript"
+		th:src="@{/datepicker/dist/js/bootstrap-datepicker.min.js}"></script>
+
+	<script type="text/javascript">
+		$('#sandbox-container .input-group.date').datepicker({
+			format : "yyyy-mm-dd"
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Carrito de compras</title>
+<!-- Copiar esto en todos los html -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
+<script src="https://kit.fontawesome.com/e1143320de.js"></script>
+<link rel="stylesheet" th:href="@{/css/app.css}">
+<!-- ----------------------------- -->
+</head>
+<body>
+
+	<header>
+		<div th:replace="fragments/navbarHome :: navbarHome(${user})"></div>
+	</header>
+
+	<div class="content">
+
+		<div class="page-info-container">
+			<i class="fas fa-shopping-cart"></i>
+		</div>
+
+		<div class="carrito-container">
+
+			<div class="productos-container">
+				<h2 class="mt-4 mb-4">Productos</h2>
+				<div class="item-container" th:each="ejemplar: ${carrito}">
+					<div class="img-container">
+						<img th:src="${ejemplar.libro.portada.url}"
+							alt="ejemplar.libro.portada.nombrePortada">
+					</div>
+					<div class="detail-container">
+						<strong th:text="${ejemplar.libro.titulo}"></strong>
+						<p th:text="${ejemplar.libro.autor}"></p>
+						<p >SKU: <span th:text="${ejemplar.sku}"></span></p>
+					</div>
+					<div class="price-container">
+						<p>Precio: S/<span th:text="${ejemplar.libro.precio}"></span></p>
+						<a th:href="@{|/eliminarItem/${ejemplar.ejemplarID}|}" class="btn-pro"><i class="fas fa-trash"></i><span>Eliminar</span></a>
+					</div>
+				</div>
+			</div>
+
+			<div class="subtotal-container">
+				<h2 class="mt-4 mb-4">Subtotal</h2>
+				<div class="circle">
+					<p>
+						S/<strong th:text="${subtotal}"></strong>
+					</p>
+				</div>
+				<a th:href="@{|/addReceptor|}" class="btn-pro mt-4"><i class="fas fa-chevron-right"></i><span>Continuar</span></a>
+			</div>
+
+		</div>
+
+
+	</div>
+
+
+	<!-- Footer -->
+	<footer th:replace="fragments/footer :: footer"></footer>
+	<!-- Footer -->
+
+	<!-- Copiar esto en todos los html -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
+	<!-- ----------------------------- -->
+
+</body>
+</html>
