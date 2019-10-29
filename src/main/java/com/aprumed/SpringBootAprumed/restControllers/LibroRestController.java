@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.w3c.dom.ls.LSException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -96,19 +97,40 @@ public class LibroRestController {
 		return libroService.addLibro(libro);
 	}
 	
-	@PostMapping(value = "addEjemplar", consumes = "application/json", produces = "application/json")
-	public Ejemplar agregarEjemplar(@RequestBody Ejemplar ejemplar){
-		Libro libro = libroService.getLibroById(ejemplar.getLibro().getLibroID());
-		
-		ejemplar.setActivo();
-		
-		libro.addStock();
-		
+	@PostMapping(value = "addEjemplares", consumes = "application/json", produces = "application/json")
+	public Libro agregarEjemplar(@RequestBody List<Ejemplar> ejemplares){
+
+		Libro libro = new Libro();
+
+		for (Ejemplar ejemplar : ejemplares) {
+			ejemplar.setActivo();
+			libro = libroService.getLibroById(ejemplar.libro.getLibroID());
+		}
+
+		ejemplarService.addEjemplares(ejemplares);
+
+		List<Ejemplar> ejemplaresByLibro = ejemplarService.getEjemplaresByLibro(libro.getLibroID());
+
+		int nEjemplaresActivos = 0;
+
+		for (Ejemplar item : ejemplaresByLibro) {
+				if(item.estado.equals("Activo")){
+					nEjemplaresActivos++;
+				}
+		}
+
+		libro.setStock(nEjemplaresActivos);
+
 		libro.verificarStock();
-		
-		libroService.addLibro(libro);
-		
-		return ejemplarService.addEjemplar(ejemplar);
+
+		return libroService.addLibro(libro);
+	}
+
+	@GetMapping("ejemplaresLibro/{libroID}")
+	public List<Ejemplar> ejemplaresLibro(@PathVariable int libroID)
+	{
+
+		return ejemplarService.getEjemplaresByLibro(libroID);
 	}
 
 	@GetMapping("buscarPortada/{portadaString}")

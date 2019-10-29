@@ -28,8 +28,7 @@ import com.aprumed.SpringBootAprumed.viewModels.UsuarioViewModel;
 
 
 
-@RestController
-@RequestMapping("/usuarios")
+@Controller
 public class UsuarioController {
 
 	@Autowired

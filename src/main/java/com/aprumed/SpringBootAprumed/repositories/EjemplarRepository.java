@@ -8,6 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import com.aprumed.SpringBootAprumed.models.Ejemplar;
 
 public interface EjemplarRepository extends JpaRepository<Ejemplar, Integer> {
+
+	public List<Ejemplar> findEjemplarByLibroLibroID(int libroID);
+
 	public Ejemplar findBySku(String sku);
 
 	@Query(value = "SELECT e FROM libro l INNER JOIN ejemplar e ON(l.libroID = e.libro.libroID) INNER JOIN portada p ON(l.portada.portadaID = p.portadaID)"

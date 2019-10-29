@@ -1,14 +1,11 @@
 package com.aprumed.SpringBootAprumed.models;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @SuppressWarnings("serial")
 @Entity(name = "libro")
@@ -37,6 +34,7 @@ public class Libro implements Serializable{
 	}
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "libroID")
 	public int getLibroID() {
 		return libroID;
