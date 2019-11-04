@@ -81,6 +81,7 @@ CREATE TABLE `LineaVenta` (
   `LineaventaID` INT NOT NULL AUTO_INCREMENT,
   `EjemplarID` INT NULL,
   `VentaID` INT NULL,
+  `Cantidad` INT NULL,
   CONSTRAINT `PK_LineaVenta` PRIMARY KEY (`LineaventaID` ASC)
 );
 
@@ -474,155 +475,6 @@ INSERT INTO
 VALUES
   ('Cliente', 'Activo', 1),('Administrador', 'Activo', 2),('Cajero', 'Activo', 3);
 
-INSERT INTO
-  `usuario`
-VALUES
-  (
-    'Cornejo Chunga',
-    'Daniel Badinho',
-    'Masculino',
-    '977969843',
-    'badinhocornejo@gmail.com',
-    'Activo',
-    'cisco',
-    1,
-    1,
-    2
-  ),(
-    'Cornejo ',
-    'Daniel Admin',
-    'Masculino',
-    '947903931',
-    'badinhocornejo@aprumed.pe',
-    'Activo',
-    'cisco',
-    2,
-    2,
-    1
-  ),(
-    'Detal',
-    'Fulano',
-    'Masculino',
-    '987264569',
-    'fulanitodetal@gmail.com',
-    'Activo',
-    'cisco',
-    3,
-    1,
-    1
-  );
-
-INSERT INTO
-  `venta`
-VALUES
-  (NULL, NULL, 1, 'Activo', 3),(
-    '2019-10-15',
-    '2019-10-15 07:00:00',
-    2,
-    'Realizada',
-    1
-  ),(
-    '2019-10-15',
-    '2019-10-15 07:54:49',
-    3,
-    'Realizada',
-    1
-  ),(
-    '2019-10-15',
-    '2019-10-15 08:08:44',
-    4,
-    'Inactiva',
-    1
-  ),(
-    '2019-10-15',
-    '2019-10-15 08:12:26',
-    5,
-    'Realizada',
-    1
-  ),(
-    '2019-10-15',
-    '2019-10-15 15:47:41',
-    6,
-    'Realizada',
-    1
-  ),(
-    '2019-10-16',
-    '2019-10-16 16:51:03',
-    7,
-    'Realizada',
-    1
-  ),(
-    '2019-10-16',
-    '2019-10-16 18:51:00',
-    8,
-    'Realizada',
-    1
-  ),(NULL, NULL, 9, 'Activo', 1);
-
-INSERT INTO
-  `lineaventa`
-VALUES
-  (1, 3, 2),(2, 13, 2),(3, 23, 2),(5, 33, 2),(6, 4, 1),(7, 5, 3),(8, 14, 3),(9, 15, 4),(10, 24, 4),(11, 6, 5),(12, 34, 5),(13, 35, 6),(16, 16, 7),(17, 7, 8),(18, 64, 8),(19, 54, 8),(20, 8, 9);
-
-INSERT INTO
-  `receptor`
-VALUES
-  ('Chunga', '71778079', 'Daniel', '987678768', 1, 3),('Chunga', '71778079', 'Daniel', '987678768', 2, 4),('Chunga', '71778079', 'Daniel', '987678768', 3, 5),('Chunga', '71778079', 'Daniel', '987678768', 4, 6),('Chunga', '71778079', 'Daniel', '987678768', 5, 7),('Chunga', '71778079', 'Daniel', '987678768', 6, 8);
-
-INSERT INTO
-  `comprobantepago`
-VALUES
-  (
-    '2019-10-15',
-    '2019-10-15 07:00:00',
-    '20554394273',
-    107.000,
-    1,
-    2
-  ),(
-    '2019-10-15',
-    '2019-10-15 07:54:49',
-    '20554394273',
-    78.900,
-    2,
-    3
-  ),(
-    '2019-10-15',
-    '2019-10-15 08:08:44',
-    '20554394273',
-    58.000,
-    3,
-    4
-  ),(
-    '2019-10-15',
-    '2019-10-15 08:12:26',
-    '20554394273',
-    104.900,
-    4,
-    5
-  ),(
-    '2019-10-15',
-    '2019-10-15 15:47:41',
-    '20554394273',
-    55.000,
-    5,
-    6
-  ),(
-    '2019-10-16',
-    '2019-10-16 16:51:03',
-    '20554394273',
-    29.000,
-    6,
-    7
-  ),(
-    '2019-10-16',
-    '2019-10-16 18:51:00',
-    '20554394273',
-    147.000,
-    7,
-    8
-  );
-
 DELIMITER $ $ create trigger usuarioDefaultSale
 after
 insert
@@ -634,3 +486,41 @@ values(null, null, 'Activo', new.UsuarioID);
 end;
 
 $ $ DELIMITER;
+
+INSERT INTO
+  `usuario`
+VALUES
+  (
+    'Cornejo Chunga',
+    'Daniel Badinho',
+    'Masculino',
+    '977969843',
+    'badinhocornejo@gmail.com',
+    'Activo',
+    'cisco123',
+    1,
+    1,
+    2
+  ),(
+    'Cornejo ',
+    'Daniel Admin',
+    'Masculino',
+    '947903931',
+    'badinhocornejo@aprumed.pe',
+    'Activo',
+    'cisco123',
+    2,
+    2,
+    1
+  ),(
+    'Detal',
+    'Fulano',
+    'Masculino',
+    '987264569',
+    'fulanitodetal@gmail.com',
+    'Activo',
+    'cisco123',
+    3,
+    1,
+    1
+  );

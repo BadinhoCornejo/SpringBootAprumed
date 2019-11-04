@@ -63,11 +63,8 @@ public class LibroRestController {
 
 	@PostMapping(value = "new", consumes = "application/json", produces = "application/json")
 	public Libro nuevoLibroPost(@RequestBody Libro libro) {
-
-		Portada portada = portadaService.getPortadaByUrl(libro.getPortada().getUrl());
-
+		libro.setStock(0);
 		libro.setEstado("Inactivo");
-		libro.setPortada(portada);
 
 		return libroService.addLibro(libro);
 	}
@@ -79,13 +76,18 @@ public class LibroRestController {
 	}
 
 	@PutMapping(value = "edit" , consumes = "application/json", produces = "application/json")
-	public Libro editarLibroPost(Libro libro, @RequestParam("idLibro") int libroID) {
-		Libro refLibro = libroService.getLibroById(libroID);
-		Portada portada = portadaService.getPortadaByUrl(libro.getPortada().getUrl());
-		libro.setLibroID(refLibro.getLibroID());
-		libro.setPortada(portada);
-		libro.setStock(refLibro.getStock());
-		libro.verificarStock();
+	public Libro editarLibroPost(@RequestBody Libro libro) {
+
+		Libro _libro = libroService.getLibroByIsbn(libro.getIsbn());
+
+		if(_libro != null){
+			libro.setStock(_libro.getStock());
+			libro.setLibroID(_libro.getLibroID());
+			if(libro.getPortada() == null){
+				libro.setPortada(_libro.getPortada());
+			}
+		}
+
 		return libroService.addLibro(libro);
 	}
 
@@ -94,6 +96,24 @@ public class LibroRestController {
 		Libro libro = null;
 		libro = libroService.getLibroById(id);
 		libro.setInactivo();
+		return libroService.addLibro(libro);
+	}
+
+	@PutMapping(value = "deleteEjemplar", consumes = "application/json", produces = "application/json")
+	public Libro eliminarEjemplar(@RequestBody List<Ejemplar> ejemplares){
+
+		Libro libro = new Libro();
+
+		for (Ejemplar ejemplar: ejemplares) {
+			libro = ejemplar.libro;
+		}
+
+		ejemplarService.addEjemplares(ejemplares);
+
+		List<Ejemplar> ejemplaresByLibro = ejemplarService.getEjemplaresByLibro(libro.getLibroID());
+
+		libro.calcularStock(ejemplaresByLibro);
+
 		return libroService.addLibro(libro);
 	}
 	
@@ -111,17 +131,7 @@ public class LibroRestController {
 
 		List<Ejemplar> ejemplaresByLibro = ejemplarService.getEjemplaresByLibro(libro.getLibroID());
 
-		int nEjemplaresActivos = 0;
-
-		for (Ejemplar item : ejemplaresByLibro) {
-				if(item.estado.equals("Activo")){
-					nEjemplaresActivos++;
-				}
-		}
-
-		libro.setStock(nEjemplaresActivos);
-
-		libro.verificarStock();
+		libro.calcularStock(ejemplaresByLibro);
 
 		return libroService.addLibro(libro);
 	}
@@ -133,12 +143,23 @@ public class LibroRestController {
 		return ejemplarService.getEjemplaresByLibro(libroID);
 	}
 
-	@GetMapping("buscarPortada/{portadaString}")
-	public Portada buscarPortada(@PathVariable String portadaString)
+	@PostMapping(value = "buscarPortada", consumes = "application/json", produces = "application/json")
+	public Portada buscarPortada(@RequestBody Portada portada)
 	{
-		Portada portada = portadaService.getPortadaByUrl(portadaString);
 
-		return portada;
+		return portadaService.getPortadaByNombrePortada(portada.getNombrePortada());
+	}
+
+	@PostMapping(value = "addPortada", consumes = "application/json", produces = "application/json")
+	public Portada addPortada(@RequestBody Portada portada)
+	{
+		Portada _portada = portadaService.getPortadaByNombrePortada(portada.getNombrePortada());
+
+		if(_portada != null){
+			portada.setPortadaID(_portada.getPortadaID());
+		}
+
+		return portadaService.addPortada(portada);
 	}
 	
 	@GetMapping("verLibro/{id}")

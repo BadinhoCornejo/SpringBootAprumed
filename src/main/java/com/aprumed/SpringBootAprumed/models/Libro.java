@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -141,6 +142,20 @@ public class Libro implements Serializable{
 		{
 			this.setActivo();
 		}
+	}
+
+	public void calcularStock(List<Ejemplar> ejemplares){
+		int nEjemplaresActivos = 0;
+
+		for (Ejemplar item : ejemplares) {
+			if(item.estado.equals("Activo")){
+				nEjemplaresActivos++;
+			}
+		}
+
+		this.setStock(nEjemplaresActivos);
+
+		this.verificarStock();
 	}
 
 }

@@ -33,6 +33,8 @@ public class LibroService {
 	public Libro getLibroById(int id) {
 		return libroRepo.findById(id).get();
 	}
+
+	public Libro getLibroByIsbn(String isbn) {return libroRepo.findByIsbn(isbn);}
 	
 	public void deleteLibroById(int id) {
 		

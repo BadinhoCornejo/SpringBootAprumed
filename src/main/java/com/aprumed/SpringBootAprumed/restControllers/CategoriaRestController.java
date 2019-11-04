@@ -33,7 +33,7 @@ public class CategoriaRestController {
 
 	@PostMapping(value="new", consumes = "application/json", produces = "application/json")
 	public Categoria crearCategoriaPost(@RequestBody Categoria categoria){
-		categoria.setEstado("Activo");
+		categoria.setActivo();
 		return categoriaService.addCategoria(categoria);
 	}
 	
@@ -42,10 +42,8 @@ public class CategoriaRestController {
 		return categoriaService.getCategoriaById(id);
 	}
 	
-	@PutMapping(value="edit/{id}", consumes = "application/json", produces = "application/json")
-	public Categoria editarCategoriaPost(Categoria categoria, @PathVariable(value="id") int id) {
-		Categoria refCategoria = categoriaService.getCategoriaById(id);
-		categoria.setCategoriaID(refCategoria.getCategoriaID());
+	@PutMapping(value="edit", consumes = "application/json", produces = "application/json")
+	public Categoria editarCategoriaPost(@RequestBody Categoria categoria) {
 		return categoriaService.addCategoria(categoria);
 	}
 	

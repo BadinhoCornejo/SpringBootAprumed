@@ -15,4 +15,8 @@ public class PortadaService {
 	public Portada getPortadaByUrl(String url) {
 		return portadaRepo.findByUrl(url);
 	}
+	public Portada getPortadaByNombrePortada(String nombrePotada) {
+		return portadaRepo.findByNombrePortada(nombrePotada);
+	}
+	public Portada addPortada(Portada portada){return portadaRepo.save(portada);};
 }
