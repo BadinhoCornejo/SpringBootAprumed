@@ -42,26 +42,36 @@ public class VentaRestController {
 	@Autowired
 	UsuarioService usuarioService;
 
-	@GetMapping(value = "agregarCarrito/{userID}/{id}")
-	public Ejemplar agregarAlCarrito(@PathVariable(value = "userID") int userID, @PathVariable(value = "id") int id ) {
+	@GetMapping("agregarCarrito/{userID}/{ejemplarID}")
+	public Ejemplar agregarAlCarrito(@PathVariable("userID") int userID, @PathVariable("ejemplarID") int ejemplarID ) {
+
 		Usuario usuario = usuarioService.getUsuario(userID);
 		Venta venta = ventaService.getVentaUsuario(usuario.getUsuarioID());
 
-		Ejemplar ejemplar = ejemplarService.getEjemplarById(id);
+		Ejemplar ejemplar = ejemplarService.getEjemplarById(ejemplarID);
 
-		LineaVenta lineaVenta = new LineaVenta();
+		LineaVenta lineaVenta = lineaVentaService.findLineaVentaByEjemplarID(ejemplar.getEjemplarID());
 
-		lineaVenta.setEjemplar(ejemplar);
-		lineaVenta.setVenta(venta);
+		if(lineaVenta != null){
+			return ejemplar;
+		}else
+		{
+			lineaVenta = new LineaVenta();
+
+			lineaVenta.setEjemplar(ejemplar);
+			lineaVenta.setVenta(venta);
+		}
+
+
 
 		lineaVentaService.addLineaVenta(lineaVenta);
 
 		ejemplar.setEnCarrito();
 		Libro libro = ejemplar.getLibro();
 
-		libro = ejemplar.getLibro();
-		libro.quitStock();
-		libro.verificarStock();
+		List<Ejemplar> ejemplaresByLibro = ejemplarService.getEjemplaresByLibro(libro.getLibroID());
+
+		libro.calcularStock(ejemplaresByLibro);
 
 		libroService.addLibro(libro);
 		return ejemplarService.addEjemplar(ejemplar);
@@ -117,6 +127,32 @@ public class VentaRestController {
 
 		return carrito;
 	}
+
+	@GetMapping("{userID}/myCart")
+	public List<Ejemplar> getCartFromUser(@PathVariable int userID) {
+
+
+		Usuario usuario = usuarioService.getUsuario(userID);
+
+		Venta venta = ventaService.getVentaUsuario(usuario.getUsuarioID());
+
+		List<LineaVenta> lineasVenta = lineaVentaService.findLineaVentaByVentaID(venta.getVentaID());
+
+		List<Ejemplar> ejemplares = new ArrayList<Ejemplar>();
+
+		for (LineaVenta lineaVenta:
+			 lineasVenta) {
+			Ejemplar ejemplar = new Ejemplar();
+
+			ejemplar = lineaVenta.getEjemplar();
+
+			ejemplares.add(ejemplar);
+		}
+
+		return ejemplares;
+	}
+
+
 
 	@PostMapping(value = "{userID}/addReceptor", consumes = "application/json", produces = "application/json")
 	public Receptor addReceptorPost(@PathVariable(value = "userID") int userID,@RequestBody Receptor receptor) {

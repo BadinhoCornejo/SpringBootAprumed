@@ -81,7 +81,6 @@ CREATE TABLE `LineaVenta` (
   `LineaventaID` INT NOT NULL AUTO_INCREMENT,
   `EjemplarID` INT NULL,
   `VentaID` INT NULL,
-  `Cantidad` INT NULL,
   CONSTRAINT `PK_LineaVenta` PRIMARY KEY (`LineaventaID` ASC)
 );
 
@@ -475,7 +474,8 @@ INSERT INTO
 VALUES
   ('Cliente', 'Activo', 1),('Administrador', 'Activo', 2),('Cajero', 'Activo', 3);
 
-DELIMITER $ $ create trigger usuarioDefaultSale
+DELIMITER $ $
+create trigger usuarioDefaultSale
 after
 insert
   on usuario for each row begin
@@ -483,9 +483,8 @@ insert into
   venta(FechaVenta, HoraVenta, Estado, UsuarioID)
 values(null, null, 'Activo', new.UsuarioID);
 
-end;
-
-$ $ DELIMITER;
+end $ $ 
+DELIMITER ;
 
 INSERT INTO
   `usuario`

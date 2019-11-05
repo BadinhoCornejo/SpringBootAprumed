@@ -13,6 +13,7 @@ import com.aprumed.SpringBootAprumed.services.LibroService;
 import com.aprumed.SpringBootAprumed.services.PortadaService;
 import com.aprumed.SpringBootAprumed.viewModels.UsuarioViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -160,6 +161,12 @@ public class LibroRestController {
 		}
 
 		return portadaService.addPortada(portada);
+	}
+
+	@GetMapping("mainEjemplares/{i}")
+	public List<Ejemplar> mainEjemplares(@PathVariable int i){
+		List<Ejemplar> ejemplares = ejemplarService.listarLibros( PageRequest.of(i, 8));
+		return ejemplares;
 	}
 	
 	@GetMapping("verLibro/{id}")
