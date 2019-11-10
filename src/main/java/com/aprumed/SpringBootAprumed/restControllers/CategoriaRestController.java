@@ -26,9 +26,8 @@ public class CategoriaRestController {
 	private CategoriaService categoriaService;
 
 	@GetMapping("/")
-	public List<Categoria> listCategoria(Model model){
-		List<Categoria> lista = categoriaService.listCategorias();
-		return lista;
+	public List<Categoria> listCategoria(){
+		return categoriaService.listCategorias();
 	}
 
 	@PostMapping(value="new", consumes = "application/json", produces = "application/json")
@@ -36,27 +35,12 @@ public class CategoriaRestController {
 		categoria.setActivo();
 		return categoriaService.addCategoria(categoria);
 	}
-	
-	@GetMapping(value="search/{id}")
-	public Categoria editarCategoriaGet(@PathVariable(value="id") int id, @RequestBody Categoria categoria) {
-		return categoriaService.getCategoriaById(id);
-	}
-	
+
 	@PutMapping(value="edit", consumes = "application/json", produces = "application/json")
 	public Categoria editarCategoriaPost(@RequestBody Categoria categoria) {
 		return categoriaService.addCategoria(categoria);
 	}
 	
-	@PutMapping(value="delete/{id}", consumes = "application/json", produces = "application/json")
-	public Categoria eliminarCategoriaGet(@PathVariable(value="id") int id, Map<String, Object> model) {
 
-		Categoria categoria = null;
-
-		categoria = categoriaService.getCategoriaById(id);
-		categoria.setInactivo();
-
-		return categoriaService.addCategoria(categoria);
-
-	}
 
 }

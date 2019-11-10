@@ -37,8 +37,10 @@ public class UsuarioRestController {
 	@Autowired
 	AvatarService avatarService;
 
+
 	@GetMapping("tiposUsuario")
 	public List<TipoUsuario> listTipoUsuario() { return tipoUsuarioService.listAll(); }
+
 
 	@PostMapping(value = "new", consumes = "application/json", produces = "application/json")
 	public Usuario addUser(@RequestBody Usuario usuario) {
@@ -53,6 +55,7 @@ public class UsuarioRestController {
 
 	}
 
+
 	@PutMapping(value = "edit" , consumes = "application/json", produces = "application/json")
 	public Usuario editarUsuario(@RequestBody Usuario usuario) {
 
@@ -64,6 +67,7 @@ public class UsuarioRestController {
 
 		return usuarioService.addUsuario(usuario);
 	}
+
 
 	@PostMapping(value = "buscarAvatar", consumes = "application/json", produces = "application/json")
 	public Avatar buscarPortada(@RequestBody Avatar avatar)
@@ -100,12 +104,9 @@ public class UsuarioRestController {
 
 		String cleanEmail = URLDecoder.decode(email, "UTF-8");
 
-		UserAjaxResponseBody result = new UserAjaxResponseBody();
-
 		Usuario usr = usuarioService.getUsuarioByEmail(cleanEmail);
 
 		return usr;
-
 	}
 
 	@GetMapping("/")
@@ -113,31 +114,4 @@ public class UsuarioRestController {
 		return usuarioService.listUsuarios();
 	}
 
-	
-	@GetMapping(value = "search/{id}")
-	public Usuario editarUsuarioGet(@PathVariable(value="id") int id) {
-		return usuarioService.getUsuario(id);
-
-	}
-
-	@PutMapping(value = "editarUsuario", consumes = "application/json", produces = "application/json")
-	public Usuario editarUsuarioPost(Usuario usuario, @RequestParam("idUsr") int usuarioID,
-			@RequestParam("keyUsr") String clave, @RequestParam("avatUsr") int avatarID) {
-		Avatar avatar = new Avatar();
-		avatar.setAvatarID(avatarID);
-		Usuario refUsuario = usuarioService.getUsuario(usuarioID);
-		usuario.setUsuarioID(refUsuario.getUsuarioID());
-		usuario.setUsrPassword(clave);
-		usuario.setAvatar(avatar);
-		return usuarioService.addUsuario(usuario);
-	}
-	
-	@PutMapping(value = "eliminarUsuario/{id}")
-	public Usuario eliminarUsuarioGet(@PathVariable(value="id") int id) {
-		Usuario usuario = null;
-		usuario = usuarioService.getUsuario(id);
-		usuario.setEstado("Inactivo");
-		usuarioService.addUsuario(usuario);
-		return usuario;
-	}
 }

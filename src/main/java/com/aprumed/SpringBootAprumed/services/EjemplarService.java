@@ -55,6 +55,8 @@ public class EjemplarService {
 		return ejemplarRepo.findEjemplarByLibroLibroID(libroID);
 	}
 
+	public Ejemplar getOneEjemplar(String isbn){return ejemplarRepo.getOneEjemplar(isbn);}
+
 	public void deleteEjemplarById(int id) {
 		ejemplarRepo.deleteById(id);
 	}

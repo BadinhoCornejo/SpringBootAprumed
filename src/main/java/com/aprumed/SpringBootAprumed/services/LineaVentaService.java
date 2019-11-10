@@ -2,6 +2,7 @@ package com.aprumed.SpringBootAprumed.services;
 
 import java.util.List;
 
+import com.aprumed.SpringBootAprumed.models.Ejemplar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,4 +40,7 @@ public class LineaVentaService {
 	public void deleteLineaVentaById(int id) {
 		lineaVentaRepo.deleteById(id);
 	}
+
+	public List<Ejemplar> getEjemplaresGroup(int usuarioID){return lineaVentaRepo.getEjemplaresGroup(usuarioID);}
+	public int getCantidadPorEjemplar(int usuarioID, String isbn){return lineaVentaRepo.getCantidadPorProducto(usuarioID, isbn);}
 }

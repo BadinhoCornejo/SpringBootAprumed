@@ -41,10 +41,18 @@ public class LibroRestController {
 
 	@Autowired
 	private CategoriaService categoriaService;
-	
+
 	@Autowired
 	private EjemplarService ejemplarService;
 
+	//Listar los ejemplares en la pagina principal
+	@GetMapping("mainEjemplares/{i}")
+	public List<Ejemplar> mainEjemplares(@PathVariable int i){
+		List<Ejemplar> ejemplares = ejemplarService.listarLibros( PageRequest.of(i, 8));
+		return ejemplares;
+	}
+
+	//Simple lista de los libros
 	@GetMapping("/")
 	public List<Libro> listaLibros(HttpServletRequest request) {
 
@@ -53,10 +61,20 @@ public class LibroRestController {
 		return libros;
 
 	}
-	
+
+	//Ver detalle de un libro
+	@GetMapping("verLibro/{libroID}")
+	public Ejemplar verLibro(@PathVariable int libroID) {
+
+		Ejemplar ejemplar = ejemplarService.getEjemplarById(libroID);
+
+		return ejemplar;
+	}
+	//Para la barra de búsqueda
+
 	@GetMapping(value = "searchEjemplar/{parameter}")
 	public List<Ejemplar> buscarLibro(@PathVariable("parameter") String parameter) {
-		
+
 		List<Ejemplar> results = ejemplarService.buscarLibroEjemplar(parameter);
 		return results;
 	}
@@ -68,12 +86,6 @@ public class LibroRestController {
 		libro.setEstado("Inactivo");
 
 		return libroService.addLibro(libro);
-	}
-
-	@GetMapping(value = "search/{id}")
-	public Libro editarLibroGet(@PathVariable int id){
-
-		return libroService.getLibroById(id);
 	}
 
 	@PutMapping(value = "edit" , consumes = "application/json", produces = "application/json")
@@ -117,7 +129,7 @@ public class LibroRestController {
 
 		return libroService.addLibro(libro);
 	}
-	
+
 	@PostMapping(value = "addEjemplares", consumes = "application/json", produces = "application/json")
 	public Libro agregarEjemplar(@RequestBody List<Ejemplar> ejemplares){
 
@@ -161,19 +173,5 @@ public class LibroRestController {
 		}
 
 		return portadaService.addPortada(portada);
-	}
-
-	@GetMapping("mainEjemplares/{i}")
-	public List<Ejemplar> mainEjemplares(@PathVariable int i){
-		List<Ejemplar> ejemplares = ejemplarService.listarLibros( PageRequest.of(i, 8));
-		return ejemplares;
-	}
-	
-	@GetMapping("verLibro/{id}")
-	public Ejemplar verLibro(@PathVariable int id) {
-
-		Ejemplar ejemplar = ejemplarService.getEjemplarById(id);
-
-		return ejemplar;
 	}
 }
