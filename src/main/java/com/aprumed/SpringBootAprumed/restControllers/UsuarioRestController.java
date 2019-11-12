@@ -72,7 +72,6 @@ public class UsuarioRestController {
 	@PostMapping(value = "buscarAvatar", consumes = "application/json", produces = "application/json")
 	public Avatar buscarPortada(@RequestBody Avatar avatar)
 	{
-
 		return avatarService.getAvatarByName(avatar.getNombreAvatar());
 	}
 
@@ -108,10 +107,4 @@ public class UsuarioRestController {
 
 		return usr;
 	}
-
-	@GetMapping("/")
-	public List<Usuario> listUsuario(){
-		return usuarioService.listUsuarios();
-	}
-
 }

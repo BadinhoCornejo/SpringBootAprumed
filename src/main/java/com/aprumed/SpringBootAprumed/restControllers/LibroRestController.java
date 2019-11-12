@@ -52,16 +52,6 @@ public class LibroRestController {
 		return ejemplares;
 	}
 
-	//Simple lista de los libros
-	@GetMapping("/")
-	public List<Libro> listaLibros(HttpServletRequest request) {
-
-		List<Libro> libros = libroService.listLibros();
-
-		return libros;
-
-	}
-
 	//Ver detalle de un libro
 	@GetMapping("verLibro/{libroID}")
 	public Ejemplar verLibro(@PathVariable int libroID) {
@@ -70,46 +60,13 @@ public class LibroRestController {
 
 		return ejemplar;
 	}
-	//Para la barra de búsqueda
 
+	//Para la barra de búsqueda
 	@GetMapping(value = "searchEjemplar/{parameter}")
 	public List<Ejemplar> buscarLibro(@PathVariable("parameter") String parameter) {
 
 		List<Ejemplar> results = ejemplarService.buscarLibroEjemplar(parameter);
 		return results;
-	}
-
-
-	@PostMapping(value = "new", consumes = "application/json", produces = "application/json")
-	public Libro nuevoLibroPost(@RequestBody Libro libro) {
-		libro.setStock(0);
-		libro.setEstado("Inactivo");
-
-		return libroService.addLibro(libro);
-	}
-
-	@PutMapping(value = "edit" , consumes = "application/json", produces = "application/json")
-	public Libro editarLibroPost(@RequestBody Libro libro) {
-
-		Libro _libro = libroService.getLibroByIsbn(libro.getIsbn());
-
-		if(_libro != null){
-			libro.setStock(_libro.getStock());
-			libro.setLibroID(_libro.getLibroID());
-			if(libro.getPortada() == null){
-				libro.setPortada(_libro.getPortada());
-			}
-		}
-
-		return libroService.addLibro(libro);
-	}
-
-	@PutMapping(value = "eliminarLibro/{id}", consumes = "application/json", produces = "application/json")
-	public Libro eliminarLibro(@PathVariable(value = "id") int id) {
-		Libro libro = null;
-		libro = libroService.getLibroById(id);
-		libro.setInactivo();
-		return libroService.addLibro(libro);
 	}
 
 	@PutMapping(value = "deleteEjemplar", consumes = "application/json", produces = "application/json")
@@ -119,25 +76,6 @@ public class LibroRestController {
 
 		for (Ejemplar ejemplar: ejemplares) {
 			libro = ejemplar.libro;
-		}
-
-		ejemplarService.addEjemplares(ejemplares);
-
-		List<Ejemplar> ejemplaresByLibro = ejemplarService.getEjemplaresByLibro(libro.getLibroID());
-
-		libro.calcularStock(ejemplaresByLibro);
-
-		return libroService.addLibro(libro);
-	}
-
-	@PostMapping(value = "addEjemplares", consumes = "application/json", produces = "application/json")
-	public Libro agregarEjemplar(@RequestBody List<Ejemplar> ejemplares){
-
-		Libro libro = new Libro();
-
-		for (Ejemplar ejemplar : ejemplares) {
-			ejemplar.setActivo();
-			libro = libroService.getLibroById(ejemplar.libro.getLibroID());
 		}
 
 		ejemplarService.addEjemplares(ejemplares);

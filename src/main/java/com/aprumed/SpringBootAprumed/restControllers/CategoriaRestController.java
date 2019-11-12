@@ -30,17 +30,5 @@ public class CategoriaRestController {
 		return categoriaService.listCategorias();
 	}
 
-	@PostMapping(value="new", consumes = "application/json", produces = "application/json")
-	public Categoria crearCategoriaPost(@RequestBody Categoria categoria){
-		categoria.setActivo();
-		return categoriaService.addCategoria(categoria);
-	}
-
-	@PutMapping(value="edit", consumes = "application/json", produces = "application/json")
-	public Categoria editarCategoriaPost(@RequestBody Categoria categoria) {
-		return categoriaService.addCategoria(categoria);
-	}
-	
-
 
 }

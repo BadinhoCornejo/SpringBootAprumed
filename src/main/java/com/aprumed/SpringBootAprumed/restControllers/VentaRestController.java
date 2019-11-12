@@ -198,13 +198,4 @@ public class VentaRestController {
 
 	}
 
-	@GetMapping(value = "listaVentas")
-	public List<Venta> listVenta(Model model ) {
-		List<Venta> lista = ventaService.listaVentas();
-
-		return lista;
-	}
-
-	
-
 }
