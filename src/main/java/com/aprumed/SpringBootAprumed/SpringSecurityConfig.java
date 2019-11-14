@@ -32,7 +32,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 
         provider.setUserDetailsService(userDetailsService);
-        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+        provider.setPasswordEncoder(passwordEncoder());
 
         return provider;
     }
@@ -43,22 +43,20 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/books/**","/categories/**","/users/**","/sales/**");
+        web.ignoring().antMatchers("/books/**","/categories/**","/users/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/admin/**")
-                .hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.POST,"/admin/**")
-                .hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.PUT,"/admin/**")
-                .hasAnyRole("ADMIN")
+                .antMatchers("/sales/**")
+                .hasRole("USER")
+                .and()
+                .antMatchers("/admin/**")
+                .hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
-                // .formLogin().and()
                 .httpBasic();
     }
 
