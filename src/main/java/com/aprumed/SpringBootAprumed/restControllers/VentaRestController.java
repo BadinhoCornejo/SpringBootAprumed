@@ -184,15 +184,17 @@ public class VentaRestController {
 		LineaVenta lineaVenta = lineaVentaService.findLineaVentaByEjemplarID(ejemplarID);
 
 		lineaVentaService.deleteLineaVentaById(lineaVenta.getLineaVentaID());
-		;
 
 		Libro libro = ejemplar.getLibro();
+	
 		List<Ejemplar> ejemplaresByLibro = ejemplarService.getEjemplaresByLibro(libro.getLibroID());
-
+		
+		//Check this count
 		libro.calcularStock(ejemplaresByLibro);
 
 		libroService.addLibro(libro);
 
+		//With this (must be before)
 		ejemplar.setActivo();
 		return ejemplarService.addEjemplar(ejemplar);
 
