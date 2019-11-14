@@ -74,6 +74,8 @@ public class LibroRestController {
 
 		Libro libro = new Libro();
 
+		//libro = ejemplares.get(0).getLibro(); Check this
+		
 		for (Ejemplar ejemplar: ejemplares) {
 			libro = ejemplar.libro;
 		}
