@@ -36,6 +36,9 @@ public class UsuarioRestController {
 
 	@Autowired
 	AvatarService avatarService;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 
 	@GetMapping("tiposUsuario")
@@ -50,6 +53,9 @@ public class UsuarioRestController {
 
 		usuario.setEstado("Activo");
 		usuario.setAvatar(avatar);
+		
+		//Encrypt password
+		usuario.setUsrPassword(passwordEncoder.encode(usuario.getUsrPassword));
 
 		return usuarioService.addUsuario(usuario);
 
