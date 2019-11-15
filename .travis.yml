@@ -1,12 +1,10 @@
 language: java
 
-before_install:
- - chmod +x gradlew
-
 jdk:
  - openjdk8
-
-script: ./mvnw clean install
+ 
+ script:
+  - sudo /usr/local/maven/bin/mvn clean package
 
 notifications: 
   email: badinhocornejo@gmail.com
