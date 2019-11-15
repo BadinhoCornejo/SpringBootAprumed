@@ -11,7 +11,10 @@ import com.aprumed.SpringBootAprumed.services.UsuarioService;
 import com.aprumed.SpringBootAprumed.viewModels.UsuarioViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,10 +39,11 @@ public class UsuarioRestController {
 
 	@Autowired
 	AvatarService avatarService;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
 	@GetMapping("tiposUsuario")
 	public List<TipoUsuario> listTipoUsuario() { return tipoUsuarioService.listAll(); }
@@ -55,7 +59,7 @@ public class UsuarioRestController {
 		usuario.setAvatar(avatar);
 		
 		//Encrypt password
-		usuario.setUsrPassword(passwordEncoder.encode(usuario.getUsrPassword));
+		usuario.setUsrPassword(passwordEncoder().encode(usuario.getUsrPassword()));
 
 		return usuarioService.addUsuario(usuario);
 
@@ -70,6 +74,8 @@ public class UsuarioRestController {
 			if(usuario.getAvatar().getNombreAvatar().equals("")){
 				usuario.setAvatar(user.getAvatar());
 			}
+
+		usuario.setUsrPassword(passwordEncoder().encode(usuario.getUsrPassword()));
 
 		return usuarioService.addUsuario(usuario);
 	}

@@ -3,6 +3,7 @@ package com.aprumed.SpringBootAprumed.restControllers;
 import com.aprumed.SpringBootAprumed.models.*;
 import com.aprumed.SpringBootAprumed.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,6 +70,7 @@ public class AdminRestController {
 
         return libroService.addLibro(libro);
     }
+
 
     @PutMapping(value = "editBook" , consumes = "application/json", produces = "application/json")
     public Libro editarLibroPost(@RequestBody Libro libro) {
