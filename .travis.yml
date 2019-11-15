@@ -4,7 +4,7 @@ jdk:
  - openjdk8
  
  script:
-  - sudo /usr/local/maven/bin/mvn clean install
+  - sudo ./mvnw clean install
 
 notifications: 
   email: badinhocornejo@gmail.com
