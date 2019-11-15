@@ -15,4 +15,5 @@ public interface VentaRepository extends JpaRepository<Venta, Integer> {
 	
 	@Query(value = "SELECT * FROM venta v WHERE MONTH(v.FechaVenta) = MONTH(CURDATE()) and v.estado='Realizada'", nativeQuery = true)
 	public List<Venta> listVentasByStateAndDate();
+
 }

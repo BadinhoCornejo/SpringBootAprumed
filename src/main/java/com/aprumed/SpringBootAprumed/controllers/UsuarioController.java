@@ -15,14 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aprumed.SpringBootAprumed.helpers.VerificarSessionHelper;
@@ -137,7 +130,8 @@ public class UsuarioController {
 
 		return ResponseEntity.ok(result);
 	}
-	
+
+	/*
 	@RequestMapping(value = "/listaUsuarios")
 	public ModelAndView listUsuario(Model model, HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
@@ -148,6 +142,11 @@ public class UsuarioController {
 		view.setViewName(verificaSession.verificarPermiso(usr, "index", "usuarios", false, false));
 		view.addObject("user", usr);
 		return view;
+	}*/
+
+	@GetMapping("/lista")
+	public List<Usuario> listUsuario(){
+		return usuarioService.listUsuarios();
 	}
 	
 	@GetMapping(value = "/nuevoUsuario")

@@ -8,6 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import com.aprumed.SpringBootAprumed.models.Ejemplar;
 
 public interface EjemplarRepository extends JpaRepository<Ejemplar, Integer> {
+
+	public List<Ejemplar> findEjemplarByLibroLibroID(int libroID);
+
 	public Ejemplar findBySku(String sku);
 
 	@Query(value = "SELECT e FROM libro l INNER JOIN ejemplar e ON(l.libroID = e.libro.libroID) INNER JOIN portada p ON(l.portada.portadaID = p.portadaID)"
@@ -17,7 +20,7 @@ public interface EjemplarRepository extends JpaRepository<Ejemplar, Integer> {
 	
 	@Query(value = "SELECT e FROM libro l INNER JOIN ejemplar e ON(l.libroID = e.libro.libroID) INNER JOIN portada p ON(l.portada.portadaID = p.portadaID)"
 			+ " INNER JOIN categoria c ON(l.categoria.categoriaID = c.categoriaID) "
-			+ "WHERE e.estado = 'Activo' AND (l.titulo LIKE %?1% OR l.autor LIKE %?1%)"
+			+ "WHERE e.estado = 'Activo' AND (l.titulo LIKE %?1% OR l.autor LIKE %?1% OR c.nombreCategoria LIKE %?1%)"
 			+ "GROUP BY l.isbn")
 	public List<Ejemplar> buscarLibroEjemplar(String parameter);
 	
@@ -25,4 +28,9 @@ public interface EjemplarRepository extends JpaRepository<Ejemplar, Integer> {
 			+ " INNER JOIN categoria c ON(l.categoria.categoriaID = c.categoriaID) "
 			+ "WHERE e.estado = 'Activo' AND c.categoriaID = ?1 GROUP BY l.isbn")
 	public List<Ejemplar> listEjemplaresWithPaginationCategorie(int categoriaID, PageRequest pageable);
+
+	@Query(value = "SELECT e, 1 FROM libro l INNER JOIN ejemplar e ON(l.libroID = e.libro.libroID) INNER JOIN portada p ON(l.portada.portadaID = p.portadaID)"
+			+ " INNER JOIN categoria c ON(l.categoria.categoriaID = c.categoriaID) "
+			+ "WHERE e.estado = 'Activo' AND e.libro.isbn = ?1 GROUP BY l.isbn ")
+	public Ejemplar getOneEjemplar(String isbn);
 }

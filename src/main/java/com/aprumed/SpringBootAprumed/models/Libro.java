@@ -1,14 +1,12 @@
 package com.aprumed.SpringBootAprumed.models;
 
-import java.io.Serializable;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.*;
 
 @SuppressWarnings("serial")
 @Entity(name = "libro")
@@ -37,6 +35,7 @@ public class Libro implements Serializable{
 	}
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "libroID")
 	public int getLibroID() {
 		return libroID;
@@ -143,6 +142,20 @@ public class Libro implements Serializable{
 		{
 			this.setActivo();
 		}
+	}
+
+	public void calcularStock(List<Ejemplar> ejemplares){
+		int nEjemplaresActivos = 0;
+
+		for (Ejemplar item : ejemplares) {
+			if(item.estado.equals("Activo")){
+				nEjemplaresActivos++;
+			}
+		}
+
+		this.setStock(nEjemplaresActivos);
+
+		this.verificarStock();
 	}
 
 }

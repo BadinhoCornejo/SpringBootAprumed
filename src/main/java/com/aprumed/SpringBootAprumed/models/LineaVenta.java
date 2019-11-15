@@ -43,7 +43,6 @@ public class LineaVenta implements Serializable{
 	public void setVenta(Venta venta) {
 		this.venta = venta;
 	}
-	
-	
-	
+
+
 }

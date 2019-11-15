@@ -14,4 +14,8 @@ public class AvatarService {
 	public Avatar getAvatarByUrl(String url) {
 		return avatarRepo.findByUrl(url);
 	}
+
+	public Avatar addAvatar(Avatar avatar){ return avatarRepo.save(avatar); }
+
+	public Avatar getAvatarByName(String nombreAvatar){ return  avatarRepo.findByNombreAvatar(nombreAvatar); }
 }
