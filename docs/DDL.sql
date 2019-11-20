@@ -186,6 +186,8 @@ ADD
 SET
   FOREIGN_KEY_CHECKS = 1;
 
+/*INSERTS*/
+
 insert into
   tipousuario (NombreTipoUsuario, Estado)
 values
