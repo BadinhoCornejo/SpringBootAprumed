@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/api/admin")
 public class AdminRestController {
 
     @Autowired
@@ -56,7 +56,7 @@ public class AdminRestController {
 
     //BOOKS
     @GetMapping("listBooks")
-    public List<Libro> listaLibros(HttpServletRequest request) {
+    public List<Libro> listaLibros() {
 
         List<Libro> libros = libroService.listLibros();
 

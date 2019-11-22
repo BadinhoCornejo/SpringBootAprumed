@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UsuarioRestController {
 
 	@Autowired
@@ -75,7 +75,7 @@ public class UsuarioRestController {
 				usuario.setAvatar(user.getAvatar());
 			}
 
-		usuario.setUsrPassword(passwordEncoder().encode(usuario.getUsrPassword()));
+		usuario.setUsrPassword(user.getUsrPassword());
 
 		return usuarioService.addUsuario(usuario);
 	}
@@ -104,10 +104,15 @@ public class UsuarioRestController {
 	}
 
 	@PostMapping(value = "login", consumes = "application/json", produces = "application/json")
-	public Usuario iniciarSession(@RequestBody Usuario usuario) {
-		Usuario usr = usuarioService.getUsuarioByEmailAndUsrPassword(usuario.getEmail(), usuario.getUsrPassword());
-		
-		return usr;
+	public Usuario iniciarSession(@RequestBody Usuario _usuario) {
+		Usuario usuario = usuarioService.getUsuarioByEmail(_usuario.getEmail());
+		Boolean auth = passwordEncoder().matches(_usuario.getUsrPassword(), usuario.getUsrPassword());
+
+		if (!auth){
+			return null;
+		}
+
+		return usuario;
 	}
 
 	@GetMapping(value = "verificarEmail/{email}")

@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/sales")
+@RequestMapping("/api/sales")
 public class VentaRestController {
 	@Autowired
 	VentaService ventaService;
@@ -126,7 +126,6 @@ public class VentaRestController {
 	//Ver el carrito del usuario (por la venta activa)
 	@GetMapping("{userID}/myCart")
 	public List<Ejemplar> getCartFromUser(@PathVariable int userID) {
-
 
 		Usuario usuario = usuarioService.getUsuario(userID);
 
