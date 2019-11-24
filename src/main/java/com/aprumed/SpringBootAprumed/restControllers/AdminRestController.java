@@ -80,7 +80,7 @@ public class AdminRestController {
         if(_libro != null){
             libro.setStock(_libro.getStock());
             libro.setLibroID(_libro.getLibroID());
-            if(libro.getPortada() == null){
+            if(libro.getPortada().getNombrePortada().equals("")){
                 libro.setPortada(_libro.getPortada());
             }
         }

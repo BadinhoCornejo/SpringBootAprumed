@@ -2,22 +2,18 @@ package com.aprumed.SpringBootAprumed.services;
 
 import java.util.List;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.aprumed.SpringBootAprumed.models.Ejemplar;
-import com.aprumed.SpringBootAprumed.repositories.EjemplarRepository;
-
-import javax.transaction.Transactional;
+import com.aprumed.SpringBootAprumed.repositories.IEjemplar;
 
 @Service
 public class EjemplarService {
 
 	@Autowired
-	private EjemplarRepository ejemplarRepo;
+	private IEjemplar ejemplarRepo;
 
 	public List<Ejemplar> listEjemplares() {
 		return ejemplarRepo.findAll();
@@ -42,7 +38,9 @@ public class EjemplarService {
 	public List<Ejemplar> listarLibros(PageRequest pageable) {
 		return ejemplarRepo.listEjemplaresWithPagination(pageable);
 	}
-	
+
+	public List<Ejemplar> ejemplaresPorCategoria(int categoriaID){ return ejemplarRepo.ejemplaresByCategorie(categoriaID);}
+
 	public List<Ejemplar> buscarLibroEjemplar(String parameter ) {
 		return ejemplarRepo.buscarLibroEjemplar(parameter);
 	}

@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.aprumed.SpringBootAprumed.models.Usuario;
 
-import com.aprumed.SpringBootAprumed.repositories.UsuarioRepository;
+import com.aprumed.SpringBootAprumed.repositories.IUsuario;
 
 @Service
 public class UsuarioService {
 	
 	@Autowired
-	private UsuarioRepository usrRepo;
+	private IUsuario usrRepo;
 	
 	public List<Usuario> listUsuarios(){
 		return usrRepo.findAll();

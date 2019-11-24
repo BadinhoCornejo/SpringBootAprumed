@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.aprumed.SpringBootAprumed.models.ComprobantePago;
 
-public interface ComprobantePagoRepository extends JpaRepository<ComprobantePago, Integer> {
+public interface IComprobantePago extends JpaRepository<ComprobantePago, Integer> {
 	
 	@Query(value = "SELECT cp FROM comprobantepago cp INNER JOIN venta v "
 			+ "ON(cp.venta.ventaID = v.ventaID) "

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.aprumed.SpringBootAprumed.models.LineaVenta;
 import org.springframework.data.jpa.repository.Query;
 
-public interface LineaVentaRepository extends JpaRepository<LineaVenta, Integer> {
+public interface ILineaVenta extends JpaRepository<LineaVenta, Integer> {
 	public List<LineaVenta> findLineaVentaByVentaVentaID(int ventaID);
 	public LineaVenta findLineaVentaByEjemplarEjemplarID(int ejemplarID);
 	@Query(value = "SELECT e, count(e) FROM lineaventa lv inner join ejemplar e on(lv.ejemplar.ejemplarID = e.ejemplarID) " +

@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aprumed.SpringBootAprumed.models.Receptor;
-import com.aprumed.SpringBootAprumed.repositories.ReceptorRepository;
+import com.aprumed.SpringBootAprumed.repositories.IReceptor;
 
 @Service
 public class ReceptorService {
 
 	@Autowired
-	private ReceptorRepository receptorRepo;
+	private IReceptor receptorRepo;
 	
 	public List<Receptor> listReceptores(){
 		return receptorRepo.findAll();

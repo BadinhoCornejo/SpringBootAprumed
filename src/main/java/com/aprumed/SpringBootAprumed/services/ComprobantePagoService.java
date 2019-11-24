@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aprumed.SpringBootAprumed.models.ComprobantePago;
-import com.aprumed.SpringBootAprumed.repositories.ComprobantePagoRepository;
+import com.aprumed.SpringBootAprumed.repositories.IComprobantePago;
 
 @Service
 public class ComprobantePagoService {
 
 	@Autowired
-	private ComprobantePagoRepository cpRepo;
+	private IComprobantePago cpRepo;
 	
 	public List<ComprobantePago> listCps(){
 		return cpRepo.findAll();

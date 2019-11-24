@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.aprumed.SpringBootAprumed.models.TipoUsuario;
 
-public interface TipoUsuarioRepository extends JpaRepository<TipoUsuario, Integer>{
+public interface ITipoUsuario extends JpaRepository<TipoUsuario, Integer>{
 	
 }

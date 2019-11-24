@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aprumed.SpringBootAprumed.models.Avatar;
-import com.aprumed.SpringBootAprumed.repositories.AvatarRepository;
+import com.aprumed.SpringBootAprumed.repositories.IAvatar;
 
 @Service
 public class AvatarService {
 	@Autowired
-	AvatarRepository avatarRepo;
+    IAvatar avatarRepo;
 	
 	public Avatar getAvatarByUrl(String url) {
 		return avatarRepo.findByUrl(url);

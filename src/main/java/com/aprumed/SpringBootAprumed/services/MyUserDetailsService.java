@@ -2,7 +2,7 @@ package com.aprumed.SpringBootAprumed.services;
 
 import com.aprumed.SpringBootAprumed.models.UserMain;
 import com.aprumed.SpringBootAprumed.models.Usuario;
-import com.aprumed.SpringBootAprumed.repositories.UsuarioRepository;
+import com.aprumed.SpringBootAprumed.repositories.IUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,7 +15,7 @@ import javax.transaction.Transactional;
 @Transactional
 public class MyUserDetailsService implements UserDetailsService {
     @Autowired
-    private UsuarioRepository userRepo;
+    private IUsuario userRepo;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{

@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.aprumed.SpringBootAprumed.models.Libro;
 
-public interface LibroRepository extends JpaRepository<Libro, Integer>{
+public interface ILibro extends JpaRepository<Libro, Integer>{
     public Libro findByIsbn(String isbn);
 }

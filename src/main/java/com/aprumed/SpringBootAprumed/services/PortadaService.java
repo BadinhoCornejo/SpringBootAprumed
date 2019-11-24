@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aprumed.SpringBootAprumed.models.Portada;
-import com.aprumed.SpringBootAprumed.repositories.PortadaRepository;
+import com.aprumed.SpringBootAprumed.repositories.IPortada;
 
 @Service
 public class PortadaService {
 
 	@Autowired
-	PortadaRepository portadaRepo;
+    IPortada portadaRepo;
 	
 	public Portada getPortadaByUrl(String url) {
 		return portadaRepo.findByUrl(url);

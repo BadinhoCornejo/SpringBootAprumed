@@ -30,5 +30,11 @@ public class CategoriaRestController {
 		return categoriaService.listCategorias();
 	}
 
+	@GetMapping("categoriesMain")
+	public List<Categoria> categoriasMain(){ return categoriaService.categoriasWithBooks();}
 
+	@GetMapping("categoriaById/{id}")
+	public Categoria getCategoryById(@PathVariable int id){
+		return categoriaService.getCategoriaById(id);
+	}
 }

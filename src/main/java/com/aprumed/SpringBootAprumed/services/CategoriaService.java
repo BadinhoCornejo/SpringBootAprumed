@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aprumed.SpringBootAprumed.models.Categoria;
-import com.aprumed.SpringBootAprumed.repositories.CategoriaRepository;
+import com.aprumed.SpringBootAprumed.repositories.ICategoria;
 
 @Service
 public class CategoriaService {
 	@Autowired
-	private CategoriaRepository categoriaRepository;
+	private ICategoria categoriaRepository;
 	
 	public List<Categoria> listCategorias(){
 		return categoriaRepository.findAll();
@@ -24,10 +24,7 @@ public class CategoriaService {
 	public Categoria getCategoriaById(int id) {
 		return categoriaRepository.findById(id).get();
 	}
-	
-	public void deleteCategoria(int id) {
-		categoriaRepository.deleteById(id);
-	}
 
-	
+	public List<Categoria> categoriasWithBooks(){ return categoriaRepository.categoriasWithBooks();}
+
 }

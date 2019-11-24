@@ -7,15 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aprumed.SpringBootAprumed.models.LineaVenta;
-import com.aprumed.SpringBootAprumed.repositories.LineaVentaRepository;
-
-import antlr.collections.impl.LList;
+import com.aprumed.SpringBootAprumed.repositories.ILineaVenta;
 
 @Service
 public class LineaVentaService {
 
 	@Autowired
-	private LineaVentaRepository lineaVentaRepo;
+	private ILineaVenta lineaVentaRepo;
 	
 	public List<LineaVenta> listLineasVenta(){
 		return lineaVentaRepo.findAll();

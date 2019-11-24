@@ -52,6 +52,11 @@ public class LibroRestController {
 		return ejemplares;
 	}
 
+	@GetMapping("ejemplaresByCategoria/{i}")
+	public List<Ejemplar> ejemplaresByCategoria(@PathVariable int i){
+		return ejemplarService.ejemplaresPorCategoria(i);
+	}
+
 	//Ver detalle de un libro
 	@GetMapping("verLibro/{libroID}")
 	public Ejemplar verLibro(@PathVariable int libroID) {

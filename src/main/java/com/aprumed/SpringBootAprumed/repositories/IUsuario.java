@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.aprumed.SpringBootAprumed.models.Usuario;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+public interface IUsuario extends JpaRepository<Usuario, Integer> {
 	public Usuario findByEmail(String email);
 	
 	@Query("select u from usuario u inner join avatar a on(u.avatar = a.avatarID) where u.email = ?1 and u.usrPassword = ?2")
