@@ -23,7 +23,7 @@ public interface IEjemplar extends JpaRepository<Ejemplar, Integer> {
 	@Query(value = "SELECT e FROM libro l INNER JOIN ejemplar e ON(l.libroID = e.libro.libroID) INNER JOIN portada p ON(l.portada.portadaID = p.portadaID)"
 			+ " INNER JOIN categoria c ON(l.categoria.categoriaID = c.categoriaID) "
 			+ "WHERE e.estado = 'Activo' GROUP BY l.isbn")
-	public List<Ejemplar> listEjemplaresWithPagination(PageRequest pageable);
+	public List<Ejemplar> listEjemplares();
 	
 	@Query(value = "SELECT e FROM libro l INNER JOIN ejemplar e ON(l.libroID = e.libro.libroID) INNER JOIN portada p ON(l.portada.portadaID = p.portadaID)"
 			+ " INNER JOIN categoria c ON(l.categoria.categoriaID = c.categoriaID) "

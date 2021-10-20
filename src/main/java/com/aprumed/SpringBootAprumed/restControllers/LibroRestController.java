@@ -46,9 +46,9 @@ public class LibroRestController {
 	private EjemplarService ejemplarService;
 
 	//Listar los ejemplares en la pagina principal
-	@GetMapping("mainEjemplares/{i}")
-	public List<Ejemplar> mainEjemplares(@PathVariable int i){
-		List<Ejemplar> ejemplares = ejemplarService.listarLibros( PageRequest.of(i, 8));
+	@GetMapping("mainEjemplares")
+	public List<Ejemplar> mainEjemplares(){
+		List<Ejemplar> ejemplares = ejemplarService.listarLibros();
 		return ejemplares;
 	}
 

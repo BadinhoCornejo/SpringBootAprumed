@@ -104,15 +104,15 @@ public class UsuarioRestController {
 	}
 
 	@PostMapping(value = "login", consumes = "application/json", produces = "application/json")
-	public Usuario iniciarSession(@RequestBody Usuario _usuario) {
-		Usuario usuario = usuarioService.getUsuarioByEmail(_usuario.getEmail());
-		Boolean auth = passwordEncoder().matches(_usuario.getUsrPassword(), usuario.getUsrPassword());
+	public Usuario iniciarSession(@RequestBody Usuario usuario) {
+		Usuario _usuario = usuarioService.getUsuarioByEmail(usuario.getEmail());
+		Boolean auth = passwordEncoder().matches(usuario.getUsrPassword(), _usuario.getUsrPassword());
 
 		if (!auth){
 			return null;
 		}
 
-		return usuario;
+		return _usuario;
 	}
 
 	@GetMapping(value = "verificarEmail/{email}")

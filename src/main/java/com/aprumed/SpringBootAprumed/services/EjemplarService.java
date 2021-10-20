@@ -35,8 +35,8 @@ public class EjemplarService {
 		return ejemplarRepo.findBySku(sku);
 	}
 
-	public List<Ejemplar> listarLibros(PageRequest pageable) {
-		return ejemplarRepo.listEjemplaresWithPagination(pageable);
+	public List<Ejemplar> listarLibros() {
+		return ejemplarRepo.listEjemplares();
 	}
 
 	public List<Ejemplar> ejemplaresPorCategoria(int categoriaID){ return ejemplarRepo.ejemplaresByCategorie(categoriaID);}
