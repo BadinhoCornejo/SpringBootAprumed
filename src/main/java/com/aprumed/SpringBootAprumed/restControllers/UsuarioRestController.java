@@ -5,9 +5,11 @@ import com.aprumed.SpringBootAprumed.models.AjaxResponses.UserAjaxResponseBody;
 import com.aprumed.SpringBootAprumed.models.Avatar;
 import com.aprumed.SpringBootAprumed.models.TipoUsuario;
 import com.aprumed.SpringBootAprumed.models.Usuario;
+import com.aprumed.SpringBootAprumed.models.Venta;
 import com.aprumed.SpringBootAprumed.services.AvatarService;
 import com.aprumed.SpringBootAprumed.services.TipoUsuarioService;
 import com.aprumed.SpringBootAprumed.services.UsuarioService;
+import com.aprumed.SpringBootAprumed.services.VentaService;
 import com.aprumed.SpringBootAprumed.viewModels.UsuarioViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +24,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -39,6 +44,9 @@ public class UsuarioRestController {
 
 	@Autowired
 	AvatarService avatarService;
+
+	@Autowired
+	VentaService ventaService;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -61,8 +69,15 @@ public class UsuarioRestController {
 		//Encrypt password
 		usuario.setUsrPassword(passwordEncoder().encode(usuario.getUsrPassword()));
 
-		return usuarioService.addUsuario(usuario);
+		Usuario newUser = usuarioService.addUsuario(usuario);
 
+		Venta sale = new Venta();
+
+		sale.setActivo();
+		sale.setUsuario(newUser);
+		ventaService.addVenta(sale);
+
+		return newUser;
 	}
 
 

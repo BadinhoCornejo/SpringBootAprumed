@@ -8,6 +8,8 @@ import com.aprumed.SpringBootAprumed.models.Usuario;
 
 import com.aprumed.SpringBootAprumed.repositories.IUsuario;
 
+import javax.transaction.Transactional;
+
 @Service
 public class UsuarioService {
 	
@@ -17,7 +19,8 @@ public class UsuarioService {
 	public List<Usuario> listUsuarios(){
 		return usrRepo.findAll();
 	}
-	
+
+	@Transactional
 	public Usuario addUsuario(Usuario usuario) {
 		return usrRepo.save(usuario);
 	}
